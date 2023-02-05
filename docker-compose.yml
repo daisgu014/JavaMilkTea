@@ -1,0 +1,21 @@
+version: '3.7'
+service:
+  db:
+    image: mysql
+    volume:
+      - ./db:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=MilkTea
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=123456
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_HOST=mysql
+    ports:
+      - "3306:3306"
+  adminer:
+    image: adminer
+    depends_on:
+      -db
+    ports:
+      - "8081:8080"
+    restart: unless-stopped
