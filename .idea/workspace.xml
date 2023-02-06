@@ -1,7 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="73502954-3608-4c3d-925b-076b8d0f8318" name="Changes" comment="" />
+    <list default="true" id="73502954-3608-4c3d-925b-076b8d0f8318" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Aloe Vera Grape Juice.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Aloe Vera Kiwi Juice.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Avocado Smoothie.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Black Coffee.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Black Tea With Peach.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Blueberry Milk Tea.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Blueberry Smoothie.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Brown Sugar Boba Black Milk.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Brown Sugar Boba Fresh Milk.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Brown Sugar Boba Matcha Milk.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Brown Sugar Boba Strawberry Mix.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Caramel Cheese Cake.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Caramel Milk Tea.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Chocolate Milk Tea.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Classic Milk Tea.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Cookies &amp; Cream.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Earl Grey Tea.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Frappuccino.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Green Tea Cheese Cake.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Green Tea.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Honey Daisy Tea.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Honey Lemon Juice.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Jasmine Milk Tea.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Jasmine Tea.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Lotus Tea.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Lychee Tea.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Mango Smoothie.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Matcha Freeze.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Orange Cinnamon Peach Tea.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Orange Juice.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Passion Pomelo Tea.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Pineapple Juice.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Plum Lemon Juice.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Strawberry Smoothie.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/Strawberry-Oolong Tea.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Assets/Images/White Coffee.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Database/createTable.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Database/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,18 +55,45 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="2LJYwoJnY9lM92bR7VReTJbpFQp" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Assets" />
+      <recent name="$PROJECT_DIR$/src/Database" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="MilkTeaJava" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -32,5 +104,30 @@
       <updated>1675590898673</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Main.java</url>
+          <line>2</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
