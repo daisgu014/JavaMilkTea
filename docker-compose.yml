@@ -1,21 +1,23 @@
 version: '3.7'
-service:
+services:
   db:
     image: mysql
-    volume:
-      - ./db:/var/lib/mysql
+    volumes:
+      - ./data/db:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=MilkTea
-      - MYSQL_USER=root
+      - MYSQL_USER=admin
       - MYSQL_PASSWORD=123456
-      - MYSQL_ROOT_PASSWORD=123456
-      - MYSQL_HOST=mysql
+      - MYSQL_ROOT_PASSWORD=root123456
+      - MYSQL_HOST=db
     ports:
-      - "3306:3306"
+      - "3307:3306"
   adminer:
     image: adminer
     depends_on:
-      -db
+      - db
     ports:
       - "8081:8080"
     restart: unless-stopped
+
+#docker-compose up --build -d
