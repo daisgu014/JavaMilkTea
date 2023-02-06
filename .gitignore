@@ -1,8 +1,9 @@
 ### IntelliJ IDEA ###
 out/
-.idea/
 !**/src/main/**/out/
 !**/src/test/**/out/
+.idea/
+*.iml
 
 ### Eclipse ###
 .apt_generated
@@ -33,5 +34,16 @@ data/
 /.idea/
 MilkTeaJava.iml
 /MilkTeaJava.iml
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+
+/.idea/assetWizardSettings.xml
+/.idea/gradle.xml
+/.idea/caches
+/.idea/libraries
+
 
 
