@@ -6,7 +6,8 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         ArrayList<Category> categories = new ArrayList<>();
-        categories = CategoryDAO.retrieve();
+        CategoryDAO categoryDAO = new CategoryDAO();
+        categories = categoryDAO.getAll();
         for (Category category : categories) {
             System.out.println(category.getCategoryName());
         }
