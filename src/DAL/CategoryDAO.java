@@ -7,12 +7,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class CategoryDAO {
-    public CategoryDAO(){
-
-    }
-    public static ArrayList<Category> retrieve(){
-        DAO dao = new DAO();
+public class CategoryDAO extends DAO<Category>{
+    @Override
+    public ArrayList<Category> getAll() {
+        Database dao = new Database();
         ArrayList<Category> categories = new ArrayList<>();
         Statement stmt = dao.getStmt();
         try {
@@ -24,5 +22,30 @@ public class CategoryDAO {
             throw new RuntimeException(e);
         }
         return categories;
+    }
+
+    @Override
+    public Category get(int id) {
+        return null;
+    }
+
+    @Override
+    public void create(Category category) {
+
+    }
+
+    @Override
+    public void update(Category category) {
+
+    }
+
+    @Override
+    public void delete(Category category) {
+
+    }
+
+    @Override
+    public void deleteById(int id) {
+
     }
 }

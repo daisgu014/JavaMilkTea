@@ -1,39 +1,18 @@
 package DAL;
 
-import java.sql.*;
+import java.util.ArrayList;
 
-public class DAO {
-    private Connection conn;
-    private Statement stmt;
-    private PreparedStatement preStmt;
+public abstract class DAO<T> {
+    Database database = new Database();
+    public abstract ArrayList<T> getAll();
+    public abstract T get(int id);
 
-    private final String connectString="jdbc:mysql://localhost:3307/MilkTea";
-    private final String dbUser="admin";
-    private final String dbPassword="123456";
-    public DAO(){
-        try{
-            conn = DriverManager.getConnection(connectString,dbUser,dbPassword);
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-    }
-    public Statement getStmt() {
-        try {
-            stmt = conn.createStatement();
-        } catch (SQLException e) {
-            System.err.println(this.getClass().toString());
-            System.err.println(e.getMessage());
-        }
-        return stmt;
-    }
+    public abstract void create (T t);
 
-    public PreparedStatement getPreStmt(String qry){
-        try {
-            preStmt = conn.prepareStatement(qry);
-        } catch (SQLException e) {
-            System.err.println(this.getClass().toString());
-            System.err.println(e.getMessage());
-        }
-        return preStmt;
-    }
+    public abstract void update (T t);
+    public abstract void delete (T t);
+
+    public abstract void deleteById (int id);
+    
+
 }
