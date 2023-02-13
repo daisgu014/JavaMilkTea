@@ -157,7 +157,7 @@ create table DiscardReports
 (
 	ID int(4) zerofill not null auto_increment,
 	created int(4) zerofill not null,
-	comfirmed int(4) zerofill not null,
+	comfirmed int(4) zerofill,
 	reportDate Date not null,
 	constraint PK_DiscardReports primary key (ID)
 );
@@ -167,7 +167,7 @@ create table SaleReports
 (
 	id int(4) zerofill not null auto_increment,
 	created int(4) zerofill not null,
-	comfirmed int(4) zerofill not null,
+	comfirmed int(4) zerofill,
 	reportDate Date not null,
 	constraint PK_SaleReports primary key (id)
 );
@@ -177,10 +177,9 @@ create table IncomeReports
 (
 	id int(4) zerofill not null auto_increment,
 	created int(4) zerofill not null,
-	comfirmed int(4) zerofill not null,
+	comfirmed int(4) zerofill,
 	reportDate Date not null,
 	stateReport varchar(20) not null,
-	supplier varchar(30) not null,
 	constraint PK_IncomeReports primary key (id)
 );
 

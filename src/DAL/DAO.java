@@ -7,7 +7,7 @@ public abstract class DAO<T> {
     public abstract ArrayList<T> getAll();
     public abstract T get(int id);
 
-    public abstract void create (T t);
+    public abstract int create (T t);
 
     public abstract void update (T t);
     public abstract void delete (T t);
