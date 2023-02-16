@@ -90,6 +90,8 @@ create table Product
 	ProductName text not null,
 	CategoryID int(4) zerofill not null,
 	ImagePath varchar(255),
+	createdate date,
+	deletedate date,
 	constraint PK_Product primary key (ID)
 );
 
@@ -139,6 +141,8 @@ create table Ingredients
 	storage int,
 	Producer varchar(30),
 	price int,
+	createdate date,
+	deletedate date,
 	constraint PK_Ingredients primary key (ID)
 );
 
