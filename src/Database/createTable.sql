@@ -90,12 +90,33 @@ create table Product
 	ProductName text not null,
 	CategoryID int(4) zerofill not null,
 	ImagePath varchar(255),
-	createdate date,
-	deletedate date,
+	createAt date,
+	deleteAt date,
 	constraint PK_Product primary key (ID)
 );
 
+-- Topping
+create table Topping
+(
+	ID int(4) zerofill not null auto_increment,
+	ToppingName text not null,
+	price float not null,
+	supplier text,
+	createAt date,
+	deleteAt date,
+	constraint PK_topping primary key (ID)
+);
 
+alter table Topping modify column supplier text;
+
+
+-- Sản phẩm kèm topping
+create table ProductTopping
+(
+	ProductID int(4) zerofill not null,
+	ToppingID int(4) zerofill not null,
+	constraint PK_ProductTopping primary key (ProductID, ToppingID)
+);
 
 
 -- Cơ sở dữ liệu chung cho hóa đơn
@@ -141,8 +162,8 @@ create table Ingredients
 	storage int,
 	Producer varchar(30),
 	price int,
-	createdate date,
-	deletedate date,
+	createAt date,
+	deleteAt date,
 	constraint PK_Ingredients primary key (ID)
 );
 
@@ -262,3 +283,9 @@ alter table IncomeDetails add constraint FK_INCOMEDETAILS_INCOMEREPORTS foreign 
 --   Khóa ngoại doanh thu mỗi ngày đến báo cáo
 alter table DailySales add constraint FK_DAILYSALES_SALESREPORT foreign key (reportId)
 		references SaleReports(id);
+		
+-- Khóa ngoại bảng ProductTopping đến bảng Topping và bảng Product
+alter table ProductTopping add constraint FK_ProductTopping_Product foreign key (ProductID)
+		references Product(ID);
+alter table ProductTopping add constraint FK_ProductTopping_Topping foreign key (ToppingID)
+		references Topping(ID);
