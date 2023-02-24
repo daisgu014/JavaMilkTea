@@ -147,16 +147,16 @@ insert into ProductPrice(ProductID, ProductSize, ProductPrice) values
 (36, 'M', 35000.0),
 (36, 'L', 40000.0);
 
-insert into Topping(ToppingName, price) values
-('Red Beans', 3000.0),
-('Flan', 5000.0),
-('Popball', 5000.0),
-('Black Pearl', 5000.0),
-('White Pearl', 5000.0),
-('Pudding ', 8000.0),
-('Cheese Jelly', 8000.0),
-('Cream Cheese', 10000.0),
-('Milk Foam', 10000.0);
+insert into Topping(ToppingName, SellPrice, UnitOnePart, ImportPrice, amount) values
+('Red Beans', 3000.0, 100, 20000, 2),
+('Flan', 5000.0, 100, 40000, 2),
+('Popball', 5000.0, 100, 40000, 2),
+('Black Pearl', 5000.0, 100, 40000, 2),
+('White Pearl', 5000.0, 100, 40000, 2),
+('Pudding ', 8000.0, 200, 30000, 2),
+('Cheese Jelly', 8000.0, 100, 70000, 2),
+('Cream Cheese', 10000.0, 100, 80000, 2),
+('Milk Foam', 10000.0, 100, 80000, 2);
 
 
 insert into ProductTopping(ProductID, ToppingID) values

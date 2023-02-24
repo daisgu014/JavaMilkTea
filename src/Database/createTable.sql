@@ -100,14 +100,15 @@ create table Topping
 (
 	ID int(4) zerofill not null auto_increment,
 	ToppingName text not null,
-	price float not null,
-	supplier text,
+	SellPrice float not null,
+	UnitOnePart int not null,
+	ImportPrice float not null,
+	amount float,
 	createAt date,
 	deleteAt date,
 	constraint PK_topping primary key (ID)
 );
 
-alter table Topping modify column supplier text;
 
 
 -- Sản phẩm kèm topping
@@ -160,12 +161,12 @@ create table Ingredients
 	ingredientName varchar(40),
 	ingredientType varchar(20),
 	storage int,
-	Producer varchar(30),
 	price int,
 	createAt date,
 	deleteAt date,
 	constraint PK_Ingredients primary key (ID)
 );
+
 
 -- Bảng công thức sản phẩm
 create table ProductRecipes
@@ -203,10 +204,12 @@ create table IncomeReports
 	id int(4) zerofill not null auto_increment,
 	created int(4) zerofill not null,
 	comfirmed int(4) zerofill,
+	supplier varchar(100) not null,
 	reportDate Date not null,
 	stateReport varchar(20) not null,
 	constraint PK_IncomeReports primary key (id)
 );
+
 
 -- Bảng lưu chi tiết hàng hủy
 create table DiscardDetails
