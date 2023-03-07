@@ -2,6 +2,7 @@ package DAL;
 
 import App.Model.Category;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -31,7 +32,23 @@ public class CategoryDAO extends DAO<Category>{
 
     @Override
     public int create(Category category) {
-        return -1;
+        int id = 0;
+        PreparedStatement pst = database.getPreStmt(
+                "insert into category(id, category) values (?,?) returning id"
+        );
+        try{
+            pst.setString(1, category.getCategoryName());
+            ResultSet rs= pst.executeQuery();
+            while (rs.next()){
+                id=rs.getInt(1);
+                break;
+            }
+            category.setCategoryID(id);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return id;
     }
 
     @Override
