@@ -33,6 +33,10 @@ public class IncomeDAO extends DAO<IncomeReport>{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        for (IncomeReport i: incomeReports) {
+            i.setIncomeDetails(this.getDetails(i));
+        }
         return incomeReports;
     }
 

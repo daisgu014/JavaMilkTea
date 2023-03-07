@@ -3,10 +3,7 @@ package DAL;
 
 import App.Model.Ingredient;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class IngredientDAO extends DAO<Ingredient> {
@@ -24,9 +21,10 @@ public class IngredientDAO extends DAO<Ingredient> {
                         rs.getString(2),
                         rs.getString(3),
                         rs.getInt(4),
-                        rs.getString(5),
-                        rs.getInt(6)
-                        ));
+                        rs.getInt(5),
+                        rs.getDate(6),
+                        rs.getDate(7)
+                ));
             }
 
         } catch (SQLException e) {
@@ -48,8 +46,9 @@ public class IngredientDAO extends DAO<Ingredient> {
                         rs.getString(2),
                         rs.getString(3),
                         rs.getInt(4),
-                        rs.getString(5),
-                        rs.getInt(6)
+                        rs.getInt(5),
+                        rs.getDate(6),
+                        rs.getDate(7)
                 );
             }
         } catch (SQLException e) {
@@ -62,13 +61,13 @@ public class IngredientDAO extends DAO<Ingredient> {
     public int create(Ingredient ingredient) {
         Database db = new Database();
         PreparedStatement preStmt = db.getPreStmt("insert into Ingredients(" +
-                "ingredientName, ingredientType, storage, Producer, price) values (?, ?, ?, ?, ?) returning id");
+                "ingredientName, ingredientType, storage, price, createAt) values (?, ?, ?, ?, ?) returning id");
         try {
             preStmt.setString(1, ingredient.getIngredientName());
             preStmt.setString(2, ingredient.getIngredientType());
             preStmt.setInt(3, ingredient.getStorage());
-            preStmt.setString(4, ingredient.getSupplier());
-            preStmt.setInt(5, ingredient.getPrice());
+            preStmt.setInt(4, ingredient.getPrice());
+            preStmt.setDate(5, new Date(System.currentTimeMillis()));
 
             ResultSet rs = preStmt.executeQuery();
             while(rs!=null && rs.next()) {
