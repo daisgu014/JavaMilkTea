@@ -1,32 +1,37 @@
 package App.Model;
 
+import java.sql.Date;
+
 public class Ingredient {
     private int ingredientId;
     private String ingredientName;
     private String ingredientType;
     private int storage;
-    private String supplier;
     private int price;
+    private Date createAt;
+    private Date deleteAt;
+
 
     public Ingredient() {
     }
 
-    public Ingredient(int ingredientId, String ingredientName, String ingredientType,
-                      int storage, String supplier, int price) {
+    public Ingredient(int ingredientId, String ingredientName,
+                      String ingredientType, int storage, int price, Date createAt, Date deleteAt) {
         this.ingredientId = ingredientId;
         this.ingredientName = ingredientName;
         this.ingredientType = ingredientType;
         this.storage = storage;
-        this.supplier = supplier;
         this.price = price;
+        this.createAt = createAt;
+        this.deleteAt = deleteAt;
     }
 
-    public Ingredient(String ingredientName, String ingredientType, int storage, String producer, int price) {
+    public Ingredient(String ingredientName, String ingredientType, int storage, int price, Date createAt) {
         this.ingredientName = ingredientName;
         this.ingredientType = ingredientType;
         this.storage = storage;
-        this.supplier = producer;
         this.price = price;
+        this.createAt = createAt;
     }
 
     public int getIngredientId() {
@@ -58,19 +63,27 @@ public class Ingredient {
         this.storage = storage;
     }
 
-    public String getSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(String supplier) {
-        this.supplier = supplier;
-    }
-
     public int getPrice() {
         return price;
     }
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public Date getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
+    }
+
+    public Date getDeleteAt() {
+        return deleteAt;
+    }
+
+    public void setDeleteAt(Date deleteAt) {
+        this.deleteAt = deleteAt;
     }
 }

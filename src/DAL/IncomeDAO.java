@@ -21,7 +21,7 @@ public class IncomeDAO extends DAO<IncomeReport>{
 
         try {
             ResultSet rs = stmt.executeQuery("select * from IncomeReports");
-            while(rs!=null & rs.next()) {
+            while(rs!=null && rs.next()) {
                 incomeReports.add(new IncomeReport(
                         rs.getInt(1),
                         new Employee(),
@@ -32,6 +32,10 @@ public class IncomeDAO extends DAO<IncomeReport>{
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+
+        for (IncomeReport i: incomeReports) {
+            i.setIncomeDetails(this.getDetails(i));
         }
         return incomeReports;
     }
