@@ -90,10 +90,34 @@ create table Product
 	ProductName text not null,
 	CategoryID int(4) zerofill not null,
 	ImagePath varchar(255),
+	createAt date,
+	deleteAt date,
 	constraint PK_Product primary key (ID)
 );
 
+-- Topping
+create table Topping
+(
+	ID int(4) zerofill not null auto_increment,
+	ToppingName text not null,
+	SellPrice float not null,
+	UnitOnePart int not null,
+	ImportPrice float not null,
+	amount float,
+	createAt date,
+	deleteAt date,
+	constraint PK_topping primary key (ID)
+);
 
+
+
+-- Sản phẩm kèm topping
+create table ProductTopping
+(
+	ProductID int(4) zerofill not null,
+	ToppingID int(4) zerofill not null,
+	constraint PK_ProductTopping primary key (ProductID, ToppingID)
+);
 
 
 -- Cơ sở dữ liệu chung cho hóa đơn
@@ -137,10 +161,12 @@ create table Ingredients
 	ingredientName varchar(40),
 	ingredientType varchar(20),
 	storage int,
-	Producer varchar(30),
 	price int,
+	createAt date,
+	deleteAt date,
 	constraint PK_Ingredients primary key (ID)
 );
+
 
 -- Bảng công thức sản phẩm
 create table ProductRecipes
@@ -157,7 +183,7 @@ create table DiscardReports
 (
 	ID int(4) zerofill not null auto_increment,
 	created int(4) zerofill not null,
-	comfirmed int(4) zerofill not null,
+	comfirmed int(4) zerofill,
 	reportDate Date not null,
 	constraint PK_DiscardReports primary key (ID)
 );
@@ -167,7 +193,7 @@ create table SaleReports
 (
 	id int(4) zerofill not null auto_increment,
 	created int(4) zerofill not null,
-	comfirmed int(4) zerofill not null,
+	comfirmed int(4) zerofill,
 	reportDate Date not null,
 	constraint PK_SaleReports primary key (id)
 );
@@ -177,12 +203,13 @@ create table IncomeReports
 (
 	id int(4) zerofill not null auto_increment,
 	created int(4) zerofill not null,
-	comfirmed int(4) zerofill not null,
+	comfirmed int(4) zerofill,
+	supplier varchar(100) not null,
 	reportDate Date not null,
 	stateReport varchar(20) not null,
-	supplier varchar(30) not null,
 	constraint PK_IncomeReports primary key (id)
 );
+
 
 -- Bảng lưu chi tiết hàng hủy
 create table DiscardDetails
@@ -259,3 +286,9 @@ alter table IncomeDetails add constraint FK_INCOMEDETAILS_INCOMEREPORTS foreign 
 --   Khóa ngoại doanh thu mỗi ngày đến báo cáo
 alter table DailySales add constraint FK_DAILYSALES_SALESREPORT foreign key (reportId)
 		references SaleReports(id);
+		
+-- Khóa ngoại bảng ProductTopping đến bảng Topping và bảng Product
+alter table ProductTopping add constraint FK_ProductTopping_Product foreign key (ProductID)
+		references Product(ID);
+alter table ProductTopping add constraint FK_ProductTopping_Topping foreign key (ToppingID)
+		references Topping(ID);

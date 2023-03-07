@@ -30,8 +30,8 @@ public class CategoryDAO extends DAO<Category>{
     }
 
     @Override
-    public void create(Category category) {
-
+    public int create(Category category) {
+        return -1;
     }
 
     @Override
