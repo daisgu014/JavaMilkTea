@@ -1,5 +1,5 @@
 --   Database: Bubble tea Java
-drop database MilkTea;
+drop database if exists MilkTea;
 --   Init database
 
 create database MilkTea CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -70,8 +70,11 @@ create table Category
 (
 	ID int(4) zerofill not null auto_increment,
 	CategoryName nvarchar(30) not null,
+	createAt date,
+	deleteAt date,
 	constraint PK_Category primary key (ID)
 );
+
 
 -- kích cỡ và giá
 create table ProductPrice

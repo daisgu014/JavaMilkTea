@@ -17,7 +17,12 @@ public class CategoryDAO extends DAO<Category>{
         try {
             ResultSet rs = stmt.executeQuery("select * from Category");
             while (rs!=null && rs.next()){
-                categories.add(new Category(rs.getInt(1),rs.getString(2)));
+                categories.add(new Category(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getDate(3),
+                        rs.getDate(4)
+                ));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
