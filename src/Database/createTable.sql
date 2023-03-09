@@ -70,7 +70,7 @@ create table Category
 (
 	ID int(4) zerofill not null auto_increment,
 	CategoryName nvarchar(30) not null,
-	createAt date,
+	createAt date not null default (CURRENT_DATE),
 	deleteAt date,
 	constraint PK_Category primary key (ID)
 );
@@ -93,7 +93,7 @@ create table Product
 	ProductName text not null,
 	CategoryID int(4) zerofill not null,
 	ImagePath varchar(255),
-	createAt date,
+	createAt date not null default (CURRENT_DATE),
 	deleteAt date,
 	constraint PK_Product primary key (ID)
 );
@@ -107,7 +107,7 @@ create table Topping
 	UnitOnePart int not null,
 	ImportPrice float not null,
 	amount float,
-	createAt date,
+	createAt date not null default (CURRENT_DATE),
 	deleteAt date,
 	constraint PK_topping primary key (ID)
 );
@@ -165,7 +165,7 @@ create table Ingredients
 	ingredientType varchar(20),
 	storage int,
 	price int,
-	createAt date,
+	createAt date not null default (CURRENT_DATE),
 	deleteAt date,
 	constraint PK_Ingredients primary key (ID)
 );
