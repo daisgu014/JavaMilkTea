@@ -9,7 +9,8 @@ public class Main {
         CategoryDAO categoryDAO = new CategoryDAO();
         categories = categoryDAO.getAll();
         for (Category category : categories) {
-            System.out.println(category.getCategoryName());
+            System.out.println(category.getCategoryName()+category.getCreateAt().toString());
         }
+
     }
 }

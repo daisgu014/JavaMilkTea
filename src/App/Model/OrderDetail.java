@@ -1,20 +1,16 @@
 package App.Model;
 
-import java.util.ArrayList;
-
 public class OrderDetail {
     private Product product;
-    private String productSize;
-    private float price;
+    private String size;
     private int quantity;
 
     public OrderDetail() {
     }
 
-    public OrderDetail(Product product, String productSize, float price, int quantity) {
+    public OrderDetail(Product product, String size, int quantity) {
         this.product = product;
-        this.productSize = productSize;
-        this.price = price;
+        this.size = size;
         this.quantity = quantity;
     }
 
@@ -26,20 +22,12 @@ public class OrderDetail {
         this.product = product;
     }
 
-    public String getProductSize() {
-        return productSize;
+    public String getSize() {
+        return size;
     }
 
-    public void setProductSize(String productSize) {
-        this.productSize = productSize;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
+    public void setSize(String size) {
+        this.size = size;
     }
 
     public int getQuantity() {
