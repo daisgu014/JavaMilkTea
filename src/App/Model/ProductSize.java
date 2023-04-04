@@ -1,34 +1,25 @@
 package App.Model;
 
 public class ProductSize {
-    private Product product;
-    private Size size;
+    private String size;
     private float productPrice;
     private int storage;
 
     public ProductSize() {
     }
 
-    public ProductSize(Product product, Size size, float productPrice, int storage) {
-        this.product = product;
+    public ProductSize(String size, float productPrice, int storage) {
         this.size = size;
         this.productPrice = productPrice;
         this.storage = storage;
     }
 
-    public Product getProduct() {
-        return product;
-    }
 
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public Size getSize() {
+    public String getSize() {
         return size;
     }
 
-    public void setSize(Size size) {
+    public void setSize(String size) {
         this.size = size;
     }
 
