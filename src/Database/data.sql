@@ -154,13 +154,14 @@ insert into ProductSize(ProductID, Sizes, ProductPrice) values
 (36, 'M', 35000.0),
 (36, 'L', 40000.0);
 
+
 INSERT INTO WorkPosition(WorkPositionName, WorkPositionLVL) VALUES 
 ('Cashier', 2),
 ('Manager', 1);
 
-insert into Employee(EmployeeName, EmployeePhone, EmployeeAdress, WorkPositionID) values
-('Nguyen Thi Thanh Huyen', '0909090909', 'Quận 8, TPHCM', 1),
-('Nguyen Hoang Gia Dai', '0909090908', 'Quận 8, TPHCM', 2);
+insert into Employee(EmployeeName, EmployeePhone, WorkPositionID) values
+('Nguyen Thi Thanh Huyen', '0909090909', 1),
+('Nguyen Hoang Gia Dai', '0909090908', 2);
 
 insert into Account(AccountUsername, AccountPassword, EmployeeID) values
 ('superuser', '123456', 1);
