@@ -1,17 +1,19 @@
 package App.Model;
 
-public class ProductPrice {
+public class ProductSize {
     private Product product;
+    private Size size;
     private float productPrice;
-    private String productSize;
+    private int storage;
 
-    public ProductPrice() {
+    public ProductSize() {
     }
 
-    public ProductPrice(Product product, float productPrice, String productSize) {
+    public ProductSize(Product product, Size size, float productPrice, int storage) {
         this.product = product;
+        this.size = size;
         this.productPrice = productPrice;
-        this.productSize = productSize;
+        this.storage = storage;
     }
 
     public Product getProduct() {
@@ -22,6 +24,14 @@ public class ProductPrice {
         this.product = product;
     }
 
+    public Size getSize() {
+        return size;
+    }
+
+    public void setSize(Size size) {
+        this.size = size;
+    }
+
     public float getProductPrice() {
         return productPrice;
     }
@@ -30,11 +40,11 @@ public class ProductPrice {
         this.productPrice = productPrice;
     }
 
-    public String getProductSize() {
-        return productSize;
+    public int getStorage() {
+        return storage;
     }
 
-    public void setProductSize(String productSize) {
-        this.productSize = productSize;
+    public void setStorage(int storage) {
+        this.storage = storage;
     }
 }
