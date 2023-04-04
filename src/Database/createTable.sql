@@ -12,7 +12,6 @@ create table Employee
 	EmployeeId int(4) zerofill not null auto_increment,
 	EmployeeName varchar(30) not null,
 	EmployeePhone varchar(12) not null,
-	EmployeeAdress varchar(100) NOT NULL,
 	WorkPositionID int(4) zerofill not null,
 	constraint PK_Employee primary key (EmployeeId)
 );
@@ -69,7 +68,7 @@ create table ProductSize
 	ProductID int(4) zerofill not null,
 	Sizes varchar(5) not null,
 	ProductPrice float not null,
-	Storage int not null default 0,
+	Storage int not null default 50,
 	constraint PK_ProductSize primary key (ProductID, Sizes)
 );
 
@@ -103,7 +102,6 @@ create table OrderDetail
 	ProductID int(4) zerofill not null,
 	Sizes varchar(5) not null,
 	Quantity int not null,
-	price float,
 	constraint PK_OrderDetail primary key (OrderID, ProductID, Sizes)
 );
 
@@ -131,6 +129,5 @@ alter table Orders add constraint FK_Orders_Customer foreign key (CustomerPhone)
 
 -- Khóa ngoại bảng Chi tiết đơn hàng
 alter table OrderDetail add constraint FK_OrderDetail_Orders foreign key (OrderID) references Orders (OrderID);
-alter table OrderDetail add constraint FK_OrderDetails_ProductSize foreign key (ProductID) references ProductSize (ProductID);
-alter table OrderDetail add constraint FK_OrderDetails_ProductSize2 foreign key (Sizes) references ProductSize (Sizes);
+alter table OrderDetail add constraint FK_OrderDetail_Product foreign key (ProductId) references Product (ProductId);
 
