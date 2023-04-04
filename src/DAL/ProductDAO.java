@@ -2,7 +2,9 @@ package DAL;
 
 import App.Model.Category;
 import App.Model.Product;
+import App.Model.ProductSize;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,20 +15,32 @@ public class ProductDAO  extends DAO<Product> {
     String getAllProductQuery = "select * from Product where deleteAt is null";
     @Override
     public ArrayList<Product> getAll() {
-
         ArrayList<Product> products = new ArrayList<>();
         Statement stmt = dao.getStmt();
         try {
             ResultSet rs = stmt.executeQuery(getAllProductQuery);
-            while (rs!=null && rs.next()){
+            while (rs.next()){
                products.add(new Product(rs.getInt(1),rs.getString(2),rs.getInt(3), rs.getString(4),rs.getDate(5),rs.getDate(6))
                 );
             }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         for(Product p : products){
-            System.out.println(p.getProductName());
+            ArrayList<ProductSize> productSizes = new ArrayList<>();
+            PreparedStatement preparedStatement = dao.getPreStmt("select * from ProductSize where ProductID=?;");
+            try {
+                preparedStatement.setInt(1,p.getProductId());
+                ResultSet resultSet = preparedStatement.executeQuery();
+                System.out.println();
+                while (resultSet.next()){
+                    productSizes.add(new ProductSize(resultSet.getString(2),resultSet.getInt(3),resultSet.getInt(4)));
+                }
+            p.setProductSizes(productSizes);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
         return products;
     }
@@ -55,5 +69,6 @@ public class ProductDAO  extends DAO<Product> {
     public void deleteById(int id) {
 
     }
+
 
 }

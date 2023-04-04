@@ -1,6 +1,7 @@
 package App.Model;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class Product {
     private int productId;
@@ -9,7 +10,7 @@ public class Product {
     private String imagePath;
     private Date createAt;
     private Date deleteAt;
-
+    private ArrayList<ProductSize> productSizes;
     public Product() {
     }
 
@@ -20,6 +21,27 @@ public class Product {
         this.imagePath = imagePath;
         this.createAt = createAt;
         this.deleteAt = deleteAt;
+    }
+    public Product(int productId, String productName, Integer category, String imagePath, Date createAt, Date deleteAt, ArrayList<ProductSize> productSizes) {
+        this.productId = productId;
+        this.productName = productName;
+        this.category = category;
+        this.imagePath = imagePath;
+        this.createAt = createAt;
+        this.deleteAt = deleteAt;
+        this.productSizes=productSizes;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
+    public ArrayList<ProductSize> getProductSizes() {
+        return productSizes;
+    }
+
+    public void setProductSizes(ArrayList<ProductSize> productSizes) {
+        this.productSizes = productSizes;
     }
 
     public Product(String productName, Integer category, String imagePath, Date createAt) {
