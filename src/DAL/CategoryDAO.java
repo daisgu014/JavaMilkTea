@@ -9,9 +9,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class CategoryDAO extends DAO<Category>{
+    Database dao = new Database();
     @Override
     public ArrayList<Category> getAll() {
-        Database dao = new Database();
+
         ArrayList<Category> categories = new ArrayList<>();
         Statement stmt = dao.getStmt();
         try {
@@ -32,7 +33,23 @@ public class CategoryDAO extends DAO<Category>{
 
     @Override
     public Category get(int id) {
-        return null;
+        Category category = new Category();
+        PreparedStatement statement = dao.getPreStmt("select * from Category where ID = ? and deleteAt is null;");
+        try {
+            statement.setInt(1,id);
+            ResultSet rs = statement.executeQuery();
+            while ((rs.next())){
+                category.setCategoryID(rs.getInt(1));
+                category.setCategoryName(rs.getString(2));
+                category.setCreateAt(rs.getDate(3));
+                category.setDeleteAt(rs.getDate(4));
+            }
+        } catch (SQLException e) {
+            System.out.println("CategoryDAO (get)");
+            System.out.println(e.getMessage());
+        }
+        System.out.println(category.getCategoryName());
+     return  category;
     }
 
     @Override
@@ -70,4 +87,10 @@ public class CategoryDAO extends DAO<Category>{
     public void deleteById(int id) {
 
     }
+
+    public static void main(String[] args) {
+        CategoryDAO categoryDAO = new CategoryDAO();
+        categoryDAO.get(2);
+    }
 }
+
