@@ -25,9 +25,5 @@ public class ProductManagement {
         return null;
     }
 
-    public static void main(String[] args) {
-        ProductManagement productManagement = new ProductManagement();
-        productManagement.getProducts();
-    }
 }
 

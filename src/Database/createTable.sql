@@ -90,7 +90,7 @@ create table Orders
 (
 	OrderId int(4) zerofill not null auto_increment,
 	TotalPrice int not null,
-	OrderDate date not null,
+	OrderDate date not null default (CURRENT_DATE),
 	CustomerPhone varchar(10),
 	Cashier int(4) zerofill not null,
 	constraint PK_Orders primary key (OrderId)

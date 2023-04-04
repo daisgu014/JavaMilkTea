@@ -8,6 +8,12 @@ public class Customer {
     public Customer() {
     }
 
+    public Customer(String phone, String customerName, int points) {
+        this.phone = phone;
+        this.customerName = customerName;
+        this.points = points;
+    }
+
     public String getPhone() {
         return phone;
     }
