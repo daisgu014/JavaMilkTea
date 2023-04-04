@@ -7,7 +7,6 @@ public class Product {
     private String productName;
     private Integer category;
     private String imagePath;
-
     private Date createAt;
     private Date deleteAt;
 

@@ -11,5 +11,6 @@ public class Main {
         for (Category category : categories) {
             System.out.println(category.getCategoryName()+category.getCreateAt().toString());
         }
+
     }
 }

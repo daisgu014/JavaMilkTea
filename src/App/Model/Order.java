@@ -8,6 +8,7 @@ public class Order {
     private int totalPrice;
     private Date orderDate;
     private Employee cashier;
+    private Customer customer;
     private ArrayList<OrderDetail> details;
 
     public Order() {
@@ -66,5 +67,13 @@ public class Order {
 
     public void setDetails(ArrayList<OrderDetail> details) {
         this.details = details;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }
