@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class CategoryManagement {
     private ArrayList<Category> CategoryList;
-    private CategoryDAO categoryDAO;
+    private CategoryDAO categoryDAO= new CategoryDAO();
 
     public CategoryManagement() {
         init();

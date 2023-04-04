@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Product {
     private int productId;
     private String productName;
-    private Category category;
+    private Integer category;
     private String imagePath;
 
     private Date createAt;
@@ -14,7 +14,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(int productId, String productName, Category category, String imagePath, Date createAt, Date deleteAt) {
+    public Product(int productId, String productName, Integer category, String imagePath, Date createAt, Date deleteAt) {
         this.productId = productId;
         this.productName = productName;
         this.category = category;
@@ -23,7 +23,7 @@ public class Product {
         this.deleteAt = deleteAt;
     }
 
-    public Product(String productName, Category category, String imagePath, Date createAt) {
+    public Product(String productName, Integer category, String imagePath, Date createAt) {
         this.productName = productName;
         this.category = category;
         this.imagePath = imagePath;
@@ -42,11 +42,11 @@ public class Product {
         this.productName = productName;
     }
 
-    public Category getCategory() {
+    public Integer getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(Integer category) {
         this.category = category;
     }
 
