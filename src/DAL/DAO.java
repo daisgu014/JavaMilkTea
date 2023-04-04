@@ -1,10 +1,11 @@
 package DAL;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public abstract class DAO<T> {
     Database database = new Database();
-    public abstract ArrayList<T> getAll();
+    public abstract ArrayList<T> getAll() throws SQLException;
     public abstract T get(int id);
 
     /**

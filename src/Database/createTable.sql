@@ -12,7 +12,7 @@ create table Employee
 	EmployeeId int(4) zerofill not null auto_increment,
 	EmployeeName varchar(30) not null,
 	EmployeePhone varchar(12) not null,
-	EmployeeAdress varchar(100) NOT NULL,
+	EmployeeAddress varchar(100) NOT NULL,
 	WorkPositionID int(4) zerofill not null,
 	constraint PK_Employee primary key (EmployeeId)
 );
