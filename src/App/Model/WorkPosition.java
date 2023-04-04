@@ -1,45 +1,42 @@
 package App.Model;
 
 public class WorkPosition {
-    private int workPositionId;
-    private String workPositionName;
-    private String workPositionLVL;
+
+    private int positionId;
+    private String name;
+    private int positionLvl;
 
     public WorkPosition() {
     }
 
-    public WorkPosition(int workPositionId, String workPositionName, String workPositionLVL) {
-        this.workPositionId = workPositionId;
-        this.workPositionName = workPositionName;
-        this.workPositionLVL = workPositionLVL;
+    public WorkPosition(int positionId, String name, int positionLvl) {
+        this.positionId = positionId;
+        this.name = name;
+        this.positionLvl = positionLvl;
     }
 
-    public WorkPosition(String workPositionName, String workPositionLVL) {
-        this.workPositionName = workPositionName;
-        this.workPositionLVL = workPositionLVL;
+    public int getPositionId() {
+        return positionId;
     }
 
-    public int getWorkPositionId() {
-        return workPositionId;
+    public void setPositionId(int positionId) {
+        this.positionId = positionId;
     }
 
-    public void setWorkPositionId(int workPositionId) {
-        this.workPositionId = workPositionId;
+    public String getName() {
+        return name;
     }
 
-    public String getWorkPositionName() {
-        return workPositionName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setWorkPositionName(String workPositionName) {
-        this.workPositionName = workPositionName;
+    public int getPositionLvl() {
+        return positionLvl;
     }
 
-    public String getWorkPositionLVL() {
-        return workPositionLVL;
+    public void setPositionLvl(int positionLvl) {
+        this.positionLvl = positionLvl;
     }
 
-    public void setWorkPositionLVL(String workPositionLVL) {
-        this.workPositionLVL = workPositionLVL;
-    }
 }
