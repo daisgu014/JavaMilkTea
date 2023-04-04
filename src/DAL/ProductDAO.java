@@ -47,7 +47,23 @@ public class ProductDAO  extends DAO<Product> {
 
     @Override
     public Product get(int id) {
-        return null;
+        Product product = new Product();
+        PreparedStatement statement = dao.getPreStmt("select * from Product where id='?'");
+        try {
+            statement.setInt(1,id);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                product.setProductId(rs.getInt(1));
+                product.setProductName(rs.getString(2));
+                product.setCategory(rs.getInt(3));
+                product.setImagePath(rs.getString(4));
+                product.setCreateAt(rs.getDate(5));
+                product.setDeleteAt(rs.getDate(6));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    return product;
     }
 
     @Override

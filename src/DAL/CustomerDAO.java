@@ -76,4 +76,8 @@ public class CustomerDAO extends DAO<Customer> {
 
         return customer;
     }
+
+    public static void main(String[] args) {
+        CustomerDAO customerDAO = new CustomerDAO();
+    }
 }
