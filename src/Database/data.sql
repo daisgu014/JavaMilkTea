@@ -13,6 +13,7 @@ insert into Sizes (sign, description) values
 ('M', 'Medium'),
 ('L', 'Large');
 
+
 --   Tạo dữ liệu sản phẩm
 insert into Product(ProductName, CategoryID, ImagePath) values
 ('Classic Milk Tea', 1, 'src/Assets/Images/Classic Milk Tea.png'),
@@ -158,12 +159,25 @@ INSERT INTO WorkPosition(WorkPositionName, WorkPositionLVL) VALUES
 ('Manager', 1);
 
 insert into Employee(EmployeeName, EmployeePhone, EmployeeAdress, WorkPositionID) values
-(N'Nguyen Thi Thanh Huyen', '0909090909', 'Quận 8, TPHCM', 1);
+('Nguyen Thi Thanh Huyen', '0909090909', 'Quận 8, TPHCM', 1),
+('Nguyen Hoang Gia Dai', '0909090908', 'Quận 8, TPHCM', 2);
 
 insert into Account(AccountUsername, AccountPassword, EmployeeID) values
 ('superuser', '123456', 1);
 
+insert into Orders (TotalPrice, OrderDate, CustomerPhone, Cashier) values
+(70000, (CURRENT_DATE), null, 2),
+(55000, (CURRENT_DATE), null, 2);
+
+insert into OrderDetail (OrderID, ProductID, Sizes, Quantity) values
+(1, 33, 'S', 1),
+(1, 34, 'L', 1),
+(2, 3, 'M', 1),
+(2, 5, 'S', 1);
+
+insert into Customer (Phone, CustomerName, Points) values
+('0939123456', 'Nguyễn Thị Thanh Huyền', 2000),
+('0939123789', 'Phạm Nguyễn Đức Huy', 5000);
 
 -- Một số lệnh có thể dùng đến khi cần
--- alter table ORDERs drop CONSTRAINT FK_Orders_DailySales
 -- ALTER TABLE Product AUTO_INCREMENT=1;
