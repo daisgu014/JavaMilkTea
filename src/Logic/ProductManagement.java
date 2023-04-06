@@ -21,8 +21,8 @@ public class ProductManagement {
     public void setProducts(ArrayList<Product> CategoryList){
         this.products = CategoryList;
     }
-    public Product findById(int  CategoryId){
-        return null;
+    public Product findById(int  productId){
+        return productDAO.get(productId);
     }
 
 }
