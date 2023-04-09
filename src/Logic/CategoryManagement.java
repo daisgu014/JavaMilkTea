@@ -1,6 +1,6 @@
 package Logic;
 
-import App.Model.Category;
+import Entity.Category;
 import DAL.CategoryDAO;
 
 import java.util.ArrayList;

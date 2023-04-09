@@ -1,6 +1,6 @@
 package Logic;
 
-import App.Model.Product;
+import Entity.Product;
 import DAL.ProductDAO;
 
 import java.util.ArrayList;
