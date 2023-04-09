@@ -1,6 +1,6 @@
 package DAL;
 
-import App.Model.WorkPosition;
+import Entity.WorkPosition;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -1,6 +1,6 @@
 package Logic;
 
-import App.Model.Account;
+import Entity.Account;
 import DAL.AccountDAO;
 
 import java.util.HashMap;

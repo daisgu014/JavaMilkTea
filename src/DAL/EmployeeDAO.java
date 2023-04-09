@@ -1,7 +1,6 @@
 package DAL;
 
-import App.Model.Employee;
-import Logic.AccountManagement;
+import Entity.Employee;
 import Logic.WorkPositionManagement;
 
 import java.sql.PreparedStatement;

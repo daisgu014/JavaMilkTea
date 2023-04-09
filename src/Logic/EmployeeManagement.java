@@ -1,6 +1,6 @@
 package Logic;
 
-import App.Model.Employee;
+import Entity.Employee;
 import DAL.EmployeeDAO;
 
 import java.util.ArrayList;
