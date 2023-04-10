@@ -20,6 +20,14 @@ public class Account {
         this.username = username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public boolean isCorrectPassword(String password){
         return password.equals(this.password);
     }
