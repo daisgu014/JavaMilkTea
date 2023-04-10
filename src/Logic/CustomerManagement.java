@@ -1,6 +1,6 @@
 package Logic;
 
-import App.Model.Customer;
+import Entity.Customer;
 import DAL.CustomerDAO;
 
 import java.util.ArrayList;

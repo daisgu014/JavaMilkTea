@@ -1,4 +1,4 @@
-package App.Model;
+package Entity;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -27,7 +27,6 @@ public class Order {
         this.orderDate = orderDate;
         this.customer=customer;
         this.cashier = cashier;
-
     }
 
     public Order(int totalPrice, Date orderDate, Employee cashier, ArrayList<OrderDetail> details) {
@@ -35,11 +34,6 @@ public class Order {
         this.orderDate = orderDate;
         this.cashier = cashier;
         this.details = details;
-    }
-
-    public Order(Date orderDate, Employee cashier) {
-        this.orderDate = orderDate;
-        this.cashier = cashier;
     }
 
     public int getOrderId() {

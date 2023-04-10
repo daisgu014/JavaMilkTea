@@ -1,6 +1,6 @@
 package Logic;
 
-import App.Model.Size;
+import Entity.Size;
 import DAL.SizeDAO;
 
 import java.util.ArrayList;

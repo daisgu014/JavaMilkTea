@@ -1,6 +1,6 @@
 package DAL;
 
-import App.Model.Account;
+import Entity.Account;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

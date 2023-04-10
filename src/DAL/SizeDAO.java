@@ -1,6 +1,6 @@
 package DAL;
 
-import App.Model.Size;
+import Entity.Size;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

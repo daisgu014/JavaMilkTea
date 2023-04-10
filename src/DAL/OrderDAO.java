@@ -1,7 +1,7 @@
 package DAL;
 
-import App.Model.Order;
-import App.Model.OrderDetail;
+import Entity.Order;
+import Entity.OrderDetail;
 import Logic.CustomerManagement;
 import Logic.EmployeeManagement;
 import Logic.ProductManagement;
