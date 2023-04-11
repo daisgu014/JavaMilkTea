@@ -17,7 +17,7 @@ public class WorkPositionDAO extends DAO<WorkPosition> {
     @Override
     public WorkPosition get(int id) {
         WorkPosition workPosition = new WorkPosition();
-        PreparedStatement prSt = dao.getPreStmt("select * from WorkPosition where PositionId=");
+        PreparedStatement prSt = dao.getPreStmt("select * from WorkPosition where PositionId=?");
         try {
             prSt.setInt(1,id);
             ResultSet rs = prSt.executeQuery();
