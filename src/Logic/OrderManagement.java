@@ -1,8 +1,9 @@
 package Logic;
 
-import App.Model.Order;
-import App.Model.OrderDetail;
+
 import DAL.OrderDAO;
+import Entity.Order;
+import Entity.OrderDetail;
 
 import java.util.ArrayList;
 public class OrderManagement {
