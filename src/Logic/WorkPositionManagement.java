@@ -1,6 +1,6 @@
 package Logic;
 
-import App.Model.WorkPosition;
+import Entity.WorkPosition;
 import DAL.WorkPositionDAO;
 
 import java.util.ArrayList;

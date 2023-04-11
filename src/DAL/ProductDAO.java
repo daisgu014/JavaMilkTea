@@ -1,8 +1,7 @@
 package DAL;
 
-import App.Model.Category;
-import App.Model.Product;
-import App.Model.ProductSize;
+import Entity.Product;
+import Entity.ProductSize;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

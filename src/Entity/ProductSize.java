@@ -1,4 +1,4 @@
-package App.Model;
+package Entity;
 
 public class ProductSize {
     private String size;
