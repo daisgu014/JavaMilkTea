@@ -54,7 +54,7 @@ public class SizeDAO extends DAO<Size>
     }
     public Size findByName(String sizeName){
         Size size = new Size();
-        PreparedStatement prSt= dao.getPreStmt("select * from  Sizes where sign like '?';");
+        PreparedStatement prSt= dao.getPreStmt("select * from  Sizes where sign like ?;");
         try {
             prSt.setString(1,sizeName);
             ResultSet rs = prSt.executeQuery();
