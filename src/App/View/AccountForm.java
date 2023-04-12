@@ -1,6 +1,6 @@
 package App.View;
 
-import App.Model.Account;
+import Entity.Account;
 import App.Model.CRUDForm;
 import DAL.AccountDAO;
 
@@ -21,6 +21,7 @@ public class AccountForm extends CRUDForm{
 //    private JTable table;
 //    private String title;
     private ArrayList<Account> accountArrayList;
+    private int indexSelected;
 
     public AccountForm(JButton btnAdd, JButton btnUpdate, JButton btnDelete, JButton btnExit, JTable table, String title) {
         super(btnAdd,btnUpdate,btnDelete,btnExit,table,title);
@@ -28,18 +29,25 @@ public class AccountForm extends CRUDForm{
     public AccountForm(){
 
     }
+    public void SelectTable(){
+        JTable table = getTable();
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int row = table.getSelectedRow();
+//                    int col = table.getSelectedColumn();
+                    indexSelected = row;
+                }
+            }
+        });
+    }
     public void AddButton(){
+        accountArrayList = getData();
         getBtnAdd().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (getTable().getCellSelectionEnabled()) {
-                    getTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-                    int rowIndex = getTable().getSelectedRow();
-                    int colIndex = getTable().getSelectedColumn();
-                    System.out.println(colIndex);
-                    System.out.println(rowIndex);
-                }else {
-                    System.out.println(0);}
+                System.out.println(accountArrayList.get(indexSelected).getUsername());
             }
         });
     }
@@ -90,6 +98,8 @@ public class AccountForm extends CRUDForm{
         AccountForm accountForm = new AccountForm(btnAdd,btnUpdate,btnDelete,btnExit,table,"Account");
         accountForm.SceneCRUD();
         accountForm.ExitButtion();
+        accountForm.SelectTable();
+        accountForm.AddButton();
 
     }
 }
