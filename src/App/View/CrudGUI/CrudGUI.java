@@ -1,7 +1,5 @@
 package App.View.CrudGUI;
 
-import App.Model.CRUDForm;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
@@ -80,7 +78,7 @@ public class CrudGUI extends JPanel {
         JLabel jLabel = new JLabel(title,SwingConstants.CENTER);
         jLabel.setFont(new Font("Arial",Font.BOLD,30));
 //        jLabel.setBorder(new RoundedBorder(20,Color.MAGENTA));
-        jLabel.setBorder(new CRUDForm.RoundedBorder(20));
+        jLabel.setBorder(new RoundedBorder(20));
         jLabel.setForeground(Color.blue);
         jLabel.setBackground(Color.lightGray);
         jLabel.setOpaque(true);
@@ -106,16 +104,14 @@ public class CrudGUI extends JPanel {
         jPanel.setPreferredSize(new Dimension(1250, 280));
         jPanel.setLayout(new FlowLayout(FlowLayout.CENTER,55,100));
         getBtnAdd().setPreferredSize(new Dimension(200, 50));
-        getBtnAdd().setBorder(new CRUDForm.RoundedBorder(20));
+        getBtnAdd().setBorder(new RoundedBorder(20));
         getBtnAdd().setBackground(Color.CYAN);
-//        getBtnAdd().setBackground(new Color(0,0,0,0));
-//        getBtnAdd().setFocusable(false);
         getBtnUpdate().setPreferredSize(new Dimension(200, 50));
-        getBtnUpdate().setBorder(new CRUDForm.RoundedBorder(20));
+        getBtnUpdate().setBorder(new RoundedBorder(20));
         getBtnDelete().setPreferredSize(new Dimension(200, 50));
-        getBtnDelete().setBorder(new CRUDForm.RoundedBorder(20));
+        getBtnDelete().setBorder(new RoundedBorder(20));
         getBtnExit().setPreferredSize(new Dimension(200, 50));
-        getBtnExit().setBorder(new CRUDForm.RoundedBorder(20));
+        getBtnExit().setBorder(new RoundedBorder(20));
         double x = 50;
         double y = 50;
         btnAdd.setMixingCutoutShape(new RoundRectangle2D.Double(x, y, 100, 100, 50, 50));
@@ -126,7 +122,7 @@ public class CrudGUI extends JPanel {
         return jPanel;
     }
 
-    public void SceneCRUD(){
+    public void Scene(){
         setSize(1250,800);
         setLayout(new FlowLayout());
         add(pnTitle());
@@ -172,7 +168,7 @@ public class CrudGUI extends JPanel {
         JButton delete = new JButton("Delete");
         JButton exit = new JButton("Exit");
         CrudGUI crudGUI = new CrudGUI(add,edit,delete,exit,jTable,"Account");
-        crudGUI.SceneCRUD();
+        crudGUI.Scene();
         jFrame.add(crudGUI);
         jFrame.setLocationRelativeTo(null);
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
