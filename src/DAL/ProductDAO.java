@@ -47,7 +47,7 @@ public class ProductDAO  extends DAO<Product> {
     @Override
     public Product get(int id) {
         Product product = new Product();
-        PreparedStatement statement = dao.getPreStmt("select * from Product where id='?'");
+        PreparedStatement statement = dao.getPreStmt("select * from Product where ProductId=?");
         try {
             statement.setInt(1,id);
             ResultSet rs = statement.executeQuery();

@@ -59,7 +59,7 @@ public class CustomerDAO extends DAO<Customer> {
     }
     public Customer findByPhone(String phone){
         Customer customer = new Customer();
-        PreparedStatement prSt= dao.getPreStmt("select * from Customer where Phone like '?'; ");
+        PreparedStatement prSt= dao.getPreStmt("select * from Customer where Phone like ?; ");
         try {
             prSt.setString(1,phone);
             ResultSet rs = prSt.executeQuery();
@@ -78,5 +78,7 @@ public class CustomerDAO extends DAO<Customer> {
 
     public static void main(String[] args) {
         CustomerDAO customerDAO = new CustomerDAO();
+        customerDAO.findByPhone("0939123456");
+
     }
 }

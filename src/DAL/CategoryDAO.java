@@ -34,7 +34,7 @@ public class CategoryDAO extends DAO<Category>{
     @Override
     public Category get(int id) {
         Category category = new Category();
-        PreparedStatement statement = dao.getPreStmt("select * from Category where ID = ? and deleteAt is null;");
+        PreparedStatement statement = dao.getPreStmt("select * from Category where CategoryId = ? and deleteAt is null;");
         try {
             statement.setInt(1,id);
             ResultSet rs = statement.executeQuery();
@@ -48,7 +48,6 @@ public class CategoryDAO extends DAO<Category>{
             System.out.println("CategoryDAO (get)");
             System.out.println(e.getMessage());
         }
-        System.out.println(category.getCategoryName());
      return  category;
     }
 
@@ -90,7 +89,7 @@ public class CategoryDAO extends DAO<Category>{
 
     public static void main(String[] args) {
         CategoryDAO categoryDAO = new CategoryDAO();
-        categoryDAO.get(2);
+        categoryDAO.get(2).getCategoryName();
     }
 }
 
