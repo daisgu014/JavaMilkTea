@@ -39,6 +39,22 @@ public class Product {
     public ArrayList<ProductSize> getProductSizes() {
         return productSizes;
     }
+    public ArrayList<String> getProductSizesString() {
+        ArrayList<String> productSizeString = new ArrayList<>();
+        productSizes.forEach(e->{
+            productSizeString.add(e.getSize());
+        });
+        return productSizeString;
+    }
+    public Integer getPrice (String Size){
+        Integer price=0;
+        for(ProductSize o  : getProductSizes()){
+            if(o.getSize().equalsIgnoreCase(Size)){
+                price=o.getProductPrice();
+            }
+        }
+        return  price;
+    }
 
     public void setProductSizes(ArrayList<ProductSize> productSizes) {
         this.productSizes = productSizes;

@@ -3,6 +3,7 @@ package Logic;
 import Entity.Category;
 import DAL.CategoryDAO;
 
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 public class CategoryManagement {
@@ -22,7 +23,7 @@ public class CategoryManagement {
         this.CategoryList = CategoryList;
     }
     public Category findById(int  CategoryId){
-        return null;
+        return  categoryDAO.get(CategoryId);
     }
     public void addCategory(Category category){
         category.setCategoryID(categoryDAO.create(category));
