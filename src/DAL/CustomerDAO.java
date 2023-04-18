@@ -79,5 +79,6 @@ public class CustomerDAO extends DAO<Customer> {
     public static void main(String[] args) {
         CustomerDAO customerDAO = new CustomerDAO();
         customerDAO.findByPhone("0939123456");
+
     }
 }
