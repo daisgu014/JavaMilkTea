@@ -24,7 +24,8 @@ public class OrderDAO extends DAO<Order>{
         try {
             ResultSet rs = statement.executeQuery("select * from Orders");
             while (rs.next()){
-                orders.add(new Order(rs.getInt(1),
+                orders.add(new Order(
+                        rs.getInt(1),
                         rs.getInt(2),
                         rs.getDate(3),
                         customerManagement.findByPhone(rs.getString(4)),
