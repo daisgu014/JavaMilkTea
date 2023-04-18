@@ -168,13 +168,18 @@ insert into Account(AccountUsername, AccountPassword, EmployeeID) values
 
 insert into Orders (TotalPrice, OrderDate, CustomerPhone, Cashier) values
 (70000, (CURRENT_DATE), null, 2),
-(55000, (CURRENT_DATE), null, 2);
+(55000, (CURRENT_DATE), null, 2),
+(100000, (CURRENT_DATE), null, 2);
 
 insert into OrderDetail (OrderID, ProductID, Sizes, Quantity) values
 (1, 33, 'S', 1),
 (1, 34, 'L', 1),
+(1, 5, 'S', 2),
 (2, 3, 'M', 1),
-(2, 5, 'S', 1);
+(2, 5, 'S', 1),
+(2, 33, 'S', 1),
+(3, 33, 'S', 1),
+(3, 33, 'M', 1);
 
 insert into Customer (Phone, CustomerName, Points) values
 ('0939123456', 'Nguyễn Thị Thanh Huyền', 2000),

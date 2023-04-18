@@ -1,14 +1,24 @@
-package App.Model;
+package App.DTO;
 
-public class StatisticCategoryModel {
+public class StatisticCategory {
+    private int categoryId;
     private String name;
     private Number productCount;
     private Number totalRevenue;
 
-    public StatisticCategoryModel(String name, Number productCount, Number totalRevenue) {
+    public StatisticCategory(int categoryId, String name, Number productCount, Number totalRevenue) {
+        this.categoryId = categoryId;
         this.name = name;
         this.productCount = productCount;
         this.totalRevenue = totalRevenue;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getName() {

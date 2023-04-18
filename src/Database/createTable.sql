@@ -49,10 +49,11 @@ create table Customer
 create table Category
 (
 	CategoryId int(4) zerofill not null auto_increment,
-	CategoryName text not null,
+	CategoryName varchar(255) not null,
 	createAt date not null default (CURRENT_DATE),
 	deleteAt date,
-	constraint PK_Category primary key (CategoryId)
+	constraint PK_Category primary key (CategoryId),
+	unique (CategoryName)
 );
 
 -- Size
@@ -76,12 +77,13 @@ create table ProductSize
 create table Product
 (
 	ProductId int(4) zerofill not null auto_increment,
-	ProductName text not null,
+	ProductName varchar(255) not null,
 	CategoryId int(4) zerofill not null,
 	ImagePath varchar(255),
 	createAt date not null default (CURRENT_DATE),
 	deleteAt date,
-	constraint PK_Product primary key (ProductId)
+	constraint PK_Product primary key (ProductId),
+	unique (ProductName)
 );
 
 -- Hóa đơn
@@ -130,4 +132,3 @@ alter table Orders add constraint FK_Orders_Customer foreign key (CustomerPhone)
 -- Khóa ngoại bảng Chi tiết đơn hàng
 alter table OrderDetail add constraint FK_OrderDetail_Orders foreign key (OrderID) references Orders (OrderID);
 alter table OrderDetail add constraint FK_OrderDetail_Product foreign key (ProductId) references Product (ProductId);
-
