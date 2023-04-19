@@ -21,9 +21,10 @@ public class AccountDAO extends DAO<Account>{
     }
 
     @Override
-    public int create(Account account) {
-        return 0;
+    public Account create(Account account) {
+        return null;
     }
+
 
     @Override
     public void update(Account account) {

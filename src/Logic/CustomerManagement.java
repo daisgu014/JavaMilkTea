@@ -15,6 +15,12 @@ public class CustomerManagement {
     public void init(){
         customers=customerDAO.getAll();
     }
+    public Customer create(Customer customer){
+        if(customer!=null){
+            return customerDAO.create(customer);
+        }
+        return null;
+    }
     public ArrayList<Customer> getCustomers(){
         return customers;
     }

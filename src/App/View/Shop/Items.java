@@ -1,6 +1,7 @@
 package App.View.Shop;
 
 import App.View.ShaDowPanel;
+import App.View.Shop.Controller.OrderController;
 import Entity.OrderDetail;
 import Entity.Product;
 import Entity.Size;
@@ -25,6 +26,8 @@ public class Items extends JPanel{
     private JButton purchase, btnSub, btnAdd;
     private ImageIcon imageIcon;
     private JPanel info;
+    OrderController orderController = new OrderController();
+    ProductManagement productManagement = new ProductManagement();
 
 //    @Override
 //    public void actionPerformed(ActionEvent e) {
@@ -115,18 +118,25 @@ public class Items extends JPanel{
                 qtyLabel.setText(String.valueOf(inputValue));
             }
         });
+        purchase.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                orderController.AddOrderDetails(null,addOrderDetails());
+            }
+        });
 
    }
   public OrderDetail addOrderDetails(){
-       OrderDetail orderDetail = null;
+       OrderDetail orderDetail = new OrderDetail();
        Integer qty = Integer.parseInt(qtyLabel.getText());
        String product=productName.getText();
        String size= String.valueOf(cbSize.getSelectedItem());
-       Product productSelected = null;
-       if(qty<=productSelected.getPrice(size)){
-
-       }
+       Product productSelected = productManagement.findByName(product);
+       orderDetail.setProduct(productSelected);
+       orderDetail.setQuantity(qty);
+       orderDetail.setSize(size);
        return orderDetail;
   }
+
 
 }

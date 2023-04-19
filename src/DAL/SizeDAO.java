@@ -34,8 +34,8 @@ public class SizeDAO extends DAO<Size>
     }
 
     @Override
-    public int create(Size size) {
-        return 0;
+    public Size create(Size size) {
+        return null;
     }
 
     @Override

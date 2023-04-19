@@ -55,6 +55,15 @@ public class Product {
         }
         return  price;
     }
+    public Integer getQty (String Size){
+        Integer qty=0;
+        for(ProductSize o  : getProductSizes()){
+            if(o.getSize().equalsIgnoreCase(Size)){
+                qty=o.getStorage();
+            }
+        }
+        return  qty;
+    }
 
     public void setProductSizes(ArrayList<ProductSize> productSizes) {
         this.productSizes = productSizes;

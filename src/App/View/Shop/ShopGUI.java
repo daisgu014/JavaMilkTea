@@ -8,6 +8,8 @@ import Logic.ProductManagement;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -20,13 +22,14 @@ public class ShopGUI extends JPanel {
     private JTable cartTable;
     private JPanel productListPanel;
     private DefaultTableModel cartTableModel;
+    private JScrollPane scrollPane;
     Management management = new Management();
     public ShopGUI(){
         setLayout(new BorderLayout());
         productListPanel = new JPanel(new GridLayout(0, 3, 10, 10));
         productListPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         render(loadData.products);
-        JScrollPane scrollPane = new JScrollPane(productListPanel);
+        scrollPane = new JScrollPane(productListPanel);
         scrollPane.setPreferredSize(new Dimension(1080, 800));
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         this.add(scrollPane,BorderLayout.CENTER);
@@ -37,20 +40,20 @@ public class ShopGUI extends JPanel {
         {
             ArrayList<Product> products = new ArrayList<>();
 
-           String category =cate.getCategoryName();
+            String category =cate.getCategoryName();
             JButton jButton = new JButton(category);
-           categoryPanel.add(jButton);
-           jButton.addActionListener(event->{
-               products.clear();
-               for(Product o : loadData.products){
-                   if(management.getCategoryManagement().findById(o.getCategory()).getCategoryName().equalsIgnoreCase(category)){
-                       products.add(o);
-                   }
-               }
-               System.out.println(products.size());
-               render(products);
-               scrollPane.validate();
-           });
+            categoryPanel.add(jButton);
+            jButton.addActionListener(event->{
+                products.clear();
+                for(Product o : loadData.products){
+                    if(management.getCategoryManagement().findById(o.getCategory()).getCategoryName().equalsIgnoreCase(category)){
+                        products.add(o);
+                    }
+                }
+                System.out.println(products.size());
+                render(products);
+                scrollPane.validate();
+            });
         });
         JPanel orderTable = new JPanel();
         cartTableModel = new DefaultTableModel();
@@ -81,9 +84,41 @@ public class ShopGUI extends JPanel {
         searchBox.setBackground(new Color(250, 211, 144));
         searchPanel.setPreferredSize(new Dimension(700,70));
         add(searchPanel,BorderLayout.NORTH);
+        searchProduct();
     }
+    public void searchProduct()
+    {
+        btnSearch.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList<Product> products = new ArrayList<>();
+                products.clear();
+                if(!txtSearch.getText().equals("")){
+                    String pattern = ".*" + txtSearch.getText() + ".*";
+                   for(Product product : loadData.products){
+                     if(product.getProductName().toLowerCase().matches(pattern.toLowerCase())){
+                         products.add(product);
+                     }
+                    }
+                    if(products.size()>0){
+                        render(products);
+                        scrollPane.validate();
+                    }else {
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy sản phẩm!!!!");
+                        txtSearch.setText("");
+                        productListPanel.removeAll();
+                        render(loadData.products);
+                        scrollPane.validate();
+                    }
+                }else {
+                    JOptionPane.showMessageDialog(null, "Nhập nội dung tìm kiếm!!!!");
+                }
+            }
+        });
+    }
+
     public void render(ArrayList<Product> products){
-      //  productListPanel.invalidate();
+        //  productListPanel.invalidate();
         System.out.println("000"+products.size());
         if(productListPanel!=null){
             productListPanel.removeAll();

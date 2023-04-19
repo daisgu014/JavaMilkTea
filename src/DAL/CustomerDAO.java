@@ -39,13 +39,34 @@ public class CustomerDAO extends DAO<Customer> {
     }
 
     @Override
-    public int create(Customer customer) {
-        return 0;
+    public Customer create(Customer customer) {
+        PreparedStatement prSt = dao.getPreStmt("insert into Members(Phone, CustomerName, Points) values(?, ?,?);");
+        try {
+            prSt.setString(1,customer.getPhone());
+            prSt.setString(2,customer.getCustomerName());
+            prSt.setInt(2,customer.getPoints());
+            ResultSet rs = prSt.executeQuery();
+            while (rs.next()){
+                return new Customer(rs.getString(1),rs.getString(2),rs.getInt(3));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 
     @Override
     public void update(Customer customer) {
+        PreparedStatement prSt = dao.getPreStmt("update Customer set CustomerName= ?, Points= ? where Phone= ?;");
+        try {
+            prSt.setString(1,customer.getCustomerName());
+            prSt.setInt(2,customer.getPoints());
+            prSt.setString(3,customer.getPhone());
 
+        }catch (SQLException e){
+            System.out.println("Update Customer");
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
