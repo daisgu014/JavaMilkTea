@@ -5,13 +5,12 @@ import Util.DateLabelFormatter;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.SqlDateModel;
-import org.jfree.data.category.DefaultCategoryDataset;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.time.YearMonth;
 import java.util.Calendar;
@@ -22,7 +21,7 @@ public class StatisticView extends JPanel {
     private JScrollPane scrollPane1, scrollPane2, scrollPane3;
     private DefaultTableModel productStatisticModel, cateStatisticModel, ordersStatisticModel;
     private JDatePickerImpl fromDatePicker, toDatePicker;
-    private JButton okBtn;
+    private JButton applyBtn;
     private JLabel totalSaleLbl, totalQtyLbl;
     private JPanel boardContainer, datePickerContainer;
     private StatisticChartView chartView;
@@ -52,9 +51,9 @@ public class StatisticView extends JPanel {
 
         this.add(datePickerContainer);
         this.add(boardContainer);
-        this.add(chartView.getAreaChartPanel());
         this.add(chartView.getPieChartPanel());
         this.add(chartView.getBarChartPanel());
+        this.add(chartView.getAreaChartPanel());
         this.add(scrollPane1);
         this.add(scrollPane2);
         this.add(scrollPane3);
@@ -70,9 +69,9 @@ public class StatisticView extends JPanel {
                     (Date) toDatePicker.getModel().getValue()
             );
             chartView.initUI(
-                    new DefaultCategoryDataset(),
+                    controller.getModel().getDataBarChart(),
                     controller.getModel().getDataPieChart(),
-                    new DefaultCategoryDataset()
+                    controller.getModel().getDataRevenueChart()
             );
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -108,11 +107,11 @@ public class StatisticView extends JPanel {
         JDatePanelImpl toDatePanel = new JDatePanelImpl(toDateModel, new Properties());
         toDatePicker = new JDatePickerImpl(toDatePanel, new DateLabelFormatter());
 
-        okBtn = new JButton("Apply");
+        applyBtn = new JButton("Apply");
 
         datePickerContainer.add(fromDatePicker);
         datePickerContainer.add(toDatePicker);
-        datePickerContainer.add(okBtn);
+        datePickerContainer.add(applyBtn);
     }
 
     public void initBoardGUI() {
@@ -183,13 +182,19 @@ public class StatisticView extends JPanel {
     }
 
     public void handleEvents() {
-        this.okBtn.addChangeListener(new ChangeListener() {
+        this.applyBtn.addActionListener(new ActionListener() {
             @Override
-            public void stateChanged(ChangeEvent e) {
+            public void actionPerformed(ActionEvent e) {
                 try {
+                    System.out.println("hello");
                     controller.getDataFromTime(
                             (Date) fromDatePicker.getModel().getValue(),
                             (Date) toDatePicker.getModel().getValue()
+                    );
+                    chartView.initUI(
+                            controller.getModel().getDataBarChart(),
+                            controller.getModel().getDataPieChart(),
+                            controller.getModel().getDataRevenueChart()
                     );
                 } catch (Exception ex) {
                     System.out.println(ex);

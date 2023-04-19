@@ -1,4 +1,4 @@
-package App.DTO;
+package Entity;
 
 public class StatisticCategory {
     private int categoryId;
