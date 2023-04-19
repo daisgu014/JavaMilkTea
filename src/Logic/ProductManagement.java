@@ -25,5 +25,12 @@ public class ProductManagement {
         return productDAO.get(productId);
     }
 
+    public ArrayList<String> getProductNameList() {
+        ArrayList<String> names = new ArrayList<>();
+        for(Product p : products) {
+            names.add(p.getProductName());
+        }
+        return names;
+    }
 }
 

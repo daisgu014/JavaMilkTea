@@ -2,13 +2,13 @@ package Entity;
 
 public class ProductSize {
     private String size;
-    private float productPrice;
+    private Integer productPrice;
     private int storage;
 
     public ProductSize() {
     }
 
-    public ProductSize(String size, float productPrice, int storage) {
+    public ProductSize(String size, Integer productPrice, int storage) {
         this.size = size;
         this.productPrice = productPrice;
         this.storage = storage;
@@ -23,11 +23,11 @@ public class ProductSize {
         this.size = size;
     }
 
-    public float getProductPrice() {
+    public Integer getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(float productPrice) {
+    public void setProductPrice(Integer productPrice) {
         this.productPrice = productPrice;
     }
 

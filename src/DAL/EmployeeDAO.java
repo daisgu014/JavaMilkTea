@@ -19,7 +19,7 @@ public class EmployeeDAO extends DAO<Employee> {
     @Override
     public Employee get(int id) {
         Employee employee = new Employee();
-        PreparedStatement preparedStatement = database.getPreStmt("select * from Employee where id=?");
+        PreparedStatement preparedStatement = database.getPreStmt("select * from Employee where EmployeeId=?");
         try {
             preparedStatement.setInt(1,id);
             ResultSet rs = preparedStatement.executeQuery();

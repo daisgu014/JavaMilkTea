@@ -7,15 +7,8 @@ public class Database {
     private Statement stmt;
     private PreparedStatement preStmt;
 
-    private final String connectString="jdbc:mysql://localhost:3307/MilkTea";
-    private final String dbUser="admin";
-    private final String dbPassword="123456";
     public Database(){
-        try{
-            conn = DriverManager.getConnection(connectString,dbUser,dbPassword);
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
+        conn = DatabaseConnection.getInstance().getConnection();
     }
     public Statement getStmt() {
         try {

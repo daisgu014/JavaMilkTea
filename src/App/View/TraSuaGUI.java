@@ -1,7 +1,11 @@
 package App.View;
 
+import Entity.Product;
+import Logic.Management;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -10,6 +14,8 @@ public class TraSuaGUI extends JFrame {
     private JButton btn1, btn2, btn3;
     private JTable cartTable;
     private DefaultTableModel cartTableModel;
+    Management management = new Management();
+    public  ArrayList<Product> productArrayList = management.getProductManagement().getProducts();
 
     public TraSuaGUI() {
         // Tạo panel chính
@@ -17,22 +23,20 @@ public class TraSuaGUI extends JFrame {
 
         // Tạo panel danh sách sản phẩm
         JPanel productListPanel = new JPanel(new GridLayout(0, 3, 10, 10));
-        productListPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        productListPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 115));
 
         // Thêm sản phẩm vào panel danh sách sản phẩm
-        for (int i = 1; i <= 15; i++) {
-            String productName = "Sản phẩm " + i;
-            int productPrice = i * 10000;
-            ImageIcon productImage = new ImageIcon("product_" + i + ".jpg");
-
-            // Tạo panel sản phẩm
-            JPanel productPanel = new JPanel(new BorderLayout());
-            productPanel.setPreferredSize(new Dimension(180, 220));
+        productArrayList.forEach(e->{
+            String productName= e.getProductName();
+            int productPrice = 1000000000;
+            ImageIcon productImage = new ImageIcon(e.getImagePath());
+            ShaDowPanel productpanel = new ShaDowPanel(new BorderLayout());
+            productpanel.setPreferredSize(new Dimension(200, 220));
 
             // Hiển thị hình ảnh sản phẩm
             JLabel imageLabel = new JLabel(productImage);
             imageLabel.setPreferredSize(new Dimension(150, 150));
-            productPanel.add(imageLabel, BorderLayout.CENTER);
+            productpanel.add(imageLabel, BorderLayout.CENTER);
 
             // Hiển thị thông tin sản phẩm
             JPanel infoPanel = new JPanel(new GridLayout(2, 1));
@@ -42,11 +46,12 @@ public class TraSuaGUI extends JFrame {
             JLabel priceLabel = new JLabel("Giá: " + productPrice + " đ");
             priceLabel.setFont(new Font("Arial", Font.PLAIN, 14));
             infoPanel.add(priceLabel);
-            productPanel.add(infoPanel, BorderLayout.SOUTH);
+            productpanel.add(infoPanel, BorderLayout.SOUTH);
 
             // Thêm panel sản phẩm vào panel danh sách sản phẩm
-            productListPanel.add(productPanel);
-        }
+            productListPanel.add(productpanel);
+
+        });
 
         // Thêm thanh cuộn cho panel danh sách sản phẩm
         JScrollPane scrollPane = new JScrollPane(productListPanel);

@@ -1,21 +1,37 @@
-package App.Model;
+package Entity;
 
 import com.mysql.cj.conf.ConnectionUrlParser;
 import java.util.ArrayList;
 
-public class StatisticProductModel {
+public class StatisticProduct {
+    private int productId;
     private String productName;
     private int productCount;
     private ArrayList<ConnectionUrlParser.Pair<String,Number>> productCountBySize;
     private int totalRevenue;
 
-    public StatisticProductModel(String productName, int productCount,
-                                 ArrayList<ConnectionUrlParser.Pair<String, Number>> productCountBySize,
-                                 int totalRevenue) {
+    public StatisticProduct(int productId, String productName, int productCount,
+                            ArrayList<ConnectionUrlParser.Pair<String, Number>> productCountBySize, int totalRevenue) {
+        this.productId = productId;
         this.productName = productName;
         this.productCount = productCount;
         this.productCountBySize = productCountBySize;
         this.totalRevenue = totalRevenue;
+    }
+
+    public StatisticProduct(int productId, String productName, int productCount, int totalRevenue) {
+        this.productId = productId;
+        this.productName = productName;
+        this.productCount = productCount;
+        this.totalRevenue = totalRevenue;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public String getProductName() {
