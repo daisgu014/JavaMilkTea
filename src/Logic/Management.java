@@ -9,6 +9,7 @@ public class Management {
     private ProductManagement productManagement;
     private SizeManagement sizeManagement;
     private WorkPositionManagement workPositionManagement;
+    private StatisticManagement statisticManagement;
 
     public Management() {
         accountManagement = new AccountManagement();
@@ -19,6 +20,7 @@ public class Management {
         productManagement = new ProductManagement();
         sizeManagement = new SizeManagement();
         workPositionManagement = new WorkPositionManagement();
+        statisticManagement = new StatisticManagement();
     }
 
     public AccountManagement getAccountManagement() {
@@ -51,5 +53,9 @@ public class Management {
 
     public WorkPositionManagement getWorkPositionManagement() {
         return workPositionManagement;
+    }
+
+    public StatisticManagement getStatisticManagement() {
+        return statisticManagement;
     }
 }

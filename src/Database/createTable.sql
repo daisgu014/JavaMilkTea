@@ -13,6 +13,8 @@ create table Employee
 	EmployeeName varchar(30) not null,
 	EmployeePhone varchar(12) not null,
 	WorkPositionID int(4) zerofill not null,
+	createAt date not null default (CURRENT_DATE),
+	deleteAt date,
 	constraint PK_Employee primary key (EmployeeId)
 );
 
@@ -22,6 +24,8 @@ create table Account
 	AccountUsername varchar(20) not null,
 	AccountPassword varchar(20) not null,
 	EmployeeID int(4) zerofill not null,
+	createAt date not null default (CURRENT_DATE),
+	deleteAt date,
 	constraint PK_Account primary key (AccountUsername)
 );
 
@@ -32,6 +36,8 @@ create table WorkPosition
 	PositionId int(4) zerofill not null auto_increment,
 	WorkPositionName varchar(30) not null,
 	WorkPositionLVL int,
+	createAt date not null default (CURRENT_DATE),
+	deleteAt date,
 	constraint PK_WorkPosition primary key (PositionId)
 );
 
@@ -41,6 +47,8 @@ create table Customer
 	Phone varchar(10) not null,
 	CustomerName varchar(30) not null,
 	Points int,
+	createAt date not null default (CURRENT_DATE),
+	deleteAt date,
 	constraint PK_Customer primary key (Phone)
 );
 
@@ -49,16 +57,19 @@ create table Customer
 create table Category
 (
 	CategoryId int(4) zerofill not null auto_increment,
-	CategoryName text not null,
+	CategoryName varchar(255) not null,
 	createAt date not null default (CURRENT_DATE),
 	deleteAt date,
-	constraint PK_Category primary key (CategoryId)
+	constraint PK_Category primary key (CategoryId),
+	unique (CategoryName)
 );
 
 -- Size
 create table Sizes(
 	sign varchar(5) not null,
 	description text,
+	createAt date not null default (CURRENT_DATE),
+	deleteAt date,
 	constraint PK_Sizes primary key (sign)
 );
 
@@ -76,12 +87,13 @@ create table ProductSize
 create table Product
 (
 	ProductId int(4) zerofill not null auto_increment,
-	ProductName text not null,
+	ProductName varchar(255) not null,
 	CategoryId int(4) zerofill not null,
 	ImagePath varchar(255),
 	createAt date not null default (CURRENT_DATE),
 	deleteAt date,
-	constraint PK_Product primary key (ProductId)
+	constraint PK_Product primary key (ProductId),
+	unique (ProductName)
 );
 
 -- Hóa đơn
@@ -130,4 +142,3 @@ alter table Orders add constraint FK_Orders_Customer foreign key (CustomerPhone)
 -- Khóa ngoại bảng Chi tiết đơn hàng
 alter table OrderDetail add constraint FK_OrderDetail_Orders foreign key (OrderID) references Orders (OrderID);
 alter table OrderDetail add constraint FK_OrderDetail_Product foreign key (ProductId) references Product (ProductId);
-

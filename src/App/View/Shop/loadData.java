@@ -13,4 +13,5 @@ public class loadData {
     public static ArrayList<Customer> customers = management.getCustomerManagement().getCustomers();
 
     public static ArrayList<OrderDetail> orderDetails = new ArrayList<>();
+
 }

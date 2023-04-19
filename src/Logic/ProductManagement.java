@@ -34,5 +34,12 @@ public class ProductManagement {
        return product;
     }
 
+    public ArrayList<String> getProductNameList() {
+        ArrayList<String> names = new ArrayList<>();
+        for(Product p : products) {
+            names.add(p.getProductName());
+        }
+        return names;
+    }
 }
 
