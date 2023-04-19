@@ -22,16 +22,15 @@ public class AccountManagement {
     public Account findByEmployeeID(Integer id){
      return accounts.get(id);
     }
-    public boolean Insert(Account account){
-        try {
-            accountDAO.create(account);
-            return true;
-        }catch (Exception e){
-            return false;
-        }
+    public void Insert(Account account, String empID){
+        accountDAO.Insert(account,empID);
     }
     public void Update(Account account){
-        accountDAO.update(account);
+       try{
+           accountDAO.update(account);
+       }catch (Exception e){
+           System.out.println(e);
+       }
     }
     public void Delete(Account account){
 

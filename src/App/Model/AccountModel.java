@@ -1,8 +1,10 @@
 package App.Model;
 
+import DAL.AccountDAO;
 import Entity.Account;
 import Logic.AccountManagement;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 
 public class AccountModel {
@@ -12,8 +14,11 @@ public class AccountModel {
     public AccountModel(){
 
     }
-    public boolean AddAccount(Account account){
-        return true ;
+    public void InsertAccount(Account account,String empID){
+        accountManagement.Insert(account,empID);
+    }
+    public void UpdateAccount(Account account){
+        accountManagement.Update(account);
     }
     public HashMap<Integer, Account> getDataAccount(){
         accounts = accountManagement.getAccounts();

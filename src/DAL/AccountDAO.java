@@ -35,21 +35,25 @@ public class AccountDAO extends DAO<Account>{
 
     @Override
     public int create(Account account) {
+        return 0;
+    }
+    public void Insert(Account account,String empID){
         try {
-            PreparedStatement prSt = database.getPreStmt("INSERT INTO account VALUES (?,?,?);");
+            PreparedStatement prSt = database.getPreStmt("INSERT INTO account(AccountUsername,AccountPassword,EmployeeID) VALUES (?,?,?);");
+            prSt.setString(1,account.getUsername());
+            prSt.setString(2,account.getPassword());
+            prSt.setString(3,empID);
             prSt.execute();
-            return 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
     @Override
     public void update(Account account) {
         try {
             PreparedStatement prSt = database.getPreStmt("UPDATE account SET AccountPassword = ? WHERE AccountUsername = ?;");
-            prSt.setString(1,account.getUsername());
-            prSt.setString(2,account.getPassword());
+            prSt.setString(2,account.getUsername());
+            prSt.setString(1,account.getPassword());
             prSt.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
