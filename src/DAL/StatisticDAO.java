@@ -1,10 +1,7 @@
 package DAL;
 
-import App.DTO.StatisticCategory;
-import App.DTO.StatisticProduct;
-import Entity.Order;
-import Entity.OrderDetail;
-import Main.Main;
+import App.View.Shop.loadData;
+import Entity.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -71,8 +68,8 @@ public class StatisticDAO {
                         rs.getInt(1),
                         rs.getInt(2),
                         rs.getDate(3),
-                        Main.management.getCustomerManagement().findByPhone(rs.getString(4)),
-                        Main.management.getEmployeeManagement().getEmployeeById(rs.getInt(5))
+                        loadData.management.getCustomerManagement().findByPhone(rs.getString(4)),
+                        loadData.management.getEmployeeManagement().getEmployeeById(rs.getInt(5))
                 ));
             }
         } catch (SQLException e) {
@@ -87,7 +84,7 @@ public class StatisticDAO {
                 ResultSet resultSet = prSt.executeQuery();
                 while (resultSet.next()){
                     orderDetails.add(new OrderDetail(
-                            Main.management.getProductManagement().findById(resultSet.getInt(2)),
+                            loadData.management.getProductManagement().findById(resultSet.getInt(2)),
                             resultSet.getString(3),
                             resultSet.getInt(4)
                     ));
@@ -128,7 +125,31 @@ public class StatisticDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return list;
+    }
 
+    public ArrayList<RevenueMonthYear> getRevenueMonthYear(Date start, Date end) {
+        ArrayList<RevenueMonthYear> list = new ArrayList<>();
+
+        try {
+            PreparedStatement preStmt = statisticDAO.getPreStmt("""
+                select MONTH(o.OrderDate), YEAR(o.OrderDate), sum(o.TotalPrice)
+                from Orders o
+                where o.OrderDate >= ? and o.OrderDate <= ?
+                group by YEAR(o.OrderDate), MONTH(o.OrderDate);""");
+            preStmt.setDate(1, start);
+            preStmt.setDate(2, end);
+            ResultSet rs = preStmt.executeQuery();
+            while (rs.next()){
+                list.add(new RevenueMonthYear(
+                   rs.getInt(1),
+                   rs.getInt(2),
+                   rs.getInt(3)
+                ));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return list;
     }
 

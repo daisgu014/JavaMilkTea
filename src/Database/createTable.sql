@@ -13,6 +13,8 @@ create table Employee
 	EmployeeName varchar(30) not null,
 	EmployeePhone varchar(12) not null,
 	WorkPositionID int(4) zerofill not null,
+	createAt date not null default (CURRENT_DATE),
+	deleteAt date,
 	constraint PK_Employee primary key (EmployeeId)
 );
 
@@ -22,6 +24,8 @@ create table Account
 	AccountUsername varchar(20) not null,
 	AccountPassword varchar(20) not null,
 	EmployeeID int(4) zerofill not null,
+	createAt date not null default (CURRENT_DATE),
+	deleteAt date,
 	constraint PK_Account primary key (AccountUsername)
 );
 
@@ -32,6 +36,8 @@ create table WorkPosition
 	PositionId int(4) zerofill not null auto_increment,
 	WorkPositionName varchar(30) not null,
 	WorkPositionLVL int,
+	createAt date not null default (CURRENT_DATE),
+	deleteAt date,
 	constraint PK_WorkPosition primary key (PositionId)
 );
 
@@ -41,6 +47,8 @@ create table Customer
 	Phone varchar(10) not null,
 	CustomerName varchar(30) not null,
 	Points int,
+	createAt date not null default (CURRENT_DATE),
+	deleteAt date,
 	constraint PK_Customer primary key (Phone)
 );
 
@@ -60,6 +68,8 @@ create table Category
 create table Sizes(
 	sign varchar(5) not null,
 	description text,
+	createAt date not null default (CURRENT_DATE),
+	deleteAt date,
 	constraint PK_Sizes primary key (sign)
 );
 
