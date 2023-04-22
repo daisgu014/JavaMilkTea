@@ -2,6 +2,7 @@ package DAL;
 
 import Entity.Customer;
 
+import java.lang.reflect.Member;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -106,10 +107,33 @@ public class CustomerDAO extends DAO<Customer> {
             throw new RuntimeException(e);
         }
     }
-
-    public static void main(String[] args) {
-        CustomerDAO customerDAO = new CustomerDAO();
-        customerDAO.findByPhone("0939123456");
+    public Customer findByName(String name){
+        Customer customer = new Customer();
+        PreparedStatement prSt = dao.getPreStmt("select * from Customer where customerName like ?;");
+        try{
+            prSt.setString(1, name);
+            ResultSet rs= prSt.executeQuery();
+            while (rs.next()){
+                customer.setPhone(rs.getString(1));
+                customer.setCustomerName(rs.getString(2));
+                customer.setPoints(rs.getInt(3));
+            }
+        }catch (SQLException e){
+            System.out.println("Find By Name");
+            System.out.println(e.getMessage());
+        }
+        return customer;
+    }
+    public void Update_Sub_Point(Customer customer, Integer point){
+        PreparedStatement prSt = dao.getPreStmt("update Customer set Points = Points - ? where Phone like ?");
+        try{
+            prSt.setInt(1,point);
+            prSt.setString(2,customer.getPhone());
+            prSt.executeUpdate();
+        }catch (SQLException e){
+            System.out.println("Update_Sub_Point");
+            System.out.println(e.getMessage());
+        }
 
     }
 }

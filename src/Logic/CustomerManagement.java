@@ -33,5 +33,11 @@ public class CustomerManagement {
     public Customer findByPhone(String phone){
         return customerDAO.findByPhone(phone);
     }
+    public Customer findByName (String name){
+       return customerDAO.findByName(name);
+    }
+    public void Update_Sub_Point(Customer customer, Integer point){
+        customerDAO.Update_Sub_Point(customer,point);
+    }
 
 }

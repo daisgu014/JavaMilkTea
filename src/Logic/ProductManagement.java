@@ -1,5 +1,6 @@
 package Logic;
 
+import Entity.OrderDetail;
 import Entity.Product;
 import DAL.ProductDAO;
 
@@ -40,6 +41,9 @@ public class ProductManagement {
             names.add(p.getProductName());
         }
         return names;
+    }
+    public void Sub_Storage_Product(OrderDetail orderDetail){
+        productDAO.Sub_Storage_Product(orderDetail);
     }
 }
 

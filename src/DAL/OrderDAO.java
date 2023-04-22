@@ -63,7 +63,7 @@ public class OrderDAO extends DAO<Order>{
 
     @Override
     public Order create(Order order) {
-        PreparedStatement prSt = database.getPreStmt("insert into Orders(OrderId,TotalPrice,CustomerPhone,Cashier) values(?,?,?,?)");
+        PreparedStatement prSt = database.getPreStmt("insert into Orders(TotalPrice,CustomerPhone,Cashier) values(?,?,?)");
         try {
             prSt.setInt(1,order.getOrderId());
             prSt.setInt(2,order.getTotalPrice());
@@ -71,7 +71,7 @@ public class OrderDAO extends DAO<Order>{
             prSt.setInt(4,order.getCashier().getEmployeeId());
             ResultSet rs = prSt.executeQuery();
             while (rs.next()){
-                //return rs.getInt(1);
+
             }
         } catch (SQLException e) {
             System.out.println("OrderDAO");
@@ -81,14 +81,20 @@ public class OrderDAO extends DAO<Order>{
         return null;
     }
     public Order CreateOrderWithNoPhone(Order order){
-        PreparedStatement prSt = database.getPreStmt("insert into Orders(OrderId,TotalPrice,Cashier) values(?,?,?)");
+        Order newOrder = new Order();
+        PreparedStatement prSt = database.getPreStmt("insert into Orders(TotalPrice,Cashier) values(?,?)");
         try {
-            prSt.setInt(1,order.getOrderId());
             prSt.setInt(2,order.getTotalPrice());
             prSt.setInt(3,order.getCashier().getEmployeeId());
-            ResultSet rs = prSt.executeQuery();
+            prSt.executeUpdate();
+            Statement statement = database.getStmt();
+            ResultSet rs = statement.executeQuery("select o.* from Orders o order by o.OrderId desc limit 1");
             while (rs.next()){
-              //  return rs.getInt(1);
+                newOrder.setOrderId(rs.getInt(1));
+                newOrder.setTotalPrice(rs.getInt(2));
+                newOrder.setOrderDate(rs.getDate(3));
+                newOrder.setCustomer(customerManagement.findByPhone(rs.getString(4)));
+                newOrder.setCashier(employeeManagement.getEmployeeById(rs.getInt(5)));
             }
         } catch (SQLException e) {
             System.out.println("OrderDAO");
@@ -104,7 +110,7 @@ public class OrderDAO extends DAO<Order>{
             prSt.setInt(2,orderDetail.getProduct().getProductId());
             prSt.setString(3, orderDetail.getSize());
             prSt.setInt(4,orderDetail.getQuantity());
-            prSt.executeQuery();
+            prSt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("OrderDAO");
             System.out.println(e.getMessage());
