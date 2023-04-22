@@ -52,25 +52,10 @@ public class CategoryDAO extends DAO<Category>{
     }
 
     @Override
-    public int create(Category category) {
-        int id = 0;
-        PreparedStatement pst = database.getPreStmt(
-                "insert into category(id, category) values (?,?) returning id"
-        );
-        try{
-            pst.setString(1, category.getCategoryName());
-            ResultSet rs= pst.executeQuery();
-            while (rs.next()){
-                id=rs.getInt(1);
-                break;
-            }
-            category.setCategoryID(id);
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return id;
+    public Category create(Category category) {
+        return null;
     }
+
 
     @Override
     public void update(Category category) {

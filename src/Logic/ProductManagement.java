@@ -24,6 +24,15 @@ public class ProductManagement {
     public Product findById(int  productId){
         return productDAO.get(productId);
     }
+    public Product findByName (String name){
+        Product product = null;
+       for(Product i : products){
+           if(i.getProductName().equalsIgnoreCase(name)) {
+               product = i;
+           }
+       }
+       return product;
+    }
 
     public ArrayList<String> getProductNameList() {
         ArrayList<String> names = new ArrayList<>();

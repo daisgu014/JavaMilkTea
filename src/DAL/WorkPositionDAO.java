@@ -33,8 +33,8 @@ public class WorkPositionDAO extends DAO<WorkPosition> {
     }
 
     @Override
-    public int create(WorkPosition workPosition) {
-        return 0;
+    public WorkPosition create(WorkPosition workPosition) {
+        return null;
     }
 
     @Override

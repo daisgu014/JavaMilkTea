@@ -23,7 +23,7 @@ public class CustomerDAO extends DAO<Customer> {
        ArrayList<Customer> customers = new ArrayList<>();
         Statement statement = dao.getStmt();
         try {
-            ResultSet rs = statement.executeQuery("select * from Customer");
+            ResultSet rs = statement.executeQuery("select * from Customer where deleteAt is  null");
             while (rs.next()){
                 customers.add(new Customer(rs.getString(1),rs.getString(2),rs.getInt(3)));
             }
@@ -39,18 +39,37 @@ public class CustomerDAO extends DAO<Customer> {
     }
 
     @Override
-    public int create(Customer customer) {
-        return 0;
+    public Customer create(Customer customer) {
+        Customer newCustomer = null;
+
+        return newCustomer;
     }
 
     @Override
     public void update(Customer customer) {
-
+        PreparedStatement prSt = dao.getPreStmt("update Customer set CustomerName= ?, Points= ? where Phone= ?;");
+        try {
+            prSt.setString(1,customer.getCustomerName());
+            prSt.setInt(2,customer.getPoints());
+            prSt.setString(3,customer.getPhone());
+            prSt.executeUpdate();
+        }catch (SQLException e){
+            System.out.println("Update Customer");
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
     public void delete(Customer customer) {
+        PreparedStatement prSt = dao.getPreStmt("update Customer set deleteAt=CURDATE() where Phone=?;");
+        try {
+            prSt.setString(1,customer.getPhone());
+            prSt.executeUpdate();
 
+        }catch (SQLException e){
+            System.out.println("Delete Customer");
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
@@ -74,6 +93,18 @@ public class CustomerDAO extends DAO<Customer> {
 
 
         return customer;
+    }
+    public void insertCustomer(Customer  customer){
+        PreparedStatement prSt = dao.getPreStmt("insert into Customer(Phone, CustomerName, Points) values(?,?,?);");
+        try {
+            prSt.setString(1,customer.getPhone());
+            prSt.setString(2,customer.getCustomerName());
+            prSt.setInt(3,customer.getPoints());
+            prSt.execute();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void main(String[] args) {
