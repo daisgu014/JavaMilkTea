@@ -25,6 +25,7 @@ public class ProductManagement {
     public Product findById(int  productId){
         return productDAO.get(productId);
     }
+    
     public Product findByName (String name){
         Product product = null;
        for(Product i : products){

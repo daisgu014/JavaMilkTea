@@ -15,16 +15,13 @@ public class MainScreen extends JFrame {
     public MainScreen(){
         initGUI();
 
-        JScrollPane scrollPane = new JScrollPane(statisticView);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setAlwaysOnTop(true);
         this.setVisible(true);
         this.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         this.mainLayout = new BorderLayout();
         this.setLayout(mainLayout);
-        this.add(scrollPane, BorderLayout.CENTER);
+        this.add(importView, BorderLayout.CENTER);
         this.pack();
         this.setLocationRelativeTo(null);
     }

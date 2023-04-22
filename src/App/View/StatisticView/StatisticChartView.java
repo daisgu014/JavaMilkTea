@@ -5,7 +5,10 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.AreaRendererEndType;
 import org.jfree.chart.renderer.category.AreaRenderer;
@@ -25,6 +28,7 @@ public class StatisticChartView {
     private JFreeChart pieChart;
     private JFreeChart areaChart;
     private JPanel barChartPanel, pieChartPanel, areaChartPanel;
+    public static final Font font = new Font("", Font.BOLD, 20);
 
 
     public StatisticChartView() {
@@ -66,6 +70,7 @@ public class StatisticChartView {
         BarRenderer r = (BarRenderer) categoryPlot.getRenderer();
         Color color = new Color(79, 129, 189);
         r.setSeriesPaint(0, color);
+        handleNoDataset(barChart.getPlot());
 
         CategoryAxis domainAxis = categoryPlot.getDomainAxis();
         domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);
@@ -84,6 +89,7 @@ public class StatisticChartView {
                 dataset,
                 PlotOrientation.VERTICAL,
                 false, true, false);
+            barChart.getTitle().setFont(font);
 
     }
 
@@ -92,6 +98,8 @@ public class StatisticChartView {
         ChartPanel chartPanel = new ChartPanel(pieChart);
         pieChart.getPlot().setOutlinePaint(null);
         pieChart.getPlot().setBackgroundPaint(Color.white);
+        handleNoDataset(pieChart.getPlot());
+
         chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         chartPanel.setBackground(Color.white);
         chartPanel.setPreferredSize(new Dimension(800, 400));
@@ -99,39 +107,32 @@ public class StatisticChartView {
     }
 
     private void createPieChart(DefaultPieDataset<String> dataset) {
-         pieChart = ChartFactory.createPieChart(
+        pieChart = ChartFactory.createPieChart(
                 "Category Revenue",
                 dataset,
                 false, true, false);
-
+        pieChart.getTitle().setFont(font);
     }
 
     private JPanel initAreaChartUI(CategoryDataset dataset) {
-//        double[][] data = new double[][]{
-//                {82502, 84026, 85007, 86216, 85559, 84491, 87672,
-//                        88575, 89837, 90701}
-//        };
-//
-//        dataset = DatasetUtils.createCategoryDataset(
-//                new String[]{"Oil"},
-//                new String[]{"2004", "2005", "2006",
-//                        "2007", "2008", "2009", "2010", "2011", "2012", "2013"},
-//                data
-//        );
         createAreaChartChart(dataset);
         ChartPanel chartPanel = new ChartPanel(areaChart);
+        handleNoDataset(areaChart.getPlot());
+
         chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         chartPanel.setBackground(Color.white);
         chartPanel.setPreferredSize(new Dimension(1200, 400));
+//        areaChart.getPlot().setBackgroundPaint(Color.white);
+//        areaChart.getCategoryPlot().getRenderer().setSeriesPaint(0, Color.black);
         return chartPanel;
     }
 
     private void createAreaChartChart(CategoryDataset dataset) {
 
         areaChart = ChartFactory.createAreaChart(
-                "",
+                "Total Revenue",
                 "Time",
-                "Thousands bbl/day",
+                "VND",
                 dataset,
                 PlotOrientation.VERTICAL,
                 false,
@@ -145,10 +146,21 @@ public class StatisticChartView {
         AreaRenderer renderer = (AreaRenderer) plot.getRenderer();
         renderer.setEndType(AreaRendererEndType.LEVEL);
 
-        areaChart.setTitle(new TextTitle("Total Revenue",
-                new Font("Serif", java.awt.Font.BOLD, 18))
-        );
+        areaChart.getTitle().setFont(font);
+    }
 
+    public void setDataset(DefaultCategoryDataset datasetBarChart,
+                           DefaultPieDataset<String> datasetPieChart,
+                           CategoryDataset datasetAreaChart) {
+        barChart.getCategoryPlot().setDataset(datasetBarChart);
+        ((PiePlot) pieChart.getPlot()).setDataset(datasetPieChart);
+        areaChart.getCategoryPlot().setDataset(datasetAreaChart);
+    }
+
+    private void handleNoDataset(Plot plot) {
+        plot.setNoDataMessage("No data available");
+        plot.setNoDataMessageFont(new Font("SansSerif", Font.BOLD, 14));
+        plot.setNoDataMessagePaint(Color.BLACK);
     }
 
     //    private CategoryDataset createDataset() {

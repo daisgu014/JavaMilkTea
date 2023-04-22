@@ -13,7 +13,7 @@ public class StatisticController {
     }
 
     public boolean dateLegal(Date from, Date to) {
-        return from.compareTo(to) <= 0;
+        return from != null && to != null && from.compareTo(to) <= 0;
     }
 
     public void getDataFromTime(Date from, Date to) throws Exception {

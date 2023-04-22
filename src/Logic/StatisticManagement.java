@@ -51,7 +51,7 @@ public class StatisticManagement {
                 }
             }
             if (flag) {
-                dataset.setValue(0, "Total Revenue", p.getProductName());
+                dataset.setValue(null, "Total Revenue", p.getProductName());
             }
         }
         return dataset;
@@ -88,5 +88,21 @@ public class StatisticManagement {
 
     public ArrayList<Order> getOrders(Date from, Date to) {
         return statisticAccess.getOrderStatistic(from, to);
+    }
+
+    public ArrayList<StatisticProduct> getProductStatistic() {
+        return productStatistic;
+    }
+
+    public ArrayList<StatisticCategory> getCategoryStatistic() {
+        return categoryStatistic;
+    }
+
+    public ArrayList<Order> getOrders() {
+        return orders;
+    }
+
+    public ArrayList<RevenueMonthYear> getRevenueMYList() {
+        return revenueMYList;
     }
 }
