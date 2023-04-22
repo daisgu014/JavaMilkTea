@@ -20,6 +20,9 @@ public class AccountModel {
     public void UpdateAccount(Account account){
         accountManagement.Update(account);
     }
+    public void DeleteAccount(Account account){
+        accountManagement.Delete(account);
+    }
     public HashMap<Integer, Account> getDataAccount(){
         accounts = accountManagement.getAccounts();
         return  accounts;

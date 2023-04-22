@@ -62,7 +62,13 @@ public class AccountDAO extends DAO<Account>{
 
     @Override
     public void delete(Account account) {
-
+        try {
+            PreparedStatement prSt = database.getPreStmt("DELETE FROM account WHERE AccountUsername = ?;");
+            prSt.setString(1,account.getUsername());
+            prSt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

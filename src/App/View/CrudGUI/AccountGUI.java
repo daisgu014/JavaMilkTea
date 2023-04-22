@@ -145,7 +145,27 @@ public class AccountGUI extends CrudGUI {
                 btnDelete.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-
+                        AccountController accountController = new AccountController();
+                        try{
+                            Account account = new Account(accountFormUpdate.getTfUsername().getText(),accountFormUpdate.getTfPass().getText());
+                            boolean checkActive = false;
+                            for (Map.Entry<Integer, Account> set: accounts.entrySet()){
+                                if (set.getKey() == Integer.parseInt(accountFormUpdate.getTfIDEmp().getText()) && set.getValue().getUsername().equals(accountFormUpdate.getTfUsername().getText())  ){
+                                    checkActive = true;
+                                }
+                            }
+                            if (checkActive == true){
+                                accountController.DeleteAccount(account);
+                                int key = Integer.parseInt(accountFormUpdate.getTfIDEmp().getText());
+                                accounts.remove(key,account);
+                                RefreshTable();
+                                JOptionPane.getRootFrame().dispose();
+                            }else {
+                                JOptionPane.showMessageDialog(null,"Tai khoan khong ung voi ma nhan vien!");
+                            }
+                        }catch (Exception exception){
+                            System.out.println(exception);
+                        }
                     }
                 });
                 btnCancel.addActionListener(new ActionListener() {
@@ -205,6 +225,7 @@ public class AccountGUI extends CrudGUI {
 
                     Object[] message = {accountFormUpdate};
                     JButton btnAccept = new JButton("Accept");
+                    JButton btnDelete = new JButton("Delete");
                     JButton btnCancel = new JButton("Cancel");
                     btnAccept.addActionListener(new ActionListener() {
                         @Override
@@ -215,13 +236,22 @@ public class AccountGUI extends CrudGUI {
                             table.setValueAt(newAccount.getPassword(),row,2);
                         }
                     });
+                    btnDelete.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            Account newAccount = new Account(accountFormUpdate.getTfUsername().getText(),accountFormUpdate.getTfPass().getText());
+                            AccountController accountController = new AccountController();
+                            accountController.DeleteAccount(newAccount);
+                            
+                        }
+                    });
                     btnCancel.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             JOptionPane.getRootFrame().dispose(); // Close the dialog
                         }
                     });
-                    Object[] options = {btnAccept,btnCancel};
+                    Object[] options = {btnAccept,btnDelete,btnCancel};
                     int check = JOptionPane.showOptionDialog(null, message, "Update",
                             JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, new ImageIcon(""),
                             options, options[0]);

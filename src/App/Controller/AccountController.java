@@ -33,13 +33,23 @@ public class AccountController {
     public void UpdateAccount(Account account) {
         try {
             accountModel.UpdateAccount(account);
-            JOptionPane.showMessageDialog(null, "Success !",
+            JOptionPane.showMessageDialog(null, "Thành công !",
                     "Upadate Account", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Fail !",
+            JOptionPane.showMessageDialog(null, "Thất bại !",
                     "Upadate Account", JOptionPane.INFORMATION_MESSAGE);
 //            System.out.println(e);
         }
     }
-
+    public void DeleteAccount(Account account){
+        try {
+            accountModel.DeleteAccount(account);
+            JOptionPane.showMessageDialog(null, "Thành công !",
+                    "Delete Account", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Thất bại !",
+                    "Delete Account", JOptionPane.INFORMATION_MESSAGE);
+//            System.out.println(e);
+        }
+    }
 }

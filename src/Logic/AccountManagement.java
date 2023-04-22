@@ -33,6 +33,6 @@ public class AccountManagement {
        }
     }
     public void Delete(Account account){
-
+        accountDAO.delete(account);
     }
 }
