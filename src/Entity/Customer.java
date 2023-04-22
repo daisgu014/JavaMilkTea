@@ -37,4 +37,8 @@ public class Customer {
     public void setPoints(int points) {
         this.points = points;
     }
+    public Object[] toObject(){
+        return new String[]{getPhone(), getCustomerName(), String.valueOf(points)};
+    }
 }
+

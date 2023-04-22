@@ -63,7 +63,7 @@ public class OrderDAO extends DAO<Order>{
 
     @Override
     public Order create(Order order) {
-        PreparedStatement prSt = database.getPreStmt("insert into Orders(OrderId,TotalPrice,CustomerPhone,Cashier) values(?,?,?,?) returning orderId");
+        PreparedStatement prSt = database.getPreStmt("insert into Orders(OrderId,TotalPrice,CustomerPhone,Cashier) values(?,?,?,?)");
         try {
             prSt.setInt(1,order.getOrderId());
             prSt.setInt(2,order.getTotalPrice());
@@ -81,7 +81,7 @@ public class OrderDAO extends DAO<Order>{
         return null;
     }
     public Order CreateOrderWithNoPhone(Order order){
-        PreparedStatement prSt = database.getPreStmt("insert into Orders(OrderId,TotalPrice,Cashier) values(?,?,?) returning orderId");
+        PreparedStatement prSt = database.getPreStmt("insert into Orders(OrderId,TotalPrice,Cashier) values(?,?,?)");
         try {
             prSt.setInt(1,order.getOrderId());
             prSt.setInt(2,order.getTotalPrice());

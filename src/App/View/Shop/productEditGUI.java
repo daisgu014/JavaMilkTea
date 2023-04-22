@@ -1,5 +1,6 @@
 package App.View.Shop;
 
+import App.View.Shop.Controller.OrderController;
 import Entity.OrderDetail;
 
 import javax.swing.*;
@@ -14,10 +15,22 @@ public class productEditGUI extends JDialog  {
     private JComboBox<String> cbSize;
     JPanel panel,panelProduct, info;
 
+    public OrderController getOrderController() {
+        return orderController;
+    }
+
+    public void setOrderController(OrderController orderController) {
+        this.orderController = orderController;
+    }
+
+    private OrderController orderController;
+
     public productEditGUI(JFrame parent, OrderDetail orderDetail){
+        orderController  = new OrderController();
         setSize(500,500);
         panelProduct=new JPanel(new BorderLayout());
         imageIcon = new ImageIcon(orderDetail.getProduct().getImagePath());
+        System.out.println(orderDetail.getProduct().getImagePath());
         image= new JLabel(imageIcon);
         image.setPreferredSize(new Dimension(100,200));
         add(image,BorderLayout.CENTER);
@@ -27,7 +40,7 @@ public class productEditGUI extends JDialog  {
         productName.setFont(new Font("Arial",Font.BOLD, 14));
         String [] productSize = orderDetail.getProduct().getProductSizesString().toArray(new String[0]);
         cbSize = new JComboBox<>(productSize);
-        cbSize.setSelectedItem(productSize[1]);
+        cbSize.setSelectedItem(orderDetail.getSize());
         productPrice = new JLabel(String.valueOf(orderDetail.getProduct().getPrice((String) cbSize.getSelectedItem())));
         productPrice.setFont(new Font("Arial", Font.BOLD, 20));
         cbSize.setPreferredSize(new Dimension(40, 40));
@@ -35,7 +48,7 @@ public class productEditGUI extends JDialog  {
         JPanel QtyPanel = new JPanel();
         btnSub = new JButton("-");
         btnAdd = new JButton("+");
-        qtyLabel = new JLabel("1");
+        qtyLabel = new JLabel(String.valueOf(orderDetail.getQuantity()));
         QtyPanel.add(btnSub);
         QtyPanel.add(qtyLabel);
         btnSub.setPreferredSize(new Dimension(45,45));
@@ -68,7 +81,7 @@ public class productEditGUI extends JDialog  {
         footer.add(btnClose);
         panel.setSize(400,400);
         panel.add(footer, BorderLayout.SOUTH);
-        getContentPane().add(panel, BorderLayout.CENTER);
+       add(panel, BorderLayout.SOUTH);
         cbSize.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -99,7 +112,9 @@ public class productEditGUI extends JDialog  {
         btnEdit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                orderController.EditEvent(orderDetail,String.valueOf(cbSize.getSelectedItem()),Integer.parseInt(qtyLabel.getText()));
+                orderController.getObs().reloadTable();
+                dispose();
             }
         });
         btnClose.addActionListener(new ActionListener() {
