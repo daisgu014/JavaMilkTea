@@ -1,11 +1,14 @@
 package DAL;
 
+import Entity.Account;
 import Entity.Employee;
+import Entity.WorkPosition;
 import Logic.WorkPositionManagement;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class EmployeeDAO extends DAO<Employee> {
@@ -13,7 +16,21 @@ public class EmployeeDAO extends DAO<Employee> {
     WorkPositionManagement workPositionManagement = new WorkPositionManagement();
     @Override
     public ArrayList<Employee> getAll() {
-        return null;
+        ArrayList<Employee> employeeArrayList = new ArrayList<>();
+        try {
+            PreparedStatement prSt = database.getPreStmt("SELECT emp.EmployeeId,emp.EmployeeName,emp.EmployeePhone,wp.PositionId,wp.WorkPositionName,wp.WorkPositionLVL\n" +
+                    "FROM employee as emp ,workposition as wp \n" +
+                    "WHERE emp.WorkPositionID = wp.PositionId");
+            ResultSet rs = prSt.executeQuery();
+            while (rs.next()) {
+                WorkPosition workPosition = new WorkPosition(rs.getInt(4),rs.getString(5),rs.getInt(6));
+                Employee employee = new Employee(rs.getInt(1),rs.getString(2),rs.getString(3),workPosition);
+                employeeArrayList.add(employee);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return employeeArrayList;
     }
 
     @Override

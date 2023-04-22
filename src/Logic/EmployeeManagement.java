@@ -1,5 +1,6 @@
 package Logic;
 
+import App.View.CrudGUI.EmployeeGUI;
 import Entity.Employee;
 import DAL.EmployeeDAO;
 
@@ -12,5 +13,11 @@ public class EmployeeManagement {
     public void init(){}
     public Employee getEmployeeById(Integer id){
         return employeeDAO.get(id);
+    }
+    public ArrayList<Employee> getData(){
+        return employeeDAO.getAll();
+    }
+    public void setDataTable(){
+
     }
 }

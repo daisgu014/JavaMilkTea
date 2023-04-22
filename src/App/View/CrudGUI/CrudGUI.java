@@ -105,7 +105,7 @@ public class CrudGUI extends JPanel {
         jPanel.setLayout(new FlowLayout(FlowLayout.CENTER,55,100));
         getBtnAdd().setPreferredSize(new Dimension(200, 50));
         getBtnAdd().setBorder(new RoundedBorder(20));
-        getBtnAdd().setBackground(Color.CYAN);
+//        getBtnAdd().setBackground(Color.CYAN);
         getBtnUpdate().setPreferredSize(new Dimension(200, 50));
         getBtnUpdate().setBorder(new RoundedBorder(20));
         getBtnDelete().setPreferredSize(new Dimension(200, 50));
