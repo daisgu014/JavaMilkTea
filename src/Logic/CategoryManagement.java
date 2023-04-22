@@ -26,8 +26,6 @@ public class CategoryManagement {
         return  categoryDAO.get(CategoryId);
     }
     public void addCategory(Category category){
-        category.setCategoryID(categoryDAO.create(category));
-        CategoryList.add(category);
     }
     public void updateCategory(Category category){}
     public void deleteCategory(Category category){

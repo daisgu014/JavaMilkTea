@@ -44,6 +44,13 @@ public class StatisticDAO {
                 preStmt.setDate(1, start);
                 preStmt.setDate(2, end);
                 preStmt.setInt(3, productModel.getProductId());
+                ResultSet rs = preStmt.executeQuery();
+                while(rs.next()) {
+                    productModel.addProductCountBySize(
+                            rs.getString(1),
+                            rs.getInt(2)
+                    );
+                }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

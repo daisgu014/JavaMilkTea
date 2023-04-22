@@ -34,19 +34,8 @@ public class AccountDAO extends DAO<Account>{
     }
 
     @Override
-    public int create(Account account) {
-        return 0;
-    }
-    public void Insert(Account account,String empID){
-        try {
-            PreparedStatement prSt = database.getPreStmt("INSERT INTO account(AccountUsername,AccountPassword,EmployeeID) VALUES (?,?,?);");
-            prSt.setString(1,account.getUsername());
-            prSt.setString(2,account.getPassword());
-            prSt.setString(3,empID);
-            prSt.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public Account create(Account account) {
+        return null;
     }
     @Override
     public void update(Account account) {
@@ -88,5 +77,16 @@ public class AccountDAO extends DAO<Account>{
             throw new RuntimeException(e);
         }
         return accounts;
+    }
+    public void Insert(Account account,String empID){
+        try {
+            PreparedStatement prSt = database.getPreStmt("INSERT INTO account(AccountUsername,AccountPassword,EmployeeID) VALUES (?,?,?);");
+            prSt.setString(1,account.getUsername());
+            prSt.setString(2,account.getPassword());
+            prSt.setString(3,empID);
+            prSt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
