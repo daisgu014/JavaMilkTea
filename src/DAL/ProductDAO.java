@@ -66,8 +66,8 @@ public class ProductDAO  extends DAO<Product> {
     }
 
     @Override
-    public int create(Product product) {
-        return 0;
+    public Product create(Product product) {
+        return null;
     }
 
     @Override

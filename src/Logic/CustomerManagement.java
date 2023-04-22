@@ -15,6 +15,15 @@ public class CustomerManagement {
     public void init(){
         customers=customerDAO.getAll();
     }
+    public void create(Customer customer){
+           customerDAO.insertCustomer(customer);
+    }
+    public void update(Customer customer){
+        customerDAO.update(customer);
+    }
+    public void delete(Customer customer){
+        customerDAO.delete(customer);
+    }
     public ArrayList<Customer> getCustomers(){
         return customers;
     }

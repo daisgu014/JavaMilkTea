@@ -14,7 +14,7 @@ public abstract class DAO<T> {
      * @return id of entity in database, if not return -1
      */
 
-    public abstract int create (T t);
+    public abstract T create (T t);
 
     public abstract void update (T t);
     public abstract void delete (T t);

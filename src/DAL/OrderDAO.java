@@ -62,8 +62,8 @@ public class OrderDAO extends DAO<Order>{
     }
 
     @Override
-    public int create(Order order) {
-        PreparedStatement prSt = database.getPreStmt("insert into Orders(OrderId,TotalPrice,CustomerPhone,Cashier) values(?,?,?,?) returning orderId");
+    public Order create(Order order) {
+        PreparedStatement prSt = database.getPreStmt("insert into Orders(OrderId,TotalPrice,CustomerPhone,Cashier) values(?,?,?,?)");
         try {
             prSt.setInt(1,order.getOrderId());
             prSt.setInt(2,order.getTotalPrice());
@@ -71,31 +71,31 @@ public class OrderDAO extends DAO<Order>{
             prSt.setInt(4,order.getCashier().getEmployeeId());
             ResultSet rs = prSt.executeQuery();
             while (rs.next()){
-                return rs.getInt(1);
+                //return rs.getInt(1);
             }
         } catch (SQLException e) {
             System.out.println("OrderDAO");
             System.out.println(e.getMessage());
         }
 
-        return 0;
+        return null;
     }
-    public int CreateOrderWithNoPhone(Order order){
-        PreparedStatement prSt = database.getPreStmt("insert into Orders(OrderId,TotalPrice,Cashier) values(?,?,?) returning orderId");
+    public Order CreateOrderWithNoPhone(Order order){
+        PreparedStatement prSt = database.getPreStmt("insert into Orders(OrderId,TotalPrice,Cashier) values(?,?,?)");
         try {
             prSt.setInt(1,order.getOrderId());
             prSt.setInt(2,order.getTotalPrice());
             prSt.setInt(3,order.getCashier().getEmployeeId());
             ResultSet rs = prSt.executeQuery();
             while (rs.next()){
-                return rs.getInt(1);
+              //  return rs.getInt(1);
             }
         } catch (SQLException e) {
             System.out.println("OrderDAO");
             System.out.println(e.getMessage());
         }
 
-        return 0;
+        return null;
     }
     public void insertOrderDetails(OrderDetail orderDetail, Order order){
         PreparedStatement prSt=database.getPreStmt("insert into OrderDetail(OrderID, ProductID, Sizes, Quantity) value(?,?,?,?)");

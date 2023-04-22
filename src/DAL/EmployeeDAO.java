@@ -38,9 +38,10 @@ public class EmployeeDAO extends DAO<Employee> {
     }
 
     @Override
-    public int create(Employee employee) {
-        return 0;
+    public Employee create(Employee employee) {
+        return null;
     }
+
 
     @Override
     public void update(Employee employee) {

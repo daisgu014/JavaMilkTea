@@ -4,16 +4,25 @@ import Entity.OrderDetail;
 
 public class OrderDetailsModel {
     private String Product;
+    private String size;
     private Integer qty;
     private Integer totalPrice;
     private OrderDetail orderDetail;
 
     public OrderDetailsModel(OrderDetail orderDetailsModel){
-        this.Product="Product Name: "+orderDetailsModel.getProduct()+"\nSize: "+
-                orderDetailsModel.getSize()+"\nUnit Price: "+orderDetailsModel.getProduct().getPrice(orderDetail.getSize());
+        this.Product=orderDetailsModel.getProduct().getProductName();
+        this.size=orderDetailsModel.getSize();
         this.qty=orderDetailsModel.getQuantity();
-        this.totalPrice=orderDetailsModel.getQuantity()*orderDetailsModel.getProduct().getPrice(orderDetail.getSize());
+        this.totalPrice=orderDetailsModel.getQuantity()*orderDetailsModel.getProduct().getPrice(orderDetailsModel.getSize());
         this.orderDetail=orderDetailsModel;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
     }
 
     public String getProduct() {
