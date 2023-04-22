@@ -2,16 +2,16 @@ package Entity;
 
 import com.mysql.cj.conf.ConnectionUrlParser;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class StatisticProduct {
     private int productId;
     private String productName;
     private int productCount;
-    private ArrayList<ConnectionUrlParser.Pair<String,Number>> productCountBySize;
+    private HashMap<String, Integer> productCountBySize;
     private int totalRevenue;
 
-    public StatisticProduct(int productId, String productName, int productCount,
-                            ArrayList<ConnectionUrlParser.Pair<String, Number>> productCountBySize, int totalRevenue) {
+    public StatisticProduct(int productId, String productName, int productCount, HashMap<String, Integer> productCountBySize, int totalRevenue) {
         this.productId = productId;
         this.productName = productName;
         this.productCount = productCount;
@@ -24,6 +24,7 @@ public class StatisticProduct {
         this.productName = productName;
         this.productCount = productCount;
         this.totalRevenue = totalRevenue;
+        this.setProductCountBySize(new HashMap<>());
     }
 
     public int getProductId() {
@@ -50,11 +51,11 @@ public class StatisticProduct {
         this.productCount = productCount;
     }
 
-    public ArrayList<ConnectionUrlParser.Pair<String, Number>> getProductCountBySize() {
+    public HashMap<String, Integer> getProductCountBySize() {
         return productCountBySize;
     }
 
-    public void setProductCountBySize(ArrayList<ConnectionUrlParser.Pair<String, Number>> productCountBySize) {
+    public void setProductCountBySize(HashMap<String, Integer> productCountBySize) {
         this.productCountBySize = productCountBySize;
     }
 
@@ -64,5 +65,9 @@ public class StatisticProduct {
 
     public void setTotalRevenue(int totalRevenue) {
         this.totalRevenue = totalRevenue;
+    }
+
+    public void addProductCountBySize(String size, Integer quantity) {
+        productCountBySize.put(size, quantity);
     }
 }
