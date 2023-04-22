@@ -6,18 +6,17 @@ import App.View.Shop.ShopGUI;
 import App.View.StatisticView.StatisticView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ManagementGUI {
     public ArrayList<GUI> GUIs = new ArrayList<>();
 
     public ManagementGUI() {
-        GUI saleGUI = new GUI("SaleGUI", new ShopGUI());
-        GUI customerGUI = new GUI("CustomerGUI", new CustomerGUI());
-        GUI StaticView = new GUI("StaticView", new StatisticView());
+        GUI saleGUI = new GUI("Sale", new ShopGUI());
+        GUI customerGUI = new GUI("Customer", new CustomerGUI());
+        GUI statisticGUI = new GUI("Statistic", new StatisticView());
         GUIs.add(saleGUI);
         GUIs.add(customerGUI);
-        GUIs.add(StaticView);
+        GUIs.add(statisticGUI);
     }
 
     public ArrayList<GUI> getGUIs() {
@@ -26,9 +25,6 @@ public class ManagementGUI {
 
     public void setGUIs(ArrayList<GUI> GUIs) {
         this.GUIs = GUIs;
-    }
-    public ArrayList<GUI> getGUISale(){
-        return GUIs;
     }
     public GUI findByName (String name){
         GUI newGUI = new GUI();
