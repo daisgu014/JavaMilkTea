@@ -2,6 +2,7 @@ package Logic;
 
 
 import DAL.OrderDAO;
+import Entity.Customer;
 import Entity.Order;
 import Entity.OrderDetail;
 
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 public class OrderManagement {
     private ArrayList<Order> orders;
     private OrderDAO orderDAO = new OrderDAO();
+    ProductManagement productManagement = new ProductManagement();
 
     public OrderManagement(){
         init();
@@ -29,5 +31,47 @@ public class OrderManagement {
         for(Order o : orders){
         }
     }
+    public Order createWithPhone (ArrayList<OrderDetail> orderDetails, Customer customer, Integer price){
+        Order order = new Order();
+        order.setDetails(orderDetails);
+        order.setTotalPrice(price);
+        order.setCustomer(customer);
+        Order newOrder = orderDAO.create(order);
+        order.setOrderId(newOrder.getOrderId());
+        order.setOrderDate(newOrder.getOrderDate());
+        for(OrderDetail o : orderDetails){
+            if(orderDAO.insertOrderDetails(o,order)){
+                productManagement.Sub_Storage_Product(o);
+                System.out.println("Them san pham thanh cong: "+o.getProduct().getProductName());
+            }else{
+                System.out.println("Thêm sản phẩm thất bại");
+            }
+        }
+        return order;
+    }
+    public Order createWithNoPhone(ArrayList<OrderDetail> orderDetails){
+        Order order = new Order();
+        order.setDetails(orderDetails);
+        int sum=0;
+        for(OrderDetail p : orderDetails){
+            sum+=(p.getProduct().getPrice(p.getSize())*p.getQuantity());
+        }
+        order.setTotalPrice(sum);
+        Order newOrder = orderDAO.CreateOrderWithNoPhone(order);
+        order.setOrderId(newOrder.getOrderId());
+        order.setOrderDate(newOrder.getOrderDate());
+        for(OrderDetail o : orderDetails){
+            if(orderDAO.insertOrderDetails(o,order)){
+                productManagement.Sub_Storage_Product(o);
+                System.out.println("Them san pham thanh cong: "+o.getProduct().getProductName());
+            }else {
+                System.out.println("Them san pham that bai");
+            }
+        }
+        return order;
+    }
 
+    public ArrayList<OrderDetail> orderDetails(Integer id){
+        return orderDAO.orderDetailsWithID(id);
+    }
 }

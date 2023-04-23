@@ -63,15 +63,20 @@ public class OrderDAO extends DAO<Order>{
 
     @Override
     public Order create(Order order) {
+        Order newOrder = new Order();
         PreparedStatement prSt = database.getPreStmt("insert into Orders(TotalPrice,CustomerPhone,Cashier) values(?,?,?)");
         try {
-            prSt.setInt(1,order.getOrderId());
-            prSt.setInt(2,order.getTotalPrice());
-            prSt.setString(3,order.getCustomer().getPhone());
-            prSt.setInt(4,order.getCashier().getEmployeeId());
-            ResultSet rs = prSt.executeQuery();
-            while (rs.next()){
-
+            prSt.setInt(1,order.getTotalPrice());
+            prSt.setString(2,order.getCustomer().getPhone());
+            prSt.setInt(3,order.getCashier().getEmployeeId());
+            prSt.executeUpdate();
+            Statement statement = database.getStmt();
+            ResultSet resultSet = statement.executeQuery("select o.* from Orders o order by o.OrderId desc limit 1;");
+            while (resultSet.next()){
+                newOrder.setOrderId(resultSet.getInt(1));
+                newOrder.setTotalPrice(resultSet.getInt(2));
+                newOrder.setOrderDate(resultSet.getDate(3));
+                newOrder.setCashier(employeeManagement.getEmployeeById(resultSet.getInt(5)));
             }
         } catch (SQLException e) {
             System.out.println("OrderDAO");
@@ -101,9 +106,9 @@ public class OrderDAO extends DAO<Order>{
             System.out.println(e.getMessage());
         }
 
-        return null;
+        return newOrder;
     }
-    public void insertOrderDetails(OrderDetail orderDetail, Order order){
+    public boolean insertOrderDetails(OrderDetail orderDetail, Order order){
         PreparedStatement prSt=database.getPreStmt("insert into OrderDetail(OrderID, ProductID, Sizes, Quantity) value(?,?,?,?)");
         try {
             prSt.setInt(1,order.getOrderId());
@@ -111,13 +116,13 @@ public class OrderDAO extends DAO<Order>{
             prSt.setString(3, orderDetail.getSize());
             prSt.setInt(4,orderDetail.getQuantity());
             prSt.executeUpdate();
+            return true;
         } catch (SQLException e) {
             System.out.println("OrderDAO");
             System.out.println(e.getMessage());
         }
-
+    return false;
     }
-
     @Override
     public void update(Order order) {
 
@@ -131,5 +136,23 @@ public class OrderDAO extends DAO<Order>{
     @Override
     public void deleteById(int id) {
 
+    }
+    public ArrayList<OrderDetail> orderDetailsWithID(Integer orderID){
+        ArrayList<OrderDetail> orderDetails = new ArrayList<>();
+        try {
+            PreparedStatement prSt = database.getPreStmt("select distinct od.OrderId, od.productId, od.Quantity, od.Sizes from OrderDetail od where od.OrderId = ?;");
+            prSt.setInt(1,orderID);
+            ResultSet rs = prSt.executeQuery();
+            System.out.println(rs.getRow());
+            while (rs.next()){
+                orderDetails.add(new OrderDetail(
+                        productManagement.findById(rs.getInt(2)),rs.getString(4),rs.getInt(3)
+                ));
+            }
+        }catch(SQLException e){
+            System.out.println("OrderDetailsWithID");
+            System.out.println(e.getMessage());
+        }
+        return orderDetails;
     }
 }

@@ -82,6 +82,7 @@ public class OrderController {
                 if(o.getSize().equalsIgnoreCase(size)){
                     if((o.getQuantity()+qty)<=orderDetail.getProduct().getQty(orderDetail.getSize())){
                         o.setQuantity(o.getQuantity()+qty);
+                        orderDetails.remove(orderDetail);
                     }else{
                         JOptionPane.showMessageDialog(null,"Số lượng sản phẩm "+orderDetail.getProduct().getProductName()+" " +orderDetail.getSize()+" không dủ");
                     }
