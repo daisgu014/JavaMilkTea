@@ -83,14 +83,14 @@ public class OrderDAO extends DAO<Order>{
             System.out.println(e.getMessage());
         }
 
-        return null;
+        return newOrder;
     }
     public Order CreateOrderWithNoPhone(Order order){
         Order newOrder = new Order();
         PreparedStatement prSt = database.getPreStmt("insert into Orders(TotalPrice,Cashier) values(?,?)");
         try {
-            prSt.setInt(2,order.getTotalPrice());
-            prSt.setInt(3,order.getCashier().getEmployeeId());
+            prSt.setInt(1,order.getTotalPrice());
+            prSt.setInt(2,order.getCashier().getEmployeeId());
             prSt.executeUpdate();
             Statement statement = database.getStmt();
             ResultSet rs = statement.executeQuery("select o.* from Orders o order by o.OrderId desc limit 1");

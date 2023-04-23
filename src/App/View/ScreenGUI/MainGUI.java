@@ -36,7 +36,8 @@ public class MainGUI extends JFrame {
                 "Statistic"
         )));
         put(2, new ArrayList<>(asList(
-                "Sale"
+                "Sale",
+                "Customer"
         )));
     }};
 

@@ -1,25 +1,16 @@
 package App.View.Shop;
 
-import App.View.ShaDowPanel;
 import App.View.Shop.Controller.OrderController;
 import Entity.OrderDetail;
 import Entity.Product;
-import Entity.Size;
 import Logic.ProductManagement;
-import Logic.SizeManagement;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.EventListener;
 
 public class Items extends JPanel{
-    //ShopGUI shopGUI = new ShopGUI();
-
     private JLabel productName, productPrice, image, qtyLabel;
     private JComboBox<String> cbSize;
     private JButton purchase, btnSub, btnAdd;
@@ -33,16 +24,6 @@ public class Items extends JPanel{
         return orderController;
     }
 
-    //    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        this.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                super.mouseClicked(e);
-//                myListener.onClickListener(product);
-//            }
-//        });
-//    }
    public Items(Product product){
        super(new BorderLayout());
        orderController = new OrderController();
@@ -129,6 +110,7 @@ public class Items extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 orderController.AddOrderDetails(null,addOrderDetails());
                 orderController.getObs().reloadTable();
+                orderController.getObs().TotalPrice();
             }
         });
 
