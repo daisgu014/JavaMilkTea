@@ -21,6 +21,7 @@ public class AccountGUI extends CrudGUI {
     private HashMap<Integer, Account> accounts;
     private AccountController accountController;
     private int index;
+    private int key;
     public AccountGUI(JButton btnAdd, JButton btnUpdate, JButton btnDelete, JButton btnExit, JTable table, String title){
         super(btnAdd,btnUpdate,btnDelete,btnExit,table,title);
     }
@@ -46,14 +47,18 @@ public class AccountGUI extends CrudGUI {
         JButton add = new JButton("Add") ;
         JButton edit = new JButton("Edit") ;
         JButton delete = new JButton("Delete");
+        index = -1;
+        key = 0;
         getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 int selectedRow = getTable().getSelectedRow();
+                String selectedValue = String.valueOf(getTable().getValueAt(selectedRow, 0));
+                key = Integer.parseInt(selectedValue);
                 index = selectedRow;
             }
         });
-        index = -1;
+
         add.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -72,11 +77,11 @@ public class AccountGUI extends CrudGUI {
                                     try{
                                         Account account = new Account(accountFormAdd.getTfUsername().getText(),accountFormAdd.getTfPass().getText());
                                         accountController.InsertAccount(account,accountFormAdd.getTfIDEmp().getText());
-                                        int key = Integer.parseInt(accountFormAdd.getTfIDEmp().getText());
-                                        accounts.put(key,account);
+                                        int newkey = Integer.parseInt(accountFormAdd.getTfIDEmp().getText());
+                                        accounts.put(newkey,account);
                                         //Set new table
                                         DefaultTableModel model = (DefaultTableModel) getTable().getModel();
-                                        model.addRow(new Object[]{key,accounts.get(key).getUsername(),accounts.get(key).getPassword()});
+                                        model.addRow(new Object[]{newkey,accounts.get(newkey).getUsername(),accounts.get(newkey).getPassword()});
                                         JOptionPane.getRootFrame().dispose();
                                     }catch (Exception exception){
                                         System.out.println(exception);
@@ -114,70 +119,44 @@ public class AccountGUI extends CrudGUI {
                 AccountFormUpdate accountFormUpdate = new AccountFormUpdate();
                 Object[] message = {accountFormUpdate};
                 JButton btnAccept = new JButton("Accept");
-                JButton btnDelete = new JButton("Delete");
                 JButton btnCancel = new JButton("Cancel");
-                btnAccept.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        AccountController accountController = new AccountController();
-                        try{
-                            Account account = new Account(accountFormUpdate.getTfUsername().getText(),accountFormUpdate.getTfPass().getText());
-                            boolean checkActive = false;
-                            for (Map.Entry<Integer, Account> set: accounts.entrySet()){
-                                if (set.getKey() == Integer.parseInt(accountFormUpdate.getTfIDEmp().getText()) && set.getValue().getUsername().equals(accountFormUpdate.getTfUsername().getText())  ){
-                                    checkActive = true;
-                                }
-                            }
-                            if (checkActive == true){
+                if(index!=-1){
+                    accountFormUpdate.getTfIDEmp().setText(String.valueOf(key));
+                    accountFormUpdate.getTfUsername().setText(accounts.get(key).getUsername());
+                    accountFormUpdate.getTfPass().setText(accounts.get(key).getPassword());
+                    btnAccept.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            AccountController accountController = new AccountController();
+                            try{
+                                Account account = new Account(accountFormUpdate.getTfUsername().getText(),accountFormUpdate.getTfPass().getText());
                                 accountController.UpdateAccount(account);
-                                int key = Integer.parseInt(accountFormUpdate.getTfIDEmp().getText());
-                                accounts.put(key,account);
-                                RefreshTable();
+                                int newkey = Integer.parseInt(accountFormUpdate.getTfIDEmp().getText());
+                                accounts.put(newkey,account);
+//                                System.out.println(index);
+//                                System.out.println(accounts.get(key).getPassword());
+                                getTable().setValueAt(accounts.get(newkey).getPassword(),index,2);
                                 JOptionPane.getRootFrame().dispose();
-                            }else {
-                                JOptionPane.showMessageDialog(null,"Tai khoan khong ung voi ma nhan vien!");
+                            }catch (Exception exception){
+                                System.out.println(exception);
                             }
-                        }catch (Exception exception){
-                            System.out.println(exception);
                         }
-                    }
-                });
-                btnDelete.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        AccountController accountController = new AccountController();
-                        try{
-                            Account account = new Account(accountFormUpdate.getTfUsername().getText(),accountFormUpdate.getTfPass().getText());
-                            boolean checkActive = false;
-                            for (Map.Entry<Integer, Account> set: accounts.entrySet()){
-                                if (set.getKey() == Integer.parseInt(accountFormUpdate.getTfIDEmp().getText()) && set.getValue().getUsername().equals(accountFormUpdate.getTfUsername().getText())  ){
-                                    checkActive = true;
-                                }
-                            }
-                            if (checkActive == true){
-                                accountController.DeleteAccount(account);
-                                int key = Integer.parseInt(accountFormUpdate.getTfIDEmp().getText());
-                                accounts.remove(key,account);
-                                RefreshTable();
-                                JOptionPane.getRootFrame().dispose();
-                            }else {
-                                JOptionPane.showMessageDialog(null,"Tai khoan khong ung voi ma nhan vien!");
-                            }
-                        }catch (Exception exception){
-                            System.out.println(exception);
+                    });
+                    btnCancel.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            JOptionPane.getRootFrame().dispose(); // Close the dialog
                         }
-                    }
-                });
-                btnCancel.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        JOptionPane.getRootFrame().dispose(); // Close the dialog
-                    }
-                });
-                Object[] options = {btnAccept,btnDelete,btnCancel};
-                int check = JOptionPane.showOptionDialog(null, message, "Update",
-                        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, new ImageIcon(""),
-                        options, options[0]);
+                    });
+                    Object[] options = {btnAccept,btnCancel};
+                    int check = JOptionPane.showOptionDialog(null, message, "Update",
+                            JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, new ImageIcon(""),
+                            options, options[0]);
+                }else {
+                    JOptionPane.showMessageDialog(null, "Vui lòng chọn tài khoản !",
+                            "Update Account", JOptionPane.INFORMATION_MESSAGE);
+                }
+
             }
         });
         delete.addActionListener(new ActionListener() {
@@ -206,58 +185,6 @@ public class AccountGUI extends CrudGUI {
         setTitleAccount();
         setDataTable();
         setButton();
-    }
-    public void SelectTable(){
-        JTable table = getTable();
-        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    int row = table.getSelectedRow();
-//                    int col = table.getSelectedColumn();
-                    Account account = new Account((String) table.getValueAt(row,1), (String) table.getValueAt(row,2));
-                    AccountFormUpdate accountFormUpdate = new AccountFormUpdate();
-                    accountFormUpdate.getTfIDEmp().setText(String.valueOf(table.getValueAt(row,0)));
-                    accountFormUpdate.getTfIDEmp().setEditable(false);
-                    accountFormUpdate.getTfUsername().setText(account.getUsername());
-                    accountFormUpdate.getTfUsername().setEditable(false);
-                    accountFormUpdate.getTfPass().setText(account.getPassword());
-
-                    Object[] message = {accountFormUpdate};
-                    JButton btnAccept = new JButton("Accept");
-                    JButton btnDelete = new JButton("Delete");
-                    JButton btnCancel = new JButton("Cancel");
-                    btnAccept.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            Account newAccount = new Account(accountFormUpdate.getTfUsername().getText(),accountFormUpdate.getTfPass().getText());
-                            AccountController accountController = new AccountController();
-                            accountController.UpdateAccount(newAccount);
-                            table.setValueAt(newAccount.getPassword(),row,2);
-                        }
-                    });
-                    btnDelete.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            Account newAccount = new Account(accountFormUpdate.getTfUsername().getText(),accountFormUpdate.getTfPass().getText());
-                            AccountController accountController = new AccountController();
-                            accountController.DeleteAccount(newAccount);
-                            
-                        }
-                    });
-                    btnCancel.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            JOptionPane.getRootFrame().dispose(); // Close the dialog
-                        }
-                    });
-                    Object[] options = {btnAccept,btnDelete,btnCancel};
-                    int check = JOptionPane.showOptionDialog(null, message, "Update",
-                            JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, new ImageIcon(""),
-                            options, options[0]);
-                }
-            }
-        });
     }
     public void RefreshTable(){
         String[] columns = {"Employee ID","Username","Password"};

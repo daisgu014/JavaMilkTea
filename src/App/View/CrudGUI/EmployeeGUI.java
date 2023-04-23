@@ -100,58 +100,63 @@ public class EmployeeGUI extends CrudGUI{
                     employeeForm.getTfName().setText(String.valueOf(employeeArrayList.get(index).getEmployeeName()));
                     employeeForm.getTfPhone().setText(String.valueOf(employeeArrayList.get(index).getEmployeePhone()));
                     employeeForm.getCbWorkPosition().setSelectedIndex(employeeArrayList.get(index).getWorkPosition().getPositionId()-1);
-                }
-                Object[] message = {employeeForm};
-                JButton btnAccept = new JButton("Update");
-                JButton btnCancel = new JButton("Cancel");
-                btnAccept.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
+                    Object[] message = {employeeForm};
+                    JButton btnAccept = new JButton("Update");
+                    JButton btnCancel = new JButton("Cancel");
+                    btnAccept.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
 //                        System.out.println(employeeForm.getTfName().getText());
 //                        System.out.println(employeeForm.getCbWorkPosition().getSelectedItem());
-                        CheckInput checkInput = new CheckInput<>();
-                        boolean active = false;
-                        for (Employee emp : employeeArrayList){
-                            if (emp.getEmployeeId()== Integer.parseInt(employeeForm.getTfId().getText())){
-                                active = true;
+                            CheckInput checkInput = new CheckInput<>();
+                            boolean active = false;
+                            for (Employee emp : employeeArrayList){
+                                if (emp.getEmployeeId()== Integer.parseInt(employeeForm.getTfId().getText())){
+                                    active = true;
+                                }
                             }
-                        }
-                        if (active == true){
-                            if (employeeForm.getTfName().getText().trim().equals("")==false){
-                                if (checkInput.checkPhone(employeeForm.getTfPhone().getText())==true){
-                                    WorkPosition workPosition = new WorkPosition(employeeForm.getCbWorkPosition().getSelectedIndex()+1,null,0);
-                                    Employee employee = new Employee(Integer.parseInt(employeeForm.getTfId().getText()),employeeForm.getTfName().getText(),employeeForm.getTfPhone().getText(),workPosition);
-                                    employeeController.UpdateEmployee(employee);
-                                    employeeArrayList.set(index,employee);
-                                    getTable().setValueAt(employeeForm.getTfName().getText(),index,1);
-                                    getTable().setValueAt(employeeForm.getTfPhone().getText(),index,2);
-                                    getTable().setValueAt(employeeForm.getCbWorkPosition().getSelectedItem(),index,3);
+                            if (active == true){
+                                if (employeeForm.getTfName().getText().trim().equals("")==false){
+                                    if (checkInput.checkPhone(employeeForm.getTfPhone().getText())==true){
+                                        WorkPosition workPosition = new WorkPosition(employeeForm.getCbWorkPosition().getSelectedIndex()+1,null,0);
+                                        Employee employee = new Employee(Integer.parseInt(employeeForm.getTfId().getText()),employeeForm.getTfName().getText(),employeeForm.getTfPhone().getText(),workPosition);
+                                        employeeController.UpdateEmployee(employee);
+                                        employeeArrayList.set(index,employee);
+                                        getTable().setValueAt(employeeForm.getTfName().getText(),index,1);
+                                        getTable().setValueAt(employeeForm.getTfPhone().getText(),index,2);
+                                        getTable().setValueAt(employeeForm.getCbWorkPosition().getSelectedItem(),index,3);
+                                        JOptionPane.getRootFrame().dispose();
+                                    }else {
+                                        JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ",
+                                                "Update Employee", JOptionPane.INFORMATION_MESSAGE);
+                                    }
                                 }else {
-                                    JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ",
+                                    JOptionPane.showMessageDialog(null, "Tên nhân viên không được bỏ trống",
                                             "Update Employee", JOptionPane.INFORMATION_MESSAGE);
                                 }
                             }else {
-                                JOptionPane.showMessageDialog(null, "Tên nhân viên không được bỏ trống",
+                                JOptionPane.showMessageDialog(null, "Mã nhân viên không chính xác",
                                         "Update Employee", JOptionPane.INFORMATION_MESSAGE);
                             }
-                        }else {
-                            JOptionPane.showMessageDialog(null, "Mã nhân viên không chính xác",
-                                    "Update Employee", JOptionPane.INFORMATION_MESSAGE);
+
                         }
+                    });
 
-                    }
-                });
+                    btnCancel.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            JOptionPane.getRootFrame().dispose(); // Close the dialog
+                        }
+                    });
+                    Object[] options = {btnAccept,btnCancel};
+                    int check = JOptionPane.showOptionDialog(null, message, "Update Employee",
+                            JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, new ImageIcon(""),
+                            options, options[0]);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Vui lòng chọn nhân viên !",
+                            "Update Employee", JOptionPane.INFORMATION_MESSAGE);
+                }
 
-                btnCancel.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        JOptionPane.getRootFrame().dispose(); // Close the dialog
-                    }
-                });
-                Object[] options = {btnAccept,btnCancel};
-                int check = JOptionPane.showOptionDialog(null, message, "Update Employee",
-                        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, new ImageIcon(""),
-                        options, options[0]);
             }
         });
         delete.addActionListener(new ActionListener() {
