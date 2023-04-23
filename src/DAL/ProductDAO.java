@@ -1,5 +1,6 @@
 package DAL;
 
+import Entity.OrderDetail;
 import Entity.Product;
 import Entity.ProductSize;
 
@@ -83,6 +84,19 @@ public class ProductDAO  extends DAO<Product> {
     @Override
     public void deleteById(int id) {
 
+    }
+    public void Sub_Storage_Product(OrderDetail orderDetail){
+        Integer afterStorage = orderDetail.getProduct().getQty(orderDetail.getSize())-orderDetail.getQuantity();
+        PreparedStatement prSt = dao.getPreStmt("update ProductSize set Storage = ? where productID = ? and Sizes like ?;");
+        try {
+            prSt.setInt(1,afterStorage);
+            prSt.setInt(2,orderDetail.getProduct().getProductId());
+            prSt.setString(3,orderDetail.getSize());
+            prSt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Sub_Storage_Product");
+            System.out.println(e.getMessage());
+        }
     }
 
 

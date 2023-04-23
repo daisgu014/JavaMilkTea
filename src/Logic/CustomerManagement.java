@@ -33,5 +33,20 @@ public class CustomerManagement {
     public Customer findByPhone(String phone){
         return customerDAO.findByPhone(phone);
     }
-
+    public Customer findByName (String name){
+       return customerDAO.findByName(name);
+    }
+    public void Update_Sub_Point(Customer customer, Integer point){
+        customerDAO.Update_Sub_Point(customer,point);
+    }
+    public  ArrayList<String> PointOfCustomer (Customer customer){
+        ArrayList<String> arrayList = new ArrayList<>();
+        int countPoint=customer.getPoints()/10;
+        if(countPoint>0){
+            for(int i =1;i<=countPoint;i++){
+                arrayList.add(String.valueOf(i*10));
+            }
+        }
+        return arrayList;
+    }
 }

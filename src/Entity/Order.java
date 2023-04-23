@@ -9,6 +9,55 @@ public class Order {
     private Date orderDate;
     private Employee cashier;
     private Customer customer;
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public Employee getCashier() {
+        return cashier;
+    }
+
+    public void setCashier(Employee cashier) {
+        this.cashier = cashier;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public ArrayList<OrderDetail> getDetails() {
+        return details;
+    }
+
+    public void setDetails(ArrayList<OrderDetail> details) {
+        this.details = details;
+    }
+
     private ArrayList<OrderDetail> details;
 
     public Order() {
@@ -36,46 +85,5 @@ public class Order {
         this.details = details;
     }
 
-    public int getOrderId() {
-        return orderId;
-    }
-    public int getTotalPrice() {
-        return totalPrice;
-    }
 
-    public void setTotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public Date getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    public Employee getCashier() {
-        return cashier;
-    }
-
-    public void setCashier(Employee cashier) {
-        this.cashier = cashier;
-    }
-
-    public ArrayList<OrderDetail> getDetails() {
-        return details;
-    }
-
-    public void setDetails(ArrayList<OrderDetail> details) {
-        this.details = details;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
 }
