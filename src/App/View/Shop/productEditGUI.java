@@ -114,6 +114,7 @@ public class productEditGUI extends JDialog  {
             public void actionPerformed(ActionEvent e) {
                 orderController.EditEvent(orderDetail,String.valueOf(cbSize.getSelectedItem()),Integer.parseInt(qtyLabel.getText()));
                 orderController.getObs().reloadTable();
+                orderController.getObs().TotalPrice();
                 dispose();
             }
         });
