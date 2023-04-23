@@ -15,8 +15,9 @@ public class LoginView extends JPanel {
     private JPasswordField pwdTxf;
     private JButton loginBtn;
     private LoginController controller;
-    public static Color pink = new Color(248, 152, 69);
+    public static Color primary = new Color(248, 152, 69);
     public static Color lightGrey = new Color(240, 240, 241);
+    public static Color lightYellow = new Color(255, 229, 159);
     public static final Font font = new Font("", Font.BOLD, 22);
     public static final Font smallFont = new Font("", Font.BOLD, 14);
 
@@ -42,7 +43,7 @@ public class LoginView extends JPanel {
             JPanel p = new JPanel();
             BoxLayout boxLayout = new BoxLayout(p, BoxLayout.Y_AXIS);
             p.setLayout(boxLayout);
-            p.setBackground(pink);
+            p.setBackground(primary);
             ImageIcon imageIcon = new ImageIcon(new File(path).toURI().toURL());
             Image scaleImage = imageIcon.getImage().getScaledInstance(500, 500, Image.SCALE_DEFAULT);
             leftImage = new JLabel(new ImageIcon(scaleImage), JLabel.CENTER);
@@ -75,7 +76,7 @@ public class LoginView extends JPanel {
         pwdLbl.setFont(smallFont);
         usernameTxf.setBackground(lightGrey);
         pwdTxf.setBackground(lightGrey);
-        loginBtn.setBackground(pink);
+        loginBtn.setBackground(primary);
         loginBtn.setOpaque(true);
         loginBtn.setBorderPainted(false);
 
