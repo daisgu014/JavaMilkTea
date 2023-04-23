@@ -15,4 +15,7 @@ public class WorkPositionManagement
     public WorkPosition getWorkPositionById(Integer id){
         return workPositionDAO.get(id);
     }
+    public ArrayList<WorkPosition> getData(){
+        return workPositionDAO.getAll();
+    }
 }

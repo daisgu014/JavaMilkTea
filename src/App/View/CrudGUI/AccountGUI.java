@@ -19,40 +19,41 @@ import java.util.Set;
 
 public class AccountGUI extends CrudGUI {
     private HashMap<Integer, Account> accounts;
+    private AccountController accountController;
+    private int index;
     public AccountGUI(JButton btnAdd, JButton btnUpdate, JButton btnDelete, JButton btnExit, JTable table, String title){
         super(btnAdd,btnUpdate,btnDelete,btnExit,table,title);
     }
     public  AccountGUI(){
+        accountController = new AccountController();
         setAccounts();
         Scene();
-        SelectTable();
         RefreshTable();
     }
     public void SceneAccount(){
 
     }
     public void getData(){
-        AccountController accountController = new AccountController();
         accounts = accountController.getDataAccount();
     }
     public void setTitleAccount(){
         setTitle("Account");
     }
     public void setDataTable(){
-        String[] columns = {"Employee ID","Username","Password"};
-        JTable table = new JTable();
-        DefaultTableModel model = new DefaultTableModel(columns, 0);
-        for (Map.Entry<Integer, Account> set: accounts.entrySet()){
-            Object[] row = {set.getKey(),set.getValue().getUsername(),set.getValue().getPassword()};
-            model.addRow(row);
-        }
-        table.setModel(model);
-        setTable(table);
+        setTable(accountController.getDataTable());
     }
     public void setButton(){
         JButton add = new JButton("Add") ;
         JButton edit = new JButton("Edit") ;
         JButton delete = new JButton("Delete");
+        getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int selectedRow = getTable().getSelectedRow();
+                index = selectedRow;
+            }
+        });
+        index = -1;
         add.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -70,14 +71,13 @@ public class AccountGUI extends CrudGUI {
                                     AccountController accountController = new AccountController();
                                     try{
                                         Account account = new Account(accountFormAdd.getTfUsername().getText(),accountFormAdd.getTfPass().getText());
-                                        boolean status = accountController.InsertAccount(account,accountFormAdd.getTfIDEmp().getText());
-                                        if (status == true){
-                                            int key = Integer.parseInt(accountFormAdd.getTfIDEmp().getText());
-                                            accounts.put(key,account);
-                                            //Set new table
-                                            RefreshTable();
-                                            JOptionPane.getRootFrame().dispose();
-                                        }
+                                        accountController.InsertAccount(account,accountFormAdd.getTfIDEmp().getText());
+                                        int key = Integer.parseInt(accountFormAdd.getTfIDEmp().getText());
+                                        accounts.put(key,account);
+                                        //Set new table
+                                        DefaultTableModel model = (DefaultTableModel) getTable().getModel();
+                                        model.addRow(new Object[]{key,accounts.get(key).getUsername(),accounts.get(key).getPassword()});
+                                        JOptionPane.getRootFrame().dispose();
                                     }catch (Exception exception){
                                         System.out.println(exception);
                                     }

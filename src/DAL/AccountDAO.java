@@ -83,7 +83,7 @@ public class AccountDAO extends DAO<Account>{
             PreparedStatement prSt = database.getPreStmt("INSERT INTO account(AccountUsername,AccountPassword,EmployeeID) VALUES (?,?,?);");
             prSt.setString(1,account.getUsername());
             prSt.setString(2,account.getPassword());
-            prSt.setString(3,empID);
+            prSt.setInt(3, Integer.parseInt(empID));
             prSt.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);

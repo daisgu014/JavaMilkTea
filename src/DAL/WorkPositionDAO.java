@@ -1,5 +1,6 @@
 package DAL;
 
+import Entity.Employee;
 import Entity.WorkPosition;
 
 import java.sql.PreparedStatement;
@@ -11,7 +12,18 @@ public class WorkPositionDAO extends DAO<WorkPosition> {
    Database dao = new Database();
     @Override
     public ArrayList<WorkPosition> getAll() {
-        return null;
+        ArrayList<WorkPosition> workPositionArrayList = new ArrayList<>();
+        try {
+            PreparedStatement prSt = database.getPreStmt("SELECT * FROM workposition");
+            ResultSet rs = prSt.executeQuery();
+            while (rs.next()) {
+                WorkPosition workPosition = new WorkPosition(rs.getInt(1),rs.getString(2),rs.getInt(3));
+                workPositionArrayList.add(workPosition);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return workPositionArrayList;
     }
 
     @Override

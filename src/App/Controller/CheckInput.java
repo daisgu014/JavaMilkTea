@@ -32,4 +32,8 @@ public class CheckInput<T> {
         }
         return false;
     }
+
+    public static void main(String[] args) {
+
+    }
 }

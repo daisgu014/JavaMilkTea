@@ -36,4 +36,31 @@ public class EmployeeController {
         table.setModel(model);
         return table;
     }
+    public void UpdateEmployee(Employee employee){
+       try  {
+           employeeModel.UpdateEmployee(employee);
+           JOptionPane.showMessageDialog(null, "Thành công !",
+                   "Update Employee", JOptionPane.INFORMATION_MESSAGE);
+
+       }catch (Exception e){
+           System.out.println(e);
+           JOptionPane.showMessageDialog(null, "Thất bại !",
+                   "Update Employee", JOptionPane.INFORMATION_MESSAGE);
+       }
+    }
+    public Employee InsertEmployee(Employee employee){
+        Employee employeeIsert = new Employee();
+        try  {
+            employeeIsert = employeeModel.InsertEmployee(employee);
+            JOptionPane.showMessageDialog(null, "Thành công !",
+                    "Create Employee", JOptionPane.INFORMATION_MESSAGE);
+
+        }catch (Exception e){
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Thất bại !",
+                    "Create Employee", JOptionPane.INFORMATION_MESSAGE);
+        }
+        return employeeIsert;
+    }
+
 }

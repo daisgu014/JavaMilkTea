@@ -7,19 +7,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class EmployeeForm extends FormDialog{
+public class EmployeeFormUpdate extends FormDialog{
     private JTextField tfId;
     private JTextField tfName;
     private JTextField tfPhone;
     private JComboBox cbWorkPosition;
 
-    public EmployeeForm(JTextField tfId, JTextField tfName, JTextField tfPhone, JComboBox cbWorkPosition) {
+    public EmployeeFormUpdate(JTextField tfId, JTextField tfName, JTextField tfPhone, JComboBox cbWorkPosition) {
         this.tfId = tfId;
         this.tfName = tfName;
         this.tfPhone = tfPhone;
         this.cbWorkPosition = cbWorkPosition;
     }
-    public EmployeeForm(){
+    public EmployeeFormUpdate(){
         SceneForm();
     }
 
@@ -84,7 +84,7 @@ public class EmployeeForm extends FormDialog{
         workPositionArrayList = employeeModel.getDataWorkPosition();
         String[] WorkPosition = new String[workPositionArrayList.size()];
         for (int i = 0;i < workPositionArrayList.size();i++ ){
-           WorkPosition[i] = workPositionArrayList.get(i).getName();
+            WorkPosition[i] = workPositionArrayList.get(i).getName();
         }
 //        cbWorkPosition = new JComboBox(WorkPosition);
         setCbWorkPosition(new JComboBox(WorkPosition));

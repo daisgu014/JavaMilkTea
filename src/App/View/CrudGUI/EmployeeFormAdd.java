@@ -7,19 +7,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class EmployeeForm extends FormDialog{
+public class EmployeeFormAdd extends FormDialog{
     private JTextField tfId;
     private JTextField tfName;
     private JTextField tfPhone;
     private JComboBox cbWorkPosition;
 
-    public EmployeeForm(JTextField tfId, JTextField tfName, JTextField tfPhone, JComboBox cbWorkPosition) {
+    public EmployeeFormAdd(JTextField tfId, JTextField tfName, JTextField tfPhone, JComboBox cbWorkPosition) {
         this.tfId = tfId;
         this.tfName = tfName;
         this.tfPhone = tfPhone;
         this.cbWorkPosition = cbWorkPosition;
     }
-    public EmployeeForm(){
+    public EmployeeFormAdd(){
         SceneForm();
     }
 
@@ -70,9 +70,6 @@ public class EmployeeForm extends FormDialog{
         pn.setPreferredSize(new Dimension(490,300));
         pn.setLayout(new FlowLayout());
         pn.setBorder(BorderFactory.createLineBorder(Color.red));
-        JLabel lbIDEmp = new JLabel("Employee ID: ",SwingConstants.CENTER);
-        setTfId(new JTextField());
-        pn.add(pnRows(lbIDEmp,getTfId()));
         JLabel lbName = new JLabel("Name: ",SwingConstants.CENTER);
         setTfName(new JTextField());
         pn.add(pnRows(lbName,getTfName()));
@@ -84,7 +81,7 @@ public class EmployeeForm extends FormDialog{
         workPositionArrayList = employeeModel.getDataWorkPosition();
         String[] WorkPosition = new String[workPositionArrayList.size()];
         for (int i = 0;i < workPositionArrayList.size();i++ ){
-           WorkPosition[i] = workPositionArrayList.get(i).getName();
+            WorkPosition[i] = workPositionArrayList.get(i).getName();
         }
 //        cbWorkPosition = new JComboBox(WorkPosition);
         setCbWorkPosition(new JComboBox(WorkPosition));
@@ -96,7 +93,7 @@ public class EmployeeForm extends FormDialog{
     public void SceneForm(){
         setPreferredSize(new Dimension(500,600));
         setLayout(new FlowLayout());
-        setLbTitle( new JLabel("Employee",SwingConstants.CENTER));
+        setLbTitle( new JLabel("Add Employee",SwingConstants.CENTER));
         add(pnTitle());
         add(pnContainer());
         setVisible(true);
