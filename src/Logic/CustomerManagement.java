@@ -3,6 +3,7 @@ package Logic;
 import Entity.Customer;
 import DAL.CustomerDAO;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class CustomerManagement {
@@ -16,7 +17,11 @@ public class CustomerManagement {
         customers=customerDAO.getAll();
     }
     public void create(Customer customer){
-           customerDAO.insertCustomer(customer);
+           if(customerDAO.insertCustomer(customer)){
+               JOptionPane.showMessageDialog(null, "Thêm khách hàng "+ customer.getCustomerName()+" thành công");
+           }else {
+               JOptionPane.showMessageDialog(null, "Thêm khách hàng không thành công");
+           }
     }
     public void update(Customer customer){
         customerDAO.update(customer);
