@@ -21,7 +21,7 @@ public class LoginController {
     public void checkLogIn(String username, String pwd) {
         if(model.checkLogIn(username, pwd)){
             APP.getButton(getModel().getLogic().getRoleId());
-            MainGUI.currEmployee = getModel().getLogic().getEmployeeByUsername(username);
+            APP.currEmployee = getModel().getLogic().getEmployeeByUsername(username);
         }else{
             JOptionPane.showMessageDialog(
                     null,

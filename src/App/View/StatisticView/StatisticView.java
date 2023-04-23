@@ -15,6 +15,9 @@ import java.time.YearMonth;
 import java.util.Calendar;
 import java.util.Properties;
 
+import static App.View.LoginView.lightYellow;
+import static App.View.LoginView.primary;
+
 public class StatisticView extends JPanel {
     private JDatePickerImpl fromDatePicker, toDatePicker;
     private JButton applyBtn;
@@ -25,6 +28,8 @@ public class StatisticView extends JPanel {
     private StatisticChartView chartView;
     private StatisticTableView tableView;
     private StatisticController controller;
+    public static final Font smallFont = new Font("", Font.PLAIN, 16);
+    public static final Font font = new Font("", Font.BOLD, 18);
 
     private final JLabel
             saleLbl = new JLabel("Total Sales"),
@@ -36,7 +41,9 @@ public class StatisticView extends JPanel {
 
     private void init() {
         this.setBackground(Color.white);
-        this.setLayout(new FlowLayout());
+        FlowLayout fl = new FlowLayout();
+        fl.setHgap(200);
+        this.setLayout(fl);
 
         controller = new StatisticController();
         chartView = new StatisticChartView();
@@ -153,14 +160,23 @@ public class StatisticView extends JPanel {
 
         JPanel salePanel = new JPanel();
         salePanel.setLayout(new GridLayout(2, 1, 0, 0));
-        salePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        salePanel.setPreferredSize(new Dimension(200, 80));
+        salePanel.setBackground(lightYellow);
 
         JPanel qtyPanel = new JPanel();
         qtyPanel.setLayout(new GridLayout(2, 1, 0, 0));
-        qtyPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        qtyPanel.setPreferredSize(new Dimension(200, 80));
+        qtyPanel.setBackground(primary);
+
+        saleLbl.setFont(smallFont);
+        qtyLbl.setFont(smallFont);
 
         totalSaleLbl = new JLabel("100000000000000");
+        totalSaleLbl.setFont(font);
+        totalSaleLbl.setHorizontalAlignment(SwingConstants.RIGHT);
         totalQtyLbl = new JLabel("100000000");
+        totalQtyLbl.setFont(font);
+        totalQtyLbl.setHorizontalAlignment(SwingConstants.RIGHT);
 
         salePanel.add(saleLbl);
         salePanel.add(totalSaleLbl);
