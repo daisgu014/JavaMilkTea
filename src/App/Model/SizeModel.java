@@ -15,13 +15,13 @@ public class SizeModel {
         sizeArrayList = sizeManagement.getSizes();
         return sizeArrayList;
     }
-    private void Insert(Size size){
-
+    public void Insert(Size size){
+        sizeManagement.Insert(size);
     }
-    private void Update(Size size){
-
+    public void Update(Size size){
+        sizeManagement.Update(size);
     }
-    private void Delete(Size size){
+    public void Delete(Size size){
 
     }
 }

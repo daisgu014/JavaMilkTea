@@ -33,4 +33,24 @@ public class SizeController {
         table.setModel(model);
         return table;
     }
+    public void InsertSize(Size size){
+        try{
+            sizeModel.Insert(size);
+            JOptionPane.showMessageDialog(null, "Thành công!",
+                    "Create Size", JOptionPane.INFORMATION_MESSAGE);
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Thất bại!",
+                    "Create Size", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    public void UpdateSize(Size size){
+        try{
+            sizeModel.Update(size);
+            JOptionPane.showMessageDialog(null, "Thành công!",
+                    "Create Size", JOptionPane.INFORMATION_MESSAGE);
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Thất bại!",
+                    "Create Size", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
 }

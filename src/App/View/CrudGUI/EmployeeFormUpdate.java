@@ -55,15 +55,15 @@ public class EmployeeFormUpdate extends FormDialog{
         this.cbWorkPosition = cbWorkPosition;
     }
 
-    public JPanel pnRows(JLabel jLabel, JTextField textField){
-        JPanel pn = new JPanel();
-        pn.setPreferredSize(new Dimension(480,50));
-        jLabel.setPreferredSize(new Dimension(200,30));
-        textField.setPreferredSize(new Dimension(200,30));
-        pn.add(jLabel);
-        pn.add(textField);
-        return pn;
-    }
+//    public JPanel pnRows(JLabel jLabel, JTextField textField){
+//        JPanel pn = new JPanel();
+//        pn.setPreferredSize(new Dimension(480,50));
+//        jLabel.setPreferredSize(new Dimension(200,30));
+//        textField.setPreferredSize(new Dimension(200,30));
+//        pn.add(jLabel);
+//        pn.add(textField);
+//        return pn;
+//    }
     @Override
     public JPanel pnContainer(){
         JPanel pn = new JPanel();

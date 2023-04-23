@@ -48,7 +48,15 @@ public class FormDialog extends JPanel {
         add(pnContainer());
         setVisible(true);
     }
-
+    public JPanel pnRows(JLabel jLabel, JTextField textField){
+        JPanel pn = new JPanel();
+        pn.setPreferredSize(new Dimension(480,50));
+        jLabel.setPreferredSize(new Dimension(200,30));
+        textField.setPreferredSize(new Dimension(200,30));
+        pn.add(jLabel);
+        pn.add(textField);
+        return pn;
+    }
     public static void main(String[] args) {
         JFrame f = new JFrame("Test Dialog");
         f.setSize(500,600);
