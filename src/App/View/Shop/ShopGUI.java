@@ -6,6 +6,7 @@ import Entity.Category;
 import Entity.Customer;
 import Entity.OrderDetail;
 import Entity.Product;
+import Logic.CustomerManagement;
 import Logic.Management;
 import Logic.ProductManagement;
 
@@ -27,10 +28,11 @@ import static App.View.Shop.loadData.orderDetails;
 public class ShopGUI extends JPanel {
     static OrderController orderController = new OrderController();
     private JTextField  txtSearch;
-    private JButton btnSearch,btnEdit, btnDelete;
+    private JButton btnSearch,btnEdit, btnDelete,btnCustomer, btnCloseCustomer,btnClosePoint;
     private JPanel searchBox;
     private JPanel searchPanel;
     private JTable cartTable;
+    private JLabel labelPricePoint, labelPrice, labelInfo;
 
     public JTable getCartTable() {
         return cartTable;
@@ -55,9 +57,7 @@ public class ShopGUI extends JPanel {
     public JScrollPane getCartScrollPane() {
         return cartScrollPane;
     }
-
-
-    private JPanel productListPanel;
+    private JPanel productListPanel,customerGirdPanel,customerPanel,customerPointPanel;
     private DefaultTableModel cartTableModel;
     private JScrollPane scrollPane;
     private JScrollPane cartScrollPane;
@@ -123,25 +123,21 @@ public class ShopGUI extends JPanel {
         orderTable.setBackground(Color.ORANGE);
         orderTable.add(cartScrollPane,BorderLayout.CENTER);
         orderTable.add(btnPanel,BorderLayout.SOUTH);
-        JPanel customerPanel = new JPanel();
-        ArrayList<String> customerNameListString = new ArrayList<>();
-        customerNameListString.add("Không tích điểm");
-        for(Customer s: customers){
-            customerNameListString.add(s.getCustomerName());
-        };
-        String [] cbName = customerNameListString.toArray(new String[0]);
-        customerNameList = new JComboBox<>(cbName);
-        customerNameList.setSelectedItem(cbName[0]);
-        customerPointList = new JComboBox<>();
-        customerPanel.add(customerNameList);
+        customerPanel = new JPanel();
+        btnCustomer = new JButton("Customer");
+        customerPanel.add(btnCustomer);
         JPanel orderBtnPanel = new JPanel();
         btnOrder = new JButton("ORDER");
         btnClear = new JButton("CLEAR");
         orderBtnPanel.add(btnOrder);
         orderBtnPanel.add(btnClear);
         add(categoryPanel,BorderLayout.WEST);
+        customerGirdPanel = new JPanel(new GridLayout(0,1));
+        customerGirdPanel.add(customerPanel);
+        customerPointPanel = new JPanel();
+        customerGirdPanel.add(customerPointPanel);
         RightPanel.add(orderTable);
-        RightPanel.add(customerPanel);
+        RightPanel.add(customerGirdPanel);
         RightPanel.add(orderBtnPanel);
         add(RightPanel,BorderLayout.EAST);
         searchPanel = new JPanel();
@@ -200,6 +196,37 @@ public class ShopGUI extends JPanel {
                 }
             }
         });
+        btnCustomer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                    ArrayList<String> customerNameListString = new ArrayList<>();
+                    for(Customer s: customers){
+                        customerNameListString.add(s.getCustomerName());
+                    };
+                    String [] cbName = customerNameListString.toArray(new String[0]);
+                    customerNameList = new JComboBox<>(cbName);
+                    customerNameList.setSelectedItem(cbName[0]);
+                    btnCloseCustomer = new JButton("x");
+                    customerPanel.add(customerNameList);
+                    customerPanel.add(btnCloseCustomer);
+                    customerPanel.repaint();
+                    repaint();
+                    revalidate();
+                    btnCustomer.setEnabled(false);
+                    customerNameList.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            CustomerManagement customerManagement = new CustomerManagement();
+                          setDiscount(customerManagement.findByName(customerNameList.getSelectedItem().toString()));
+                        }
+                    });
+                    repaint();
+                    revalidate();
+                    CloseCustomer();
+            }
+        });
+
+
     }
     public void renderProductEditDialog(){
         productEditGUI newGUI = new productEditGUI(null,orderDetail);
@@ -291,11 +318,59 @@ public class ShopGUI extends JPanel {
         });
         return orderDetail;
     }
+    public void CloseCustomer(){
+
+        btnCloseCustomer.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println(
+                            "dô"
+                    );
+                    customerPanel.remove(customerNameList);
+                    customerPanel.remove(btnCloseCustomer);
+                    customerPanel.repaint();
+                    repaint();
+                    revalidate();
+                    btnCustomer.setEnabled(true);
+                }
+            });
+    }
     public void delete(OrderDetail orderDetail, Integer row){
         orderDetails.remove(orderDetail);
         getCartTableModel().removeRow(row);
         getCartTableModel().fireTableDataChanged();
-       getCartScrollPane().validate();
+        getCartScrollPane().validate();
+        reloadTable();
+    }
+    public void setDiscount(Customer customer){
+        CustomerManagement customerManagement = new CustomerManagement();
+        if(customerManagement.PointOfCustomer(customer).size()<1){
+            labelInfo = new JLabel("Bạn chưa đủ điều kiện");
+            labelInfo.setFont(new Font("SF Pro Display", Font.BOLD, 18));
+            customerPointPanel.add(labelInfo);
+            repaint();
+            revalidate();
+        }else {
+            String [] cbNPoint = customerManagement.PointOfCustomer(customer).toArray(new String[0]);
+            customerPointList = new JComboBox<>(cbNPoint);
+            customerPointPanel.add(customerPointList);
+            repaint();
+            revalidate();
+            customerPointList.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println("Do 2");
+                    labelPricePoint = new JLabel(String.valueOf(Integer.parseInt(customerPointList.getSelectedItem().toString())*50000));
+                    customerPointPanel.add(labelPrice);
+                    btnClosePoint = new JButton("x");
+                    customerPointPanel.add(btnClosePoint);
+                    repaint();
+                    revalidate();
+                }
+            });
+        }
+        repaint();
+        revalidate();
     }
 
 }
