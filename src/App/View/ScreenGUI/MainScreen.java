@@ -10,7 +10,7 @@ import java.awt.*;
 public class MainScreen extends JFrame {
     private BorderLayout mainLayout;
     private JPanel managementScreen;
-    private JPanel statisticView, importView, loginView;
+    private JPanel statisticView, importView;
 
     public MainScreen(){
         initGUI();
@@ -20,7 +20,7 @@ public class MainScreen extends JFrame {
         this.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         this.mainLayout = new BorderLayout();
         this.setLayout(mainLayout);
-        this.add(loginView, BorderLayout.CENTER);
+        this.add(statisticView, BorderLayout.CENTER);
         this.pack();
         this.setLocationRelativeTo(null);
     }
@@ -28,6 +28,5 @@ public class MainScreen extends JFrame {
     public void initGUI() {
         statisticView = new StatisticView();
         importView = new ImportProductView();
-        loginView = new LoginView();
     }
 }
