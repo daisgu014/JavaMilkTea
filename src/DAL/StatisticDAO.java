@@ -165,9 +165,9 @@ public class StatisticDAO {
         ArrayList<Integer> total = new ArrayList<>();
         try {
             PreparedStatement preStmt = statisticDAO.getPreStmt("""
-                select sum(o.TotalPrice), sum(od.Quantity)
-                from OrderDetail od join Orders o on od.OrderID  = o.OrderId
-                where o.OrderDate >= ? and o.OrderDate <= ?;""");
+                    select sum(distinct o.TotalPrice) , sum(od.Quantity)
+                    from OrderDetail od join Orders o on od.OrderID  = o.OrderId
+                    where o.OrderDate >= ? and o.OrderDate <= ?;""");
             preStmt.setDate(1, from);
             preStmt.setDate(2, to);
             ResultSet rs = preStmt.executeQuery();

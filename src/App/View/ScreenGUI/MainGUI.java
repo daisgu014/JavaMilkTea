@@ -34,6 +34,7 @@ public class MainGUI extends JFrame {
                 "Employee",
                 "Account",
                 "Work Position",
+                "Order",
                 "Import",
                 "Statistic"
         )));
@@ -93,7 +94,7 @@ public class MainGUI extends JFrame {
             ImageIcon imageIcon = new ImageIcon(new File(path).toURI().toURL());
             Image scaleImage = imageIcon.getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT);
             logo = new JLabel(new ImageIcon(scaleImage), SwingConstants.CENTER);
-            logo.setPreferredSize(new Dimension(100, 100));
+            logo.setPreferredSize(new Dimension(90, 90));
             menuButton.add(logo);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
@@ -136,7 +137,7 @@ public class MainGUI extends JFrame {
     }
 
     private void setUIButton(JButton button) {
-        button.setPreferredSize(new Dimension(175, 60));
+        button.setPreferredSize(new Dimension(175, 56));
         button.setHorizontalAlignment(SwingConstants.LEFT);
         button.setIconTextGap(16);
         button.setBackground(primary);
