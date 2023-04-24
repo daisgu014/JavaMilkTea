@@ -24,7 +24,7 @@ public class ImportModel {
         for(Import i : logic.getPreparations()) {
             objects.add(new Object[] {
                     String.valueOf(index++),
-                    i.getProduct().getProductName(),
+                    i.getProductName(),
                     i.getSize(),
                     i.getQuantity()
             });
@@ -38,5 +38,21 @@ public class ImportModel {
 
     public ArrayList<String> getSizesByProductName(String name) {
         return loadData.management.getProductManagement().findByName(name).getSizeStrings();
+    }
+
+    public void addPreparations(String productName, String size, int qty) {
+        logic.addPreparations(productName, size, qty);
+    }
+
+    public void updateStorage() {
+        logic.updateStorage();
+    }
+
+    public boolean removePreparation(Import i) {
+        return logic.removePreparation(i);
+    }
+
+    public Import getImportAt(int index) {
+        return logic.getImportAt(index);
     }
 }

@@ -10,6 +10,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 public class ImportProductView extends JPanel {
@@ -17,7 +19,7 @@ public class ImportProductView extends JPanel {
     private DefaultTableModel model;
     private JComboBox<String> products, sizes;
     private JTextField qtyTxf;
-    private JButton addBtn, editBtn, deleteBtn;
+    private JButton addBtn, editBtn, deleteBtn, importBtn;
     private JLabel qtyLbl, productLbl, title, sizeLbl;
     private JPanel leftContainer;
     private JScrollPane scrollPane;
@@ -36,6 +38,10 @@ public class ImportProductView extends JPanel {
         title.setPreferredSize(new Dimension(0, 50));
         model = new DefaultTableModel();
         productTable = new JTable(model);
+        JPanel p = new JPanel();
+        importBtn = new JButton("Import Products");
+        importBtn.setPreferredSize(new Dimension(180, 40));
+        p.add(importBtn);
 
         model.addColumn("No.");
         model.addColumn("Product");
@@ -47,6 +53,7 @@ public class ImportProductView extends JPanel {
         this.add(title, BorderLayout.NORTH);
         this.add(scrollPane, BorderLayout.CENTER);
         this.add(leftContainer, BorderLayout.EAST);
+        this.add(p, BorderLayout.SOUTH);
         handleEvents();
     }
 
@@ -95,11 +102,25 @@ public class ImportProductView extends JPanel {
         }
     }
 
+    public void removeAllDataTable() {
+        int rowCount = model.getRowCount();
+        //Remove rows one by one from the end of the table
+        for (int i = rowCount - 1; i >= 0; i--) {
+            model.removeRow(i);
+        }
+    }
+
     public void initComboBox() {
         String[] strings = controller.getModel().getProductNames().toArray(new String[0]);
         products = new JComboBox<>(strings);
         products.setSelectedIndex(-1);
         sizes = new JComboBox<>();
+    }
+
+    public void refreshInput() {
+//        products.setSelectedIndex(-1);
+//        sizes.removeAllItems();
+        qtyTxf.setText("");
     }
 
     public void handleEvents() {
@@ -123,14 +144,61 @@ public class ImportProductView extends JPanel {
                     String size = (String) sizes.getSelectedItem();
                     int qty = Integer.parseInt(qtyTxf.getText());
                     if (name != null && size != null && qty > 0) {
-                        controller.getModel().getLogic().addPreparations(name, size, qty);
+                        controller.getModel().addPreparations(name, size, qty);
+                        setDataTable(controller.getModel().getDataTable());
+                        refreshInput();
                     } else {
                         throw new Exception();
                     }
                 } catch (Exception exception) {
-//                    System.out.println("Looi them preparation");
-                    System.out.println(exception);
+//                    System.out.println(exception);
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Add Fail!!!",
+                            "Message",
+                            JOptionPane.WARNING_MESSAGE
+                    );
                 }
+            }
+        });
+
+        deleteBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (productTable.getSelectedRow() >= 0) {
+                    Import selected = controller.getModel().getImportAt(productTable.getSelectedRow());
+                    controller.getModel().removePreparation(selected);
+                    setDataTable(controller.getModel().getDataTable());
+                    refreshInput();
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Delete Successfully!!!",
+                            "Message",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                } else {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Delete Fail!!!",
+                            "Message",
+                            JOptionPane.WARNING_MESSAGE
+                    );
+                }
+            }
+        });
+
+        importBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.getModel().updateStorage();
+                setDataTable(controller.getModel().getDataTable());
+                refreshInput();
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Import Successfully!!!",
+                        "Message",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
             }
         });
     }

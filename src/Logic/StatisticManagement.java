@@ -16,8 +16,8 @@ public class StatisticManagement {
     StatisticDAO statisticAccess;
     ArrayList<StatisticProduct> productStatistic;
     ArrayList<StatisticCategory> categoryStatistic;
-    ArrayList<Order> orders;
     ArrayList<RevenueMonthYear> revenueMYList;
+    ArrayList<Integer> totalSQ;
 
     public StatisticManagement() {
         statisticAccess = new StatisticDAO();
@@ -26,8 +26,8 @@ public class StatisticManagement {
     public void getDataStatistic(Date from, Date to) {
         productStatistic = statisticAccess.getProductStatistic(from, to);
         categoryStatistic = statisticAccess.getCategoryStatistic(from, to);
-        orders = statisticAccess.getOrderStatistic(from, to);
         revenueMYList = statisticAccess.getRevenueMonthYear(from, to);
+        totalSQ = statisticAccess.getTotal(from, to);
     }
 
     public DefaultPieDataset<String> getDataPieChart() {
@@ -86,10 +86,6 @@ public class StatisticManagement {
         return statisticAccess.getCategoryStatistic(from, to);
     }
 
-    public ArrayList<Order> getOrders(Date from, Date to) {
-        return statisticAccess.getOrderStatistic(from, to);
-    }
-
     public ArrayList<StatisticProduct> getProductStatistic() {
         return productStatistic;
     }
@@ -98,11 +94,11 @@ public class StatisticManagement {
         return categoryStatistic;
     }
 
-    public ArrayList<Order> getOrders() {
-        return orders;
-    }
-
     public ArrayList<RevenueMonthYear> getRevenueMYList() {
         return revenueMYList;
+    }
+
+    public ArrayList<Integer> getTotalSQ() {
+        return totalSQ;
     }
 }
