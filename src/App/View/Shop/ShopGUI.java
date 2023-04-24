@@ -1,5 +1,6 @@
 package App.View.Shop;
 
+import App.View.DialogReceipt;
 import App.View.Shop.Controller.OrderController;
 import App.View.Shop.model.OrderDetailsModel;
 import Entity.*;
@@ -21,8 +22,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-import static App.View.Shop.loadData.customers;
-import static App.View.Shop.loadData.orderDetails;
+import static App.View.Shop.loadData.*;
 
 public class ShopGUI extends JPanel {
     static OrderController orderController = new OrderController();
@@ -405,9 +405,9 @@ public void initPoint(Customer customer){
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Do 2");
                 labelPricePoint.setText(String.valueOf(Integer.parseInt(customerPointList.getSelectedItem().toString())*5000));
-                TotalPrice();
                 repaint();
                 revalidate();
+                TotalPrice();
             }
         });
     }
@@ -440,7 +440,7 @@ public void TotalPrice(){
             price+=o.getProduct().getPrice(o.getSize())*o.getQuantity();
         }
         labelPrice.setText(String.valueOf(price));
-        if(customerNameList!=null && customerManagement.findByName(customerNameList.getSelectedItem().toString()).getPoints()>10){
+        if(customerNameList!=null && customerManagement.findByName(customerNameList.getSelectedItem().toString()).getPoints()>10 && customerPointList!=null){
             if(labelPricePoint!=null && !labelPricePoint.equals("")){
                 if(price-Integer.parseInt(labelPricePoint.getText())>0){
                     labelPrice.setText(String.valueOf(price-Integer.parseInt(labelPricePoint.getText())));
@@ -460,10 +460,17 @@ public Order order(ArrayList<OrderDetail> orderDetails){
 public Order order(ArrayList<OrderDetail> orderDetails, Customer customer, Integer vlue){
         return orderManagement.createWithPhone(orderDetails, customer, vlue);
 }
+public void displayReceipt(Order order){
+    DialogReceipt dialogReceipt = new DialogReceipt(order);
+    dialogReceipt.setLocationRelativeTo(null);
+    dialogReceipt.setVisible(true);
+}
 public void OrderCartTable(){
         Order order;
         if(customerNameList==null){
             order = order(orderDetails);
+            orders.add(order);
+            displayReceipt(order);
         }else{
             order = order(orderDetails,
                     customerManagement.findByName(customerNameList.getSelectedItem().toString()),
@@ -476,12 +483,13 @@ public void OrderCartTable(){
                       }
             }
         }
+            orders.add(order);
+            displayReceipt(order);
             customerPanel.remove(customerNameList);
             customerPanel.remove(btnCloseCustomer);
             customerPanel.repaint();
             btnCustomer.setEnabled(true);
         }
-
     orderDetails.clear();
     reloadTable();
     closeCustomerPoint();

@@ -70,6 +70,13 @@ public class OrderManagement {
         }
         return order;
     }
+    public Order findById(Integer id){
+        if(orderDAO.get(id)!=null){
+            return orderDAO.get(id);
+        }else {
+            return null;
+        }
+    }
 
     public ArrayList<OrderDetail> orderDetails(Integer id){
         return orderDAO.orderDetailsWithID(id);

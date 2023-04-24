@@ -13,7 +13,7 @@ public class OrderDetailsModel {
         this.Product=orderDetailsModel.getProduct().getProductName();
         this.size=orderDetailsModel.getSize();
         this.qty=orderDetailsModel.getQuantity();
-        this.totalPrice=orderDetailsModel.getQuantity()*orderDetailsModel.getProduct().getPrice(orderDetailsModel.getSize());
+        this.totalPrice=this.qty*orderDetailsModel.getProduct().getPrice(this.size);
         this.orderDetail=orderDetailsModel;
     }
 

@@ -58,7 +58,22 @@ public class OrderDAO extends DAO<Order>{
 
     @Override
     public Order get(int id) {
-        return null;
+        Order order = new Order();
+        PreparedStatement prSt = database.getPreStmt("Select * from Orders Where orderId = ?");
+        try {
+            prSt.setInt(1,id);
+            ResultSet rs = prSt.executeQuery();
+            while (rs.next()){
+                order.setOrderId(rs.getInt(1));
+                order.setTotalPrice(rs.getInt(2));
+                order.setOrderDate(rs.getDate(3));
+                if(rs.getString(4)!=null) order.setCustomer(customerManagement.findByPhone(rs.getString(4)));
+                order.setCashier(employeeManagement.getEmployeeById(rs.getInt(5)));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    return order;
     }
 
     @Override
