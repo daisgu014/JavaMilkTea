@@ -2,13 +2,12 @@ package App.View.Shop;
 
 import App.View.Shop.Controller.OrderController;
 import App.View.Shop.model.OrderDetailsModel;
-import Entity.Category;
-import Entity.Customer;
-import Entity.OrderDetail;
-import Entity.Product;
+import Entity.*;
 import Logic.CustomerManagement;
 import Logic.Management;
+import Logic.OrderManagement;
 import Logic.ProductManagement;
+import Main.Main;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -33,21 +32,11 @@ public class ShopGUI extends JPanel {
     private JPanel searchPanel;
     private JTable cartTable;
     private JLabel labelPricePoint, labelPrice, labelInfo;
+    CustomerManagement customerManagement = new CustomerManagement();
+    OrderManagement orderManagement = new OrderManagement();
 
     public JTable getCartTable() {
         return cartTable;
-    }
-
-    public void setCartTable(JTable cartTable) {
-        this.cartTable = cartTable;
-    }
-
-    public JButton getBtnEdit() {
-        return btnEdit;
-    }
-
-    public JButton getBtnDelete() {
-        return btnDelete;
     }
 
     public DefaultTableModel getCartTableModel() {
@@ -57,7 +46,7 @@ public class ShopGUI extends JPanel {
     public JScrollPane getCartScrollPane() {
         return cartScrollPane;
     }
-    private JPanel productListPanel,customerGirdPanel,customerPanel,customerPointPanel;
+    private JPanel productListPanel,customerGirdPanel,customerPanel,customerPointPanel,TotalPricePanel;
     private DefaultTableModel cartTableModel;
     private JScrollPane scrollPane;
     private JScrollPane cartScrollPane;
@@ -76,8 +65,17 @@ public class ShopGUI extends JPanel {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         this.add(scrollPane,BorderLayout.CENTER);
         JPanel categoryPanel = new JPanel(new GridLayout(0,1));
-        categoryPanel.setPreferredSize(new Dimension(300, 800));
+        categoryPanel.setPreferredSize(new Dimension(150, 800));
         categoryPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        JButton btnAll  = new JButton("All");
+        categoryPanel.add(btnAll);
+        btnAll.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                render(loadData.products);
+                scrollPane.validate();
+            }
+        });
         loadData.categories.forEach(cate->
         {
             ArrayList<Product> products = new ArrayList<>();
@@ -136,8 +134,12 @@ public class ShopGUI extends JPanel {
         customerGirdPanel.add(customerPanel);
         customerPointPanel = new JPanel();
         customerGirdPanel.add(customerPointPanel);
+        TotalPricePanel = new JPanel();
+        labelPrice = new JLabel("0");
+        TotalPricePanel.add(labelPrice);
         RightPanel.add(orderTable);
         RightPanel.add(customerGirdPanel);
+        RightPanel.add(TotalPricePanel);
         RightPanel.add(orderBtnPanel);
         add(RightPanel,BorderLayout.EAST);
         searchPanel = new JPanel();
@@ -173,7 +175,7 @@ public class ShopGUI extends JPanel {
         btnDelete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(orderDetail== null && selectRow==-1){
+                if(orderDetail== null || selectRow==-1 || selectRow==null){
                     JOptionPane.showMessageDialog(null,"Vui lòng chọn sản phẩm cần xóa");
                 }else {
                     int option =  JOptionPane.showConfirmDialog(null, "Bạn chắc muốn xóa "+orderDetail.getProduct().getProductName()+"?", "Confirmation", JOptionPane.YES_NO_OPTION);
@@ -189,7 +191,7 @@ public class ShopGUI extends JPanel {
         btnEdit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(orderDetail==null && selectRow==-1){
+                if(orderDetail==null || selectRow==-1 || selectRow==null){
                     JOptionPane.showMessageDialog(null,"Vui lòng chọn sản phẩm cần chỉnh sửa");
                 }else{
                     renderProductEditDialog();
@@ -209,24 +211,37 @@ public class ShopGUI extends JPanel {
                     btnCloseCustomer = new JButton("x");
                     customerPanel.add(customerNameList);
                     customerPanel.add(btnCloseCustomer);
+                    initPoint(customerManagement.findByName(customerNameList.getSelectedItem().toString()));
+                TotalPrice();
+                    closeCustomerPointEvent();
                     customerPanel.repaint();
-                    repaint();
-                    revalidate();
+                repaint();
+                revalidate();
                     btnCustomer.setEnabled(false);
                     customerNameList.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            CustomerManagement customerManagement = new CustomerManagement();
-                          setDiscount(customerManagement.findByName(customerNameList.getSelectedItem().toString()));
+                            Customer customer = customerManagement.findByName(customerNameList.getSelectedItem().toString());
+                            initPoint(customer);
+                            TotalPrice();
                         }
                     });
-                    repaint();
-                    revalidate();
                     CloseCustomer();
             }
         });
-
-
+        btnOrder.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               if(orderDetails.size()>0){
+                   int option =  JOptionPane.showConfirmDialog(null,"Bạn chắc chắn muốn thanh toán", "Thanh toán ơn hàng", JOptionPane.YES_NO_OPTION);
+                   if (option == JOptionPane.YES_OPTION) {
+                       OrderCartTable();
+                   }else {
+                       return;
+                   }
+               }
+            }
+        });
     }
     public void renderProductEditDialog(){
         productEditGUI newGUI = new productEditGUI(null,orderDetail);
@@ -323,16 +338,21 @@ public class ShopGUI extends JPanel {
         btnCloseCustomer.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println(
-                            "dô"
-                    );
                     customerPanel.remove(customerNameList);
                     customerPanel.remove(btnCloseCustomer);
                     customerPanel.repaint();
+                    closeCustomerPoint();
+                    Integer price =0;
+                    for(OrderDetail o :orderDetails){
+                        price+=o.getProduct().getPrice(o.getSize())*o.getQuantity();
+                    }
+                    labelPrice.setText(String.valueOf(price));
                     repaint();
                     revalidate();
                     btnCustomer.setEnabled(true);
+
                 }
+
             });
     }
     public void delete(OrderDetail orderDetail, Integer row){
@@ -343,7 +363,6 @@ public class ShopGUI extends JPanel {
         reloadTable();
     }
     public void setDiscount(Customer customer){
-        CustomerManagement customerManagement = new CustomerManagement();
         if(customerManagement.PointOfCustomer(customer).size()<1){
             labelInfo = new JLabel("Bạn chưa đủ điều kiện");
             labelInfo.setFont(new Font("SF Pro Display", Font.BOLD, 18));
@@ -359,18 +378,114 @@ public class ShopGUI extends JPanel {
             customerPointList.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println("Do 2");
-                    labelPricePoint = new JLabel(String.valueOf(Integer.parseInt(customerPointList.getSelectedItem().toString())*50000));
-                    customerPointPanel.add(labelPrice);
-                    btnClosePoint = new JButton("x");
-                    customerPointPanel.add(btnClosePoint);
                     repaint();
                     revalidate();
+                    labelPricePoint.setText(String.valueOf(Integer.parseInt(customerPointList.getSelectedItem().toString())*5000));
+                    TotalPrice();
                 }
             });
         }
+    }
+public void initPoint(Customer customer){
+        customerPointPanel.removeAll();
+    if(customerManagement.PointOfCustomer(customer).size()<1){
+        labelInfo = new JLabel("Bạn chưa đủ điều kiện");
+        labelInfo.setFont(new Font("SF Pro Display", Font.BOLD, 18));
+        customerPointPanel.add(labelInfo);
+    }else {
+        String [] cbNPoint = customerManagement.PointOfCustomer(customer).toArray(new String[0]);
+        customerPointList = new JComboBox<>(cbNPoint);
+        customerPointPanel.add(customerPointList);
+        labelPricePoint = new JLabel(String.valueOf(Integer.parseInt(customerPointList.getSelectedItem().toString())*5000));
+        customerPointPanel.add(labelPricePoint);
+        btnClosePoint = new JButton("x");
+        customerPointPanel.add(btnClosePoint);
+        customerPointList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Do 2");
+                labelPricePoint.setText(String.valueOf(Integer.parseInt(customerPointList.getSelectedItem().toString())*5000));
+                TotalPrice();
+                repaint();
+                revalidate();
+            }
+        });
+    }
+    TotalPrice();
+    repaint();
+    revalidate();
+    closeCustomerPointEvent();
+}
+public void closeCustomerPoint(){
+        customerPointPanel.removeAll();
+    Integer price =0;
+    for(OrderDetail o :orderDetails){
+        price+=o.getProduct().getPrice(o.getSize())*o.getQuantity();
+    }
+    labelPrice.setText(String.valueOf(price));
         repaint();
         revalidate();
-    }
+}
+public void closeCustomerPointEvent(){
+        btnClosePoint.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                closeCustomerPoint();
+            }
+        });
+}
+public void TotalPrice(){
+        Integer price =0;
+        for(OrderDetail o :orderDetails){
+            price+=o.getProduct().getPrice(o.getSize())*o.getQuantity();
+        }
+        labelPrice.setText(String.valueOf(price));
+        if(customerNameList!=null && customerManagement.findByName(customerNameList.getSelectedItem().toString()).getPoints()>10){
+            if(labelPricePoint!=null && !labelPricePoint.equals("")){
+                if(price-Integer.parseInt(labelPricePoint.getText())>0){
+                    labelPrice.setText(String.valueOf(price-Integer.parseInt(labelPricePoint.getText())));
+                }else {
+                    labelPrice.setText("0");
+                }
+            }
+        }
 
+    TotalPricePanel.repaint();
+        repaint();
+        revalidate();
+}
+public Order order(ArrayList<OrderDetail> orderDetails){
+        return orderManagement.createWithNoPhone(orderDetails);
+}
+public Order order(ArrayList<OrderDetail> orderDetails, Customer customer, Integer vlue){
+        return orderManagement.createWithPhone(orderDetails, customer, vlue);
+}
+public void OrderCartTable(){
+        Order order;
+        if(customerNameList==null){
+            order = order(orderDetails);
+        }else{
+            order = order(orderDetails,
+                    customerManagement.findByName(customerNameList.getSelectedItem().toString()),
+                    Integer.parseInt(labelPricePoint.getText()));
+        if(customerManagement.findByName(customerNameList.getSelectedItem().toString()).getPoints()>10 && labelPricePoint!=null){
+            customerManagement.Update_Sub_Point(customerManagement.findByName(customerNameList.getSelectedItem().toString()),Integer.parseInt(customerPointList.getSelectedItem().toString()));
+                  for(Customer customer: customers){
+                      if(customer==customerManagement.findByName(customerNameList.getSelectedItem().toString())){
+                          customer.setPoints(customer.getPoints()-Integer.parseInt(customerPointList.getSelectedItem().toString()));
+                      }
+            }
+        }
+            customerPanel.remove(customerNameList);
+            customerPanel.remove(btnCloseCustomer);
+            customerPanel.repaint();
+            btnCustomer.setEnabled(true);
+        }
+
+    orderDetails.clear();
+    reloadTable();
+    closeCustomerPoint();
+    repaint();
+    revalidate();
+}
 }

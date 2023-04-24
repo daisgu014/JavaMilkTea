@@ -5,7 +5,9 @@ import DAL.OrderDAO;
 import Entity.Customer;
 import Entity.Order;
 import Entity.OrderDetail;
+import Main.Main;
 
+import javax.swing.*;
 import java.util.ArrayList;
 public class OrderManagement {
     private ArrayList<Order> orders;
@@ -35,6 +37,7 @@ public class OrderManagement {
         Order order = new Order();
         order.setDetails(orderDetails);
         order.setTotalPrice(price);
+        order.setCashier(Main.APP.currEmployee);
         order.setCustomer(customer);
         Order newOrder = orderDAO.create(order);
         order.setOrderId(newOrder.getOrderId());
@@ -42,9 +45,7 @@ public class OrderManagement {
         for(OrderDetail o : orderDetails){
             if(orderDAO.insertOrderDetails(o,order)){
                 productManagement.Sub_Storage_Product(o);
-                System.out.println("Them san pham thanh cong: "+o.getProduct().getProductName());
             }else{
-                System.out.println("Thêm sản phẩm thất bại");
             }
         }
         return order;
@@ -56,6 +57,7 @@ public class OrderManagement {
         for(OrderDetail p : orderDetails){
             sum+=(p.getProduct().getPrice(p.getSize())*p.getQuantity());
         }
+        order.setCashier(Main.APP.currEmployee);
         order.setTotalPrice(sum);
         Order newOrder = orderDAO.CreateOrderWithNoPhone(order);
         order.setOrderId(newOrder.getOrderId());
@@ -63,9 +65,7 @@ public class OrderManagement {
         for(OrderDetail o : orderDetails){
             if(orderDAO.insertOrderDetails(o,order)){
                 productManagement.Sub_Storage_Product(o);
-                System.out.println("Them san pham thanh cong: "+o.getProduct().getProductName());
             }else {
-                System.out.println("Them san pham that bai");
             }
         }
         return order;

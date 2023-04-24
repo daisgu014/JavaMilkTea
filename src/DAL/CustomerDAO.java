@@ -95,17 +95,20 @@ public class CustomerDAO extends DAO<Customer> {
 
         return customer;
     }
-    public void insertCustomer(Customer  customer){
+    public boolean insertCustomer(Customer  customer){
         PreparedStatement prSt = dao.getPreStmt("insert into Customer(Phone, CustomerName, Points) values(?,?,?);");
+        boolean rs = false;
         try {
             prSt.setString(1,customer.getPhone());
             prSt.setString(2,customer.getCustomerName());
             prSt.setInt(3,customer.getPoints());
             prSt.execute();
+            rs=true;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return rs;
     }
     public Customer findByName(String name){
         Customer customer = new Customer();

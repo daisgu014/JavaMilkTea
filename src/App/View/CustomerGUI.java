@@ -351,6 +351,7 @@ public class CustomerGUI extends JPanel implements ActionListener{
             customer= new Customer(phone,name,point);
             if(checkCustomer(customer)){
                 if(checkPhone(phone)){
+                    customers.add(customer);
                     customerManagement.create(customer);
                     defaultTableModel.addRow(customer.toObject());
                     clearInput();
