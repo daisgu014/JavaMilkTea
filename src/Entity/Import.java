@@ -1,25 +1,25 @@
 package Entity;
 
 public class Import {
-    private Product product;
+    private String productName;
     private String size;
     private int quantity;
 
     public Import() {
     }
 
-    public Import(Product product, String size, int quantity) {
-        this.product = product;
+    public Import(String productName, String size, int quantity) {
+        this.productName = productName;
         this.size = size;
         this.quantity = quantity;
     }
 
-    public Product getProduct() {
-        return product;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getSize() {
