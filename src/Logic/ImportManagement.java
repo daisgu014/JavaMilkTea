@@ -1,15 +1,17 @@
 package Logic;
 
 import App.View.Shop.loadData;
+import DAL.ImportDAO;
 import Entity.Import;
-import Entity.Product;
 
 import java.util.ArrayList;
 
 public class ImportManagement {
+    private ImportDAO importAccess;
     private ArrayList<Import> preparations;
 
     public ImportManagement() {
+        importAccess = new ImportDAO();
         preparations = new ArrayList<>();
     }
 
@@ -19,15 +21,31 @@ public class ImportManagement {
 
 
     public void addPreparations(String productName, String size, int qty) {
-        Product p = loadData.management.getProductManagement().findByName(productName);
+        boolean existed = false;
         for (Import i : preparations) {
-            if (i.getProduct().getProductName().equalsIgnoreCase(productName)) {
+            if (i.getProductName().equalsIgnoreCase(productName) && i.getSize().equalsIgnoreCase(size)) {
                 i.setQuantity(i.getQuantity() + qty);
+                existed = true;
             }
         }
-        preparations.add(new Import(p, size, qty));
+        if(!existed) {
+            preparations.add(new Import(productName, size, qty));
+        }
     }
 
     public void addPreparations(Import i) {
+    }
+
+    public Import getImportAt(int index) {
+        return preparations.get(index);
+    }
+
+    public void updateStorage() {
+        importAccess.updateStorageProduct(preparations);
+        preparations = new ArrayList<>();
+    }
+
+    public boolean removePreparation(Import i) {
+        return preparations.remove(i);
     }
 }

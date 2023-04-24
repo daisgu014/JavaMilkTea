@@ -59,51 +59,51 @@ public class StatisticDAO {
         return list;
     }
 
-    public ArrayList<Order> getOrderStatistic(Date start, Date end) {
-        ArrayList<Order> orders = new ArrayList<>();
-        try {
-            PreparedStatement preStmt = statisticDAO.getPreStmt("""
-                select *
-                from Orders o
-                where o.OrderDate >= ? and o.OrderDate <= ?;"""
-            );
-            preStmt.setDate(1, start);
-            preStmt.setDate(2, end);
-            ResultSet rs = preStmt.executeQuery();
-            while(rs.next()) {
-                orders.add(new Order(
-                        rs.getInt(1),
-                        rs.getInt(2),
-                        rs.getDate(3),
-                        loadData.management.getCustomerManagement().findByPhone(rs.getString(4)),
-                        loadData.management.getEmployeeManagement().getEmployeeById(rs.getInt(5))
-                ));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        PreparedStatement prSt = statisticDAO.getPreStmt("select * from OrderDetail where OrderID=?");
-        for(Order order : orders){
-            ArrayList<OrderDetail> orderDetails = new ArrayList<>();
-            try {
-                prSt.setInt(1,order.getOrderId());
-                ResultSet resultSet = prSt.executeQuery();
-                while (resultSet.next()){
-                    orderDetails.add(new OrderDetail(
-                            loadData.management.getProductManagement().findById(resultSet.getInt(2)),
-                            resultSet.getString(3),
-                            resultSet.getInt(4)
-                    ));
-                }
-                order.setDetails(orderDetails);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-
-        }
-        return orders;
-    }
+//    public ArrayList<Order> getOrderStatistic(Date start, Date end) {
+//        ArrayList<Order> orders = new ArrayList<>();
+//        try {
+//            PreparedStatement preStmt = statisticDAO.getPreStmt("""
+//                select *
+//                from Orders o
+//                where o.OrderDate >= ? and o.OrderDate <= ?;"""
+//            );
+//            preStmt.setDate(1, start);
+//            preStmt.setDate(2, end);
+//            ResultSet rs = preStmt.executeQuery();
+//            while(rs.next()) {
+//                orders.add(new Order(
+//                        rs.getInt(1),
+//                        rs.getInt(2),
+//                        rs.getDate(3),
+//                        loadData.management.getCustomerManagement().findByPhone(rs.getString(4)),
+//                        loadData.management.getEmployeeManagement().getEmployeeById(rs.getInt(5))
+//                ));
+//            }
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        PreparedStatement prSt = statisticDAO.getPreStmt("select * from OrderDetail where OrderID=?");
+//        for(Order order : orders){
+//            ArrayList<OrderDetail> orderDetails = new ArrayList<>();
+//            try {
+//                prSt.setInt(1,order.getOrderId());
+//                ResultSet resultSet = prSt.executeQuery();
+//                while (resultSet.next()){
+//                    orderDetails.add(new OrderDetail(
+//                            loadData.management.getProductManagement().findById(resultSet.getInt(2)),
+//                            resultSet.getString(3),
+//                            resultSet.getInt(4)
+//                    ));
+//                }
+//                order.setDetails(orderDetails);
+//            } catch (SQLException e) {
+//                throw new RuntimeException(e);
+//            }
+//
+//        }
+//        return orders;
+//    }
 
     public ArrayList<StatisticCategory> getCategoryStatistic(Date start, Date end) {
         ArrayList<StatisticCategory> list = new ArrayList<>();
@@ -140,7 +140,7 @@ public class StatisticDAO {
 
         try {
             PreparedStatement preStmt = statisticDAO.getPreStmt("""
-                select MONTH(o.OrderDate), YEAR(o.OrderDate), sum(o.TotalPrice)
+                select MONTH(o.OrderDate), YEAR(o.OrderDate), sum(o.TotalPrice), count(o.OrderId)
                 from Orders o
                 where o.OrderDate >= ? and o.OrderDate <= ?
                 group by YEAR(o.OrderDate), MONTH(o.OrderDate);""");
@@ -149,15 +149,36 @@ public class StatisticDAO {
             ResultSet rs = preStmt.executeQuery();
             while (rs.next()){
                 list.add(new RevenueMonthYear(
-                   rs.getInt(1),
-                   rs.getInt(2),
-                   rs.getInt(3)
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4)
                 ));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return list;
+    }
+
+    public ArrayList<Integer> getTotal(Date from, Date to) {
+        ArrayList<Integer> total = new ArrayList<>();
+        try {
+            PreparedStatement preStmt = statisticDAO.getPreStmt("""
+                select sum(o.TotalPrice), sum(od.Quantity)
+                from OrderDetail od join Orders o on od.OrderID  = o.OrderId
+                where o.OrderDate >= ? and o.OrderDate <= ?;""");
+            preStmt.setDate(1, from);
+            preStmt.setDate(2, to);
+            ResultSet rs = preStmt.executeQuery();
+            while(rs.next()) {
+                total.add(rs.getInt(1));
+                total.add(rs.getInt(2));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return total;
     }
 
 }
