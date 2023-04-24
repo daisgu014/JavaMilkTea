@@ -27,7 +27,7 @@ public class EmployeeGUI extends CrudGUI{
     public EmployeeGUI(){
         employeeController = new EmployeeController();
         getList();
-        setSceneSize();
+        setSceneEmpoyee();
         Scene();
     }
     public void getList(){
@@ -177,7 +177,7 @@ public class EmployeeGUI extends CrudGUI{
         setBtnDelete(delete);
         setBtnExit(exit);
     }
-    public void setSceneSize(){
+    public void setSceneEmpoyee(){
         setTitle("Employee");
         setDataTable();
         setButton();
