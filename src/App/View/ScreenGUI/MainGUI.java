@@ -30,8 +30,10 @@ public class MainGUI extends JFrame {
                 "Sale",
                 "Customer",
                 "Product",
+                "Size",
                 "Employee",
                 "Account",
+                "Work Position",
                 "Import",
                 "Statistic"
         )));
