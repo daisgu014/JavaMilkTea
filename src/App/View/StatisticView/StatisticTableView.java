@@ -55,17 +55,17 @@ public class StatisticTableView {
         productStatisticModel.addColumn("No.");
         productStatisticModel.addColumn("Product");
         productStatisticModel.addColumn("Size");
-        productStatisticModel.addColumn("Total Quantity");
+        productStatisticModel.addColumn("Total Quantity (Not Include Discount)");
         productStatisticModel.addColumn("Total Sales");
 
         cateStatisticModel.addColumn("No.");
         cateStatisticModel.addColumn("Category");
-        cateStatisticModel.addColumn("Total Sales");
+        cateStatisticModel.addColumn("Total Sales (Not Include Discount)");
         cateStatisticModel.addColumn("Quantity");
 
         revenueModel.addColumn("No.");
         revenueModel.addColumn("Date");
-        revenueModel.addColumn("Total Revenue");
+        revenueModel.addColumn("Total Revenue (Include Discount)");
         revenueModel.addColumn("Total Quantity Orders");
 
         scrollPane1 = new JScrollPane(productTable);
