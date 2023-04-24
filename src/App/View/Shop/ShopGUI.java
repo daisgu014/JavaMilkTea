@@ -1,5 +1,7 @@
 package App.View.Shop;
 
+import App.Controller.CustomerController;
+import App.View.CustomerGUI;
 import App.View.DialogReceipt;
 import App.View.Shop.Controller.OrderController;
 import App.View.Shop.model.OrderDetailsModel;
@@ -188,6 +190,13 @@ public class ShopGUI extends JPanel {
                 }
             }
         });
+        btnClear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                orderDetails.clear();
+                reloadTable();
+            }
+        });
         btnEdit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -239,6 +248,8 @@ public class ShopGUI extends JPanel {
                    }else {
                        return;
                    }
+               }else{
+                   JOptionPane.showMessageDialog(null,"Vui lòng chọn sản phẩm trước khi thanh toán");
                }
             }
         });
@@ -338,8 +349,8 @@ public class ShopGUI extends JPanel {
         btnCloseCustomer.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    customerPanel.remove(customerNameList);
-                    customerPanel.remove(btnCloseCustomer);
+                    customerNameList = new JComboBox<>();
+                    customerPanel.removeAll();
                     customerPanel.repaint();
                     closeCustomerPoint();
                     Integer price =0;
@@ -417,7 +428,9 @@ public void initPoint(Customer customer){
     closeCustomerPointEvent();
 }
 public void closeCustomerPoint(){
-        customerPointPanel.removeAll();
+    labelPricePoint.setText("");
+    customerPointList = new JComboBox<>();
+    customerPointPanel.removeAll();
     Integer price =0;
     for(OrderDetail o :orderDetails){
         price+=o.getProduct().getPrice(o.getSize())*o.getQuantity();
@@ -440,8 +453,8 @@ public void TotalPrice(){
             price+=o.getProduct().getPrice(o.getSize())*o.getQuantity();
         }
         labelPrice.setText(String.valueOf(price));
-        if(customerNameList!=null && customerManagement.findByName(customerNameList.getSelectedItem().toString()).getPoints()>10 && customerPointList!=null){
-            if(labelPricePoint!=null && !labelPricePoint.equals("")){
+        if(customerNameList!=null && customerManagement.findByName(customerNameList.getSelectedItem().toString()).getPoints()>=10 && customerPointList!=null){
+            if(!labelPricePoint.getText().equalsIgnoreCase("") ){
                 if(price-Integer.parseInt(labelPricePoint.getText())>0){
                     labelPrice.setText(String.valueOf(price-Integer.parseInt(labelPricePoint.getText())));
                 }else {
@@ -467,21 +480,24 @@ public void displayReceipt(Order order){
 }
 public void OrderCartTable(){
         Order order;
-        if(customerNameList==null){
+        if(customerNameList==null || customerNameList.getSelectedItem()==null){
             order = order(orderDetails);
             orders.add(order);
             displayReceipt(order);
-        }else{
+        }else {
             order = order(orderDetails,
                     customerManagement.findByName(customerNameList.getSelectedItem().toString()),
                     Integer.parseInt(labelPrice.getText()));
-        if(customerManagement.findByName(customerNameList.getSelectedItem().toString()).getPoints()>10 && labelPricePoint!=null){
+        if(customerManagement.findByName(customerNameList.getSelectedItem().toString()).getPoints()>=10 && labelPricePoint!=null && customerPointList.getSelectedItem()!=null){
             customerManagement.Update_Sub_Point(customerManagement.findByName(customerNameList.getSelectedItem().toString()),Integer.parseInt(customerPointList.getSelectedItem().toString()));
                   for(Customer customer: customers){
-                      if(customer==customerManagement.findByName(customerNameList.getSelectedItem().toString())){
+                      if(customer.getCustomerName().equalsIgnoreCase(customerNameList.getSelectedItem().toString())){
                           customer.setPoints(customer.getPoints()-Integer.parseInt(customerPointList.getSelectedItem().toString()));
+                          System.out.println("Hello"+customer.getCustomerName()+customer.getPoints());
                       }
             }
+            CustomerGUI customerGUI = new CustomerGUI();
+                  customerGUI.reloadTable();
         }
             orders.add(order);
             displayReceipt(order);
