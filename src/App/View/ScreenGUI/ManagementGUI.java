@@ -2,6 +2,7 @@ package App.View.ScreenGUI;
 
 import App.Model.GUI;
 import App.View.CustomerGUI;
+import App.View.OrderGUI;
 import App.View.Shop.ShopGUI;
 import App.View.StatisticView.StatisticView;
 
@@ -19,6 +20,8 @@ public class ManagementGUI {
         GUI accountGUI = new GUI("Account", new StatisticView(), GUI.icons.get("Account"));
         GUI importGUI = new GUI("Import", new StatisticView(), GUI.icons.get("Import"));
         GUI statisticGUI = new GUI("Statistic", new StatisticView(), GUI.icons.get("Statistic"));
+        GUI orderGUI = new GUI("Order", new OrderGUI(), GUI.icons.get("Order"));
+
         GUIs.add(saleGUI);
         GUIs.add(customerGUI);
         GUIs.add(productGUI);
@@ -26,6 +29,7 @@ public class ManagementGUI {
         GUIs.add(accountGUI);
         GUIs.add(importGUI);
         GUIs.add(statisticGUI);
+        GUIs.add(orderGUI);
     }
 
     public ArrayList<GUI> getGUIs() {

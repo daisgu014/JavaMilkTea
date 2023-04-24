@@ -44,9 +44,22 @@ public class ProductDAO  extends DAO<Product> {
         }
         return products;
     }
+    public ArrayList<ProductSize> productSizesWithProductId(int id){
+        ArrayList<ProductSize> productSizes = new ArrayList<>();
+        Statement statement = database.getStmt();
+        try {
+            ResultSet resultSet = statement.executeQuery("select * from ProductSize where ProductID ="+id   );
+            while (resultSet.next()){
+                productSizes.add(new ProductSize(resultSet.getString(2),resultSet.getInt(3),resultSet.getInt(4)));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return productSizes;
+    }
 
     @Override
-    public Product get(int id) {
+    public Product  get(int id) {
         Product product = new Product();
         PreparedStatement statement = dao.getPreStmt("select * from Product where ProductId=?");
         try {
@@ -60,6 +73,7 @@ public class ProductDAO  extends DAO<Product> {
                 product.setCreateAt(rs.getDate(5));
                 product.setDeleteAt(rs.getDate(6));
             }
+            product.setProductSizes(productSizesWithProductId(id));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

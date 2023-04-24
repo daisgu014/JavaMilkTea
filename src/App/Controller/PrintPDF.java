@@ -1,20 +1,30 @@
 package App.Controller;
 
 import App.View.CustomerGUI;
+import App.View.Receipt;
 import App.View.Shop.ShopGUI;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class PrintPDF {
     public Image getImage(JPanel jPanel){
-        BufferedImage image = new BufferedImage(794,
-                1123, BufferedImage.TYPE_INT_RGB);
+        BufferedImage image = new BufferedImage(jPanel.getWidth(),
+                jPanel.getHeight(), BufferedImage.TYPE_INT_RGB);
         jPanel.paint(image.getGraphics());
+        try {
+            File output = new File("src/image.png");
+            ImageIO.write(image, "png", output);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         return image;
 
     }
@@ -25,8 +35,9 @@ public class PrintPDF {
                     fileName));
             d.open();
             com.itextpdf.text.Image iTextImage = com.itextpdf.text.Image.getInstance(writer, awtImage, 1);
-            iTextImage.setAbsolutePosition(50, 50);
-            iTextImage.scalePercent(100);            d.add(iTextImage);
+            iTextImage.setAbsolutePosition(25, 0);
+            iTextImage.scalePercent(80);
+            d.add(iTextImage);
 
             d.close();
 
@@ -35,15 +46,4 @@ public class PrintPDF {
         }
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        CustomerGUI customerGUI = new CustomerGUI();
-        frame.add(customerGUI);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setVisible(true);
-        PrintPDF printPDF = new PrintPDF();
-        Image image = printPDF.getImage(customerGUI);
-        //printPDF.printToPDF(image, "src/CustomerGUI.pdf");
-    }
 }

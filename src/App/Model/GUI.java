@@ -18,6 +18,7 @@ public class GUI {
         put("Account", "src/Assets/Icons/pos.png");
         put("Import", "src/Assets/Icons/import.png");
         put("Statistic", "src/Assets/Icons/pie-chart.png");
+        put("Order", "src/Assets/Icons/order-now.png");
     }};
     public GUI(String GUIName, JPanel GUI) {
         this.GUIName = GUIName;
