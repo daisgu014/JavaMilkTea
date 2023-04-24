@@ -2,6 +2,7 @@ package App.View.ScreenGUI;
 
 import App.Model.GUI;
 import App.View.CustomerGUI;
+import App.View.OrderGUI;
 import App.View.Shop.ShopGUI;
 import App.View.StatisticView.StatisticView;
 
@@ -12,12 +13,23 @@ public class ManagementGUI {
     public ArrayList<GUI> GUIs = new ArrayList<>();
 
     public ManagementGUI() {
-        GUI saleGUI = new GUI("SaleGUI", new ShopGUI());
-        GUI customerGUI = new GUI("CustomerGUI", new CustomerGUI());
-        GUI StaticView = new GUI("StaticView", new StatisticView());
+        GUI saleGUI = new GUI("Sale", new ShopGUI(), GUI.icons.get("Sale"));
+        GUI customerGUI = new GUI("Customer", new CustomerGUI(), GUI.icons.get("Customer"));
+        GUI productGUI = new GUI("Product", new StatisticView(), GUI.icons.get("Statistic"));
+        GUI employeeGUI = new GUI("Employee", new StatisticView(), GUI.icons.get("Employee"));
+        GUI accountGUI = new GUI("Account", new StatisticView(), GUI.icons.get("Account"));
+        GUI importGUI = new GUI("Import", new StatisticView(), GUI.icons.get("Import"));
+        GUI statisticGUI = new GUI("Statistic", new StatisticView(), GUI.icons.get("Statistic"));
+        GUI orderGUI = new GUI("Order", new OrderGUI(), GUI.icons.get("Order"));
+
         GUIs.add(saleGUI);
         GUIs.add(customerGUI);
-        GUIs.add(StaticView);
+        GUIs.add(productGUI);
+        GUIs.add(employeeGUI);
+        GUIs.add(accountGUI);
+        GUIs.add(importGUI);
+        GUIs.add(statisticGUI);
+        GUIs.add(orderGUI);
     }
 
     public ArrayList<GUI> getGUIs() {
@@ -26,9 +38,6 @@ public class ManagementGUI {
 
     public void setGUIs(ArrayList<GUI> GUIs) {
         this.GUIs = GUIs;
-    }
-    public ArrayList<GUI> getGUISale(){
-        return GUIs;
     }
     public GUI findByName (String name){
         GUI newGUI = new GUI();

@@ -4,6 +4,14 @@ public class RevenueMonthYear {
     private int month;
     private int year;
     private int totalRevenue;
+    private int totalOrders;
+
+    public RevenueMonthYear(int month, int year, int totalRevenue, int totalOrders) {
+        this.month = month;
+        this.year = year;
+        this.totalRevenue = totalRevenue;
+        this.totalOrders = totalOrders;
+    }
 
     public RevenueMonthYear(int month, int year, int totalRevenue) {
         this.month = month;
@@ -33,5 +41,13 @@ public class RevenueMonthYear {
 
     public void setTotalRevenue(int totalRevenue) {
         this.totalRevenue = totalRevenue;
+    }
+
+    public int getTotalOrders() {
+        return totalOrders;
+    }
+
+    public void setTotalOrders(int totalOrders) {
+        this.totalOrders = totalOrders;
     }
 }

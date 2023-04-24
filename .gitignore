@@ -4,6 +4,7 @@ out/
 !**/src/test/**/out/
 .idea/
 *.iml
+src/Files/
 
 ### Eclipse ###
 .apt_generated
@@ -44,6 +45,7 @@ MilkTeaJava.iml
 /.idea/gradle.xml
 /.idea/caches
 /.idea/libraries
+.pdf
 
 
 

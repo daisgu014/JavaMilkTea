@@ -2,19 +2,23 @@ package App.Model;
 
 import App.View.Shop.loadData;
 import Entity.Order;
+import Entity.RevenueMonthYear;
 import Entity.StatisticCategory;
 import Entity.StatisticProduct;
 import Logic.StatisticManagement;
+import Util.ExcelTool;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
+import javax.swing.*;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Map;
 
 public class StatisticModel {
     private StatisticManagement logic;
+    private static final String pathExcel = "src/Files/";
 
     public StatisticModel() {
         logic = loadData.management.getStatisticManagement();
@@ -67,21 +71,33 @@ public class StatisticModel {
         return list;
     }
 
-    public ArrayList<Object[]> getDataOrderTable() {
+    public ArrayList<Object[]> getDataRevenueTable() {
         ArrayList<Object[]> list = new ArrayList<>();
         int i = 1;
-        for(Order o : logic.getOrders()) {
+        for(RevenueMonthYear r : logic.getRevenueMYList()) {
             list.add(new String[] {
                     String.valueOf(i++),
-                    String.valueOf(o.getOrderId()),
-                    String.valueOf(o.getOrderDate()),
-                    String.valueOf(o.getTotalPrice())
+                    "M-Y: "+r.getMonth()+"-"+r.getYear(),
+                    String.valueOf(r.getTotalRevenue()),
+                    String.valueOf(r.getTotalOrders())
             });
         }
         return list;
     }
 
+    public ArrayList<Integer> getTotalSQ() {
+        return logic.getTotalSQ();
+    }
+
     public StatisticManagement getLogic() {
         return logic;
+    }
+
+    public void exportExcel(ArrayList<JTable> tables, ArrayList<String> titles) {
+        ExcelTool excelTool = new ExcelTool();
+        String excelFilePath = pathExcel+ "revenue" + new java.util.Date().toString().trim()+".xlsx";
+        excelTool.writeExcel(tables, titles, excelFilePath);
+//        System.setProperty("log4j.configurationFile","./path_to_the_log4j2_config_file/log4j2.xml");
+//        Logger log = LogManager.getLogger(LogExample.class.getName());
     }
 }

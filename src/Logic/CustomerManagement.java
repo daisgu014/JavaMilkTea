@@ -3,6 +3,7 @@ package Logic;
 import Entity.Customer;
 import DAL.CustomerDAO;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class CustomerManagement {
@@ -16,7 +17,11 @@ public class CustomerManagement {
         customers=customerDAO.getAll();
     }
     public void create(Customer customer){
-           customerDAO.insertCustomer(customer);
+           if(customerDAO.insertCustomer(customer)){
+               JOptionPane.showMessageDialog(null, "Thêm khách hàng "+ customer.getCustomerName()+" thành công");
+           }else {
+               JOptionPane.showMessageDialog(null, "Thêm khách hàng không thành công");
+           }
     }
     public void update(Customer customer){
         customerDAO.update(customer);
@@ -33,5 +38,20 @@ public class CustomerManagement {
     public Customer findByPhone(String phone){
         return customerDAO.findByPhone(phone);
     }
-
+    public Customer findByName (String name){
+       return customerDAO.findByName(name);
+    }
+    public void Update_Sub_Point(Customer customer, Integer point){
+        customerDAO.Update_Sub_Point(customer,point);
+    }
+    public  ArrayList<String> PointOfCustomer (Customer customer){
+        ArrayList<String> arrayList = new ArrayList<>();
+        int countPoint=customer.getPoints()/10;
+        if(countPoint>0){
+            for(int i =1;i<=countPoint;i++){
+                arrayList.add(String.valueOf(i*10));
+            }
+        }
+        return arrayList;
+    }
 }

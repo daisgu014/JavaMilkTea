@@ -15,6 +15,9 @@ import java.time.YearMonth;
 import java.util.Calendar;
 import java.util.Properties;
 
+import static App.View.LoginView.lightYellow;
+import static App.View.LoginView.primary;
+
 public class StatisticView extends JPanel {
     private JDatePickerImpl fromDatePicker, toDatePicker;
     private JButton applyBtn;
@@ -25,6 +28,8 @@ public class StatisticView extends JPanel {
     private StatisticChartView chartView;
     private StatisticTableView tableView;
     private StatisticController controller;
+    public static final Font smallFont = new Font("", Font.PLAIN, 16);
+    public static final Font font = new Font("", Font.BOLD, 18);
 
     private final JLabel
             saleLbl = new JLabel("Total Sales"),
@@ -36,7 +41,9 @@ public class StatisticView extends JPanel {
 
     private void init() {
         this.setBackground(Color.white);
-        this.setLayout(new FlowLayout());
+        FlowLayout fl = new FlowLayout();
+        fl.setHgap(200);
+        this.setLayout(fl);
 
         controller = new StatisticController();
         chartView = new StatisticChartView();
@@ -56,6 +63,7 @@ public class StatisticView extends JPanel {
         renderChartView();
         renderTableView();
         display();
+        setBoardData();
     }
 
     private void display() {
@@ -70,9 +78,10 @@ public class StatisticView extends JPanel {
         chartContainer.add(chartView.getAreaChartPanel());
         chartContainer.add(chartView.getPieChartPanel());
         chartContainer.add(chartView.getBarChartPanel());
-        tableContainer.add(tableView.getProductContainer());
+        tableContainer.add(tableView.getRevenueContainer());
         tableContainer.add(tableView.getCateContainer());
-        tableContainer.add(tableView.getOrdersContainer());
+        tableContainer.add(tableView.getProductContainer());
+        tableContainer.add(tableView.getExportBtn());
 
         scrollPaneChart = new JScrollPane(chartContainer);
         scrollPaneChart.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -94,7 +103,12 @@ public class StatisticView extends JPanel {
                     (Date) toDatePicker.getModel().getValue()
             );
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Invalid Date",
+                    "Warning",
+                    JOptionPane.WARNING_MESSAGE
+            );
         }
     }
 
@@ -109,7 +123,7 @@ public class StatisticView extends JPanel {
     private void renderTableView() {
         tableView.displayData(tableView.getProductStatisticModel(), controller.getModel().getDataProductTable());
         tableView.displayData(tableView.getCateStatisticModel(), controller.getModel().getDataCateTable());
-        tableView.displayData(tableView.getOrdersStatisticModel(), controller.getModel().getDataOrderTable());
+        tableView.displayData(tableView.getRevenueModel(), controller.getModel().getDataRevenueTable());
     }
 
     public void initDateGUI() {
@@ -153,14 +167,23 @@ public class StatisticView extends JPanel {
 
         JPanel salePanel = new JPanel();
         salePanel.setLayout(new GridLayout(2, 1, 0, 0));
-        salePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        salePanel.setPreferredSize(new Dimension(200, 60));
+        salePanel.setBackground(lightYellow);
 
         JPanel qtyPanel = new JPanel();
         qtyPanel.setLayout(new GridLayout(2, 1, 0, 0));
-        qtyPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        qtyPanel.setPreferredSize(new Dimension(200, 60));
+        qtyPanel.setBackground(primary);
 
-        totalSaleLbl = new JLabel("100000000000000");
-        totalQtyLbl = new JLabel("100000000");
+        saleLbl.setFont(smallFont);
+        qtyLbl.setFont(smallFont);
+
+        totalSaleLbl = new JLabel("0");
+        totalSaleLbl.setFont(font);
+        totalSaleLbl.setHorizontalAlignment(SwingConstants.RIGHT);
+        totalQtyLbl = new JLabel("0");
+        totalQtyLbl.setFont(font);
+        totalQtyLbl.setHorizontalAlignment(SwingConstants.RIGHT);
 
         salePanel.add(saleLbl);
         salePanel.add(totalSaleLbl);
@@ -173,6 +196,12 @@ public class StatisticView extends JPanel {
 
     }
 
+    public void setBoardData() {
+        totalSaleLbl.setText(String.valueOf(controller.getModel().getTotalSQ().get(0)));
+        totalQtyLbl.setText(String.valueOf(controller.getModel().getTotalSQ().get(1)));
+    }
+
+
     public void handleEvents() {
         this.applyBtn.addActionListener(new ActionListener() {
             @Override
@@ -184,6 +213,7 @@ public class StatisticView extends JPanel {
                         controller.getModel().getDataRevenueChart()
                 );
                 renderTableView();
+                setBoardData();
             }
         });
     }

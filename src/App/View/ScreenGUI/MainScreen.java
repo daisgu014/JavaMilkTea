@@ -1,6 +1,7 @@
 package App.View.ScreenGUI;
 
 import App.View.ImportProductView;
+import App.View.LoginView;
 import App.View.StatisticView.StatisticView;
 
 import javax.swing.*;
@@ -11,17 +12,15 @@ public class MainScreen extends JFrame {
     private JPanel managementScreen;
     private JPanel statisticView, importView;
 
-
     public MainScreen(){
         initGUI();
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setAlwaysOnTop(true);
         this.setVisible(true);
         this.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         this.mainLayout = new BorderLayout();
         this.setLayout(mainLayout);
-        this.add(importView, BorderLayout.CENTER);
+        this.add(statisticView, BorderLayout.CENTER);
         this.pack();
         this.setLocationRelativeTo(null);
     }
