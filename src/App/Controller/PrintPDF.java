@@ -35,8 +35,7 @@ public class PrintPDF {
                     fileName));
             d.open();
             com.itextpdf.text.Image iTextImage = com.itextpdf.text.Image.getInstance(writer, awtImage, 1);
-            iTextImage.setAbsolutePosition(25, 0);
-            iTextImage.scalePercent(80);
+            iTextImage.scalePercent(70);
             d.add(iTextImage);
 
             d.close();
