@@ -1,7 +1,9 @@
 package App.View.ScreenGUI;
 
 import App.Model.GUI;
+import App.View.CrudGUI.*;
 import App.View.CustomerGUI;
+import App.View.ImportProductView;
 import App.View.OrderGUI;
 import App.View.Shop.ShopGUI;
 import App.View.StatisticView.StatisticView;
@@ -15,18 +17,22 @@ public class ManagementGUI {
     public ManagementGUI() {
         GUI saleGUI = new GUI("Sale", new ShopGUI(), GUI.icons.get("Sale"));
         GUI customerGUI = new GUI("Customer", new CustomerGUI(), GUI.icons.get("Customer"));
-        GUI productGUI = new GUI("Product", new StatisticView(), GUI.icons.get("Statistic"));
-        GUI employeeGUI = new GUI("Employee", new StatisticView(), GUI.icons.get("Employee"));
-        GUI accountGUI = new GUI("Account", new StatisticView(), GUI.icons.get("Account"));
-        GUI importGUI = new GUI("Import", new StatisticView(), GUI.icons.get("Import"));
+        GUI productGUI = new GUI("Product", new ProductGUI(), GUI.icons.get("Product"));
+        GUI sizeGUI = new GUI("Size", new SizeGUI(), GUI.icons.get("Size"));
+        GUI employeeGUI = new GUI("Employee", new EmployeeGUI(), GUI.icons.get("Employee"));
+        GUI accountGUI = new GUI("Account", new AccountGUI(), GUI.icons.get("Account"));
+        GUI positionGUI = new GUI("Work Position", new WorkPositionGUI(), GUI.icons.get("Position"));
+        GUI importGUI = new GUI("Import", new ImportProductView(), GUI.icons.get("Import"));
         GUI statisticGUI = new GUI("Statistic", new StatisticView(), GUI.icons.get("Statistic"));
         GUI orderGUI = new GUI("Order", new OrderGUI(), GUI.icons.get("Order"));
 
         GUIs.add(saleGUI);
         GUIs.add(customerGUI);
         GUIs.add(productGUI);
+        GUIs.add(sizeGUI);
         GUIs.add(employeeGUI);
         GUIs.add(accountGUI);
+        GUIs.add(positionGUI);
         GUIs.add(importGUI);
         GUIs.add(statisticGUI);
         GUIs.add(orderGUI);
