@@ -474,7 +474,7 @@ public void OrderCartTable(){
         }else{
             order = order(orderDetails,
                     customerManagement.findByName(customerNameList.getSelectedItem().toString()),
-                    Integer.parseInt(labelPricePoint.getText()));
+                    Integer.parseInt(labelPrice.getText()));
         if(customerManagement.findByName(customerNameList.getSelectedItem().toString()).getPoints()>10 && labelPricePoint!=null){
             customerManagement.Update_Sub_Point(customerManagement.findByName(customerNameList.getSelectedItem().toString()),Integer.parseInt(customerPointList.getSelectedItem().toString()));
                   for(Customer customer: customers){
