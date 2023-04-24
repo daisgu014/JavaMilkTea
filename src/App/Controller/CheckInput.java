@@ -32,8 +32,13 @@ public class CheckInput<T> {
         }
         return false;
     }
-
+    public boolean checkNumber(String str){
+        Pattern ptrn = Pattern.compile("[0-9]");
+        Matcher match = ptrn.matcher(str);
+        return match.find() && match.group().equals(str);
+    }
     public static void main(String[] args) {
-
+        CheckInput checkInput = new CheckInput();
+        System.out.println(checkInput.checkNumber("88"));
     }
 }

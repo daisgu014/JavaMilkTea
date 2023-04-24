@@ -29,7 +29,7 @@ public class FormDialog extends JPanel {
         JPanel pn = new JPanel();
         pn.setPreferredSize(new Dimension(590,80));
         getLbTitle().setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        getLbTitle().setPreferredSize(new Dimension(100,50));
+        getLbTitle().setPreferredSize(new Dimension(200,50));
         pn.add(getLbTitle());
         return pn;
     }

@@ -3,6 +3,7 @@ package Logic;
 import Entity.WorkPosition;
 import DAL.WorkPositionDAO;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class WorkPositionManagement
@@ -17,5 +18,11 @@ public class WorkPositionManagement
     }
     public ArrayList<WorkPosition> getData(){
         return workPositionDAO.getAll();
+    }
+    public WorkPosition Insert(WorkPosition workPosition){
+        return workPositionDAO.create(workPosition);
+    }
+    public void Update(WorkPosition workPosition){
+        workPositionDAO.update(workPosition);
     }
 }
