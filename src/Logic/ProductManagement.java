@@ -46,5 +46,14 @@ public class ProductManagement {
     public void Sub_Storage_Product(OrderDetail orderDetail){
         productDAO.Sub_Storage_Product(orderDetail);
     }
+    public Product Insert(Product product){
+        return productDAO.create(product);
+    }
+    public void Update(Product product){
+        productDAO.update(product);
+    }
+    public void Delete(Product product){
+        productDAO.delete(product);
+    }
 }
 

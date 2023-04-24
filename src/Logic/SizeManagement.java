@@ -20,4 +20,13 @@ public class SizeManagement {
     public Size findByName(String nameSize){
          return  sizeDAO.findByName(nameSize);
     }
+    public void Insert(Size size){
+        sizeDAO.Insert(size);
+    }
+    public void Update(Size size){
+        sizeDAO.update(size);
+    }
+    public void Delete(Size size){
+        sizeDAO.delete(size);
+    }
 }

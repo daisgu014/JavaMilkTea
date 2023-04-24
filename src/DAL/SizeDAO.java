@@ -40,12 +40,25 @@ public class SizeDAO extends DAO<Size>
 
     @Override
     public void update(Size size) {
-
+        try {
+            PreparedStatement prSt = database.getPreStmt("UPDATE sizes SET description = ? WHERE sign = ?;");
+            prSt.setString(1,size.getDescription());
+            prSt.setString(2,size.getSign());
+            prSt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void delete(Size size) {
-
+        try {
+            PreparedStatement prSt = database.getPreStmt("DELETE FROM sizes WHERE sign = ?;");
+            prSt.setString(1,size.getSign());
+            prSt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -66,5 +79,15 @@ public class SizeDAO extends DAO<Size>
             throw new RuntimeException(e);
         }
         return size;
+    }
+    public void Insert(Size size){
+        try {
+            PreparedStatement prSt = database.getPreStmt("INSERT INTO sizes VALUES (?,?);");
+            prSt.setString(1,size.getSign());
+            prSt.setString(2,size.getDescription());
+            prSt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
