@@ -183,6 +183,7 @@ public class ShopGUI extends JPanel {
                     int option =  JOptionPane.showConfirmDialog(null, "Bạn chắc muốn xóa "+orderDetail.getProduct().getProductName()+"?", "Confirmation", JOptionPane.YES_NO_OPTION);
                     if (option == JOptionPane.YES_OPTION) {
                         delete(orderDetail,selectRow);
+                        TotalPrice();
                     }else {
                         return;
                     }
