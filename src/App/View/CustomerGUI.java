@@ -12,12 +12,11 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.Arrays;
 
 import static App.View.Shop.loadData.customers;
-public class CustomerGUI extends JPanel implements ActionListener{
+public class CustomerGUI extends JPanel{
     private JTable customerTable;
     private JTextField txtCustomerPhone, txtCustomerName, txtCustomerPoint;
     private JLabel labelTitle, labelPhone, labelName, labelPoint;
@@ -149,10 +148,10 @@ public class CustomerGUI extends JPanel implements ActionListener{
     public void setScrollPane(JScrollPane scrollPane) {
         this.scrollPane = scrollPane;
     }
+    private CustomerController customerController;
     CustomerManagement customerManagement = new CustomerManagement();
     Integer selectedRow=null;
     public CustomerGUI(){
-
         setLayout(new BorderLayout());
         setSize(1300,1000);
         labelTitle = new JLabel("Manager Customer");
@@ -249,7 +248,7 @@ public class CustomerGUI extends JPanel implements ActionListener{
         column2.setPreferredWidth(200);
         TableColumn column3 = customerTable.getColumnModel().getColumn(2);
         column3.setPreferredWidth(200);
-         scrollPane = new JScrollPane(customerTable);
+        scrollPane = new JScrollPane(customerTable);
         customerTablePanel.add(scrollPane);
         add(customerTablePanel,BorderLayout.CENTER);
         btnEdit.setEnabled(false);
@@ -303,7 +302,13 @@ public class CustomerGUI extends JPanel implements ActionListener{
                 }
             }
         });
-
+    customerTablePanel.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            super.mouseClicked(e);
+            reloadTable();
+        }
+    });
     }
 
     public Customer CustomerSelected(Integer selectedRow){
@@ -391,17 +396,17 @@ public class CustomerGUI extends JPanel implements ActionListener{
         defaultTableModel.fireTableDataChanged();
         scrollPane.validate();
     }
-
-    public static void main(String[] args) {
-        JFrame jFrame = new JFrame();
-        jFrame.setSize(1300,1000);
-        jFrame.getContentPane().add(new CustomerGUI());
-        jFrame.setVisible(true);
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
+    public void reloadTable(){
+        String[] columnNames ={"Customer Phone","Customer Name", "Point"};
+        Object[][] data = new Object[customers.size()][3];
+        for(int i=0;i<customers.size();i++){
+            data[i][0]=customers.get(i).getPhone();
+            data[i][1]=customers.get(i).getCustomerName();
+            data[i][2]=customers.get(i).getPoints();
+        }
+        defaultTableModel.setDataVector(data,columnNames);
+        scrollPane.validate();
+        repaint();
+        revalidate();
     }
 }
