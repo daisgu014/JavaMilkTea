@@ -71,6 +71,7 @@ public class ProductGUI extends CrudGUI{
 //            System.out.println(filepath.getAbsolutePath());
                         String s = valueOf(filepath.getAbsolutePath());
                         String[] words=s.split("\\\\");
+                        words = words[words.length-1].split("/");
                         s = words[words.length-1];
                         productFormAdd.getLbImange().setText(s);
                     }
@@ -106,7 +107,12 @@ public class ProductGUI extends CrudGUI{
         edit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (index != -1){
 
+                }else {
+                    JOptionPane.showMessageDialog(null, "Vui lòng chọn Sản phẩm !",
+                            "Update Account", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         });
         delete.addActionListener(new ActionListener() {
