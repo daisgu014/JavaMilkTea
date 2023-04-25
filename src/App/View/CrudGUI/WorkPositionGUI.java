@@ -145,15 +145,7 @@ public class WorkPositionGUI extends CrudGUI{
         delete.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Upload Image");
-            fileChooser.showOpenDialog(null);
-            File filepath = fileChooser.getSelectedFile();
-//            System.out.println(filepath.getAbsolutePath());
-            String s = valueOf(filepath.getAbsolutePath());
-            String[] words=s.split("\\\\");
-            s = words[words.length-1];
-            System.out.println(s);
+
             }
         });
 

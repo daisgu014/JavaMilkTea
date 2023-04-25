@@ -1,5 +1,6 @@
 package Logic;
 
+import App.Model.ProductTable;
 import Entity.OrderDetail;
 import Entity.Product;
 import DAL.ProductDAO;
@@ -54,6 +55,9 @@ public class ProductManagement {
     }
     public void Delete(Product product){
         productDAO.delete(product);
+    }
+    public ArrayList<ProductTable> getData(){
+       return productDAO.getProductWithCateName();
     }
 }
 
