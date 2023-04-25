@@ -42,7 +42,7 @@ public class StatisticView extends JPanel {
     private void init() {
         this.setBackground(Color.white);
         FlowLayout fl = new FlowLayout();
-        fl.setHgap(200);
+        fl.setHgap(140);
         this.setLayout(fl);
 
         controller = new StatisticController();
