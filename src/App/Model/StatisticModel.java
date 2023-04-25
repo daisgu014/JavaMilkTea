@@ -41,13 +41,14 @@ public class StatisticModel {
 
     public ArrayList<Object[]> getDataProductTable() {
         ArrayList<Object[]> strings = new ArrayList<>();
+        int i = 1;
         for(StatisticProduct sp : logic.getProductStatistic()) {
             String s = "";
             for(Map.Entry<String, Integer> item : sp.getProductCountBySize().entrySet()) {
                 s += String.format("Size %s: %d\n", item.getKey(), item.getValue());
             }
             strings.add(new String[] {
-                    String.valueOf(sp.getProductId()),
+                    String.valueOf(i++),
                     sp.getProductName(),
                     s,
                     String.valueOf(sp.getProductCount()),

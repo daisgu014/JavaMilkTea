@@ -165,15 +165,25 @@ public class StatisticDAO {
         ArrayList<Integer> total = new ArrayList<>();
         try {
             PreparedStatement preStmt = statisticDAO.getPreStmt("""
-                select sum(o.TotalPrice), sum(od.Quantity)
-                from OrderDetail od join Orders o on od.OrderID  = o.OrderId
-                where o.OrderDate >= ? and o.OrderDate <= ?;""");
+                    select sum(o.TotalPrice)
+                    from  Orders o
+                    where o.OrderDate >= ? and o.OrderDate <= ?;""");
             preStmt.setDate(1, from);
             preStmt.setDate(2, to);
             ResultSet rs = preStmt.executeQuery();
             while(rs.next()) {
                 total.add(rs.getInt(1));
-                total.add(rs.getInt(2));
+            }
+
+            preStmt = statisticDAO.getPreStmt("""
+                    select sum(od.Quantity)
+                    from OrderDetail od join Orders o on od.OrderID  = o.OrderId
+                    where o.OrderDate >= ? and o.OrderDate <= ?;""");
+            preStmt.setDate(1, from);
+            preStmt.setDate(2, to);
+            rs = preStmt.executeQuery();
+            while(rs.next()) {
+                total.add(rs.getInt(1));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
