@@ -10,8 +10,8 @@ public class ProductModel {
     public ProductModel(){
         productManagement = new ProductManagement();
     }
-    public ArrayList<Product> getData(){
-        return productManagement.getProducts();
+    public ArrayList<ProductTable> getData(){
+        return productManagement.getData();
     }
     public Product Insert(Product product){
         return productManagement.Insert(product);

@@ -1,8 +1,10 @@
 package DAL;
 
+import App.Model.ProductTable;
 import Entity.OrderDetail;
 import Entity.Product;
 import Entity.ProductSize;
+import Entity.WorkPosition;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -82,7 +84,21 @@ public class ProductDAO  extends DAO<Product> {
 
     @Override
     public Product create(Product product) {
-        return null;
+        try {
+            PreparedStatement prSt = database.getPreStmt("INSERT INTO product(ProductName,CategoryId,ImagePath) VALUES(?,?,?)");
+            prSt.setString(1, product.getProductName());
+            prSt.setInt(2,product.getCategory());
+            prSt.setString(3,product.getImagePath());
+            prSt.execute();
+            PreparedStatement prStSelect = database.getPreStmt("SELECT * FROM product ORDER BY ProductId");
+            ResultSet rs = prStSelect.executeQuery();
+            while (rs.next()) {
+                product = new Product(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getString(4),rs.getDate(5),rs.getDate(6));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return product;
     }
 
     @Override
@@ -112,5 +128,21 @@ public class ProductDAO  extends DAO<Product> {
             System.out.println(e.getMessage());
         }
     }
+    public ArrayList<ProductTable> getProductWithCateName() {
+        ArrayList<ProductTable> products = new ArrayList<>();
+        Statement stmt = dao.getStmt();
+        try {
+            ResultSet rs = stmt.executeQuery("SELECT prod.ProductId,prod.ProductName,ctg.CategoryName,prod.createAt,prod.deleteAt,prod.ImagePath \n" +
+                    "FROM product as prod, category as ctg \n" +
+                    "WHERE prod.CategoryId = ctg.CategoryId ORDER BY prod.ProductId ");
+            while (rs.next()){
+                products.add(new ProductTable(rs.getInt(1),rs.getString(2),rs.getString(3), rs.getString(6),rs.getDate(4),rs.getDate(5))
+                );
+            }
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return products;
+    }
 }
