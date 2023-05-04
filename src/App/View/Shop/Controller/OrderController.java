@@ -46,7 +46,7 @@ public class OrderController {
                             o.setQuantity(o.getQuantity()+orderDetail.getQuantity());
                             exited=true;
                         }else {
-                            JOptionPane.showMessageDialog(jPanel,orderDetail.getProduct()+" không đủ số lượng");
+                            JOptionPane.showMessageDialog(jPanel,orderDetail.getProduct().getProductName()+" không đủ số lượng");
                         }
 
                     }
@@ -56,7 +56,7 @@ public class OrderController {
                 orderDetails.add(orderDetail);
             }
         }else{
-            JOptionPane.showMessageDialog(jPanel,orderDetail.getProduct()+" không đủ số lượng");
+            JOptionPane.showMessageDialog(jPanel,orderDetail.getProduct().getProductName()+" không đủ số lượng");
         }
         return exited;
     }

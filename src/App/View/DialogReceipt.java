@@ -11,6 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PrinterJob;
+import java.util.Properties;
 
 public class DialogReceipt extends JDialog {
     private JPanel Content, footer;
@@ -44,11 +46,13 @@ public class DialogReceipt extends JDialog {
         btnPrint.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PrintPDF printPDF = new PrintPDF();
+           PrintPDF printPDF = new PrintPDF();
                 Image image = printPDF.getImage(receipt);
                 String fileName = "src/"+order.getOrderDate()+order.getOrderId()+".pdf";
                 printPDF.printToPDF(image,fileName);
                 dispose();
+//                java.awt.print.PrinterJob printerJob = PrinterJob.getPrinterJob();
+//                printerJob.printDialog();
             }
         });
     }

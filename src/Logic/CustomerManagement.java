@@ -1,7 +1,9 @@
 package Logic;
 
+import App.View.Shop.loadData;
 import Entity.Customer;
 import DAL.CustomerDAO;
+import Entity.Order;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -53,5 +55,20 @@ public class CustomerManagement {
             }
         }
         return arrayList;
+    }
+    public void Update_Add_Point(Order order){
+        Integer point = order.getTotalPrice()/100000;
+        if(point>0){
+            if(customerDAO.Update_Add_Point(order.getCustomer().getPhone(),point)){
+                for(Customer c :loadData.customers){
+                    if(c.getPhone().equalsIgnoreCase(order.getCustomer().getPhone())){
+                        c.setPoints(c.getPoints()+point);
+                    }
+                }
+                System.out.println("Cập nhật điểm thành công");
+            }else {
+                System.out.println("Cập nhật điểm thất bại");
+            }
+        }
     }
 }
