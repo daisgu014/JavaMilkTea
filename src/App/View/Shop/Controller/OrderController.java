@@ -1,5 +1,6 @@
 package App.View.Shop.Controller;
 
+import App.View.Shop.ShopGUI;
 import App.View.Shop.model.OrderDetailsModel;
 import Entity.OrderDetail;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import static App.View.Shop.loadData.orderDetails;
 
 public class OrderController {
-    private ShopGUI  Obs;
+    private ShopGUI Obs;
 
     public OrderController(ShopGUI shopGUI){
         this.Obs=shopGUI;
