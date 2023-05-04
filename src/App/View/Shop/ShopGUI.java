@@ -279,7 +279,11 @@ public class ShopGUI extends JPanel {
                 String[] cbName = customerNameListString.toArray(new String[0]);
                 customerNameList = new JComboBox<>(cbName);
                 customerNameList.setSelectedItem(cbName[0]);
+                customerNameList.setFont(new Font("SF Pro Display", Font.BOLD, 15));
+                customerNameList.setForeground(new Color(34, 47, 62));
                 btnCloseCustomer = new JButton("x");
+                btnCloseCustomer.setForeground(Color.WHITE);
+                btnCloseCustomer.setBackground(new Color(232, 65, 24));
                 customerPanel.add(customerNameList);
                 customerPanel.add(btnCloseCustomer);
                 initPoint(customerManagement.findByName(customerNameList.getSelectedItem().toString()));
@@ -493,6 +497,8 @@ public class ShopGUI extends JPanel {
             customerPointList = new JComboBox<>(cbNPoint);
             customerPointPanel.add(customerPointList);
             labelPricePoint = new JLabel(String.valueOf(Integer.parseInt(customerPointList.getSelectedItem().toString()) * 5000));
+            labelPricePoint.setFont(new Font("SF Pro Display", Font.BOLD, 15));
+            labelPricePoint.setForeground(new Color(34, 47, 62));
             customerPointPanel.add(labelPricePoint);
             btnClosePoint = new JButton("x");
             btnClosePoint.setForeground(Color.WHITE);
