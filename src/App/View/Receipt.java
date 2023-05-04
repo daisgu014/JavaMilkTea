@@ -74,8 +74,10 @@ public class Receipt extends JPanel {
         content.add(cartScrollPane,BorderLayout.CENTER);
         /*Header*/
         JPanel info = new JPanel(new GridLayout(0,1));
-        Label javaCoffee = new Label("JAVA COFFEE");
-        Label address = new Label("Địa chỉ: 273 An Dương Vương, Phường 3, Q5, TP. Hồ Chí Minh");
+        Label javaCoffee = new Label();
+        javaCoffee.setText("JAVA COFFEE");
+        Label address = new Label();
+        address.setText("Địa chỉ: 273 An Dương Vương, Phường 3, Q5, TP. Hồ Chí Minh");
         info.add(javaCoffee);
         info.add(address);
         JPanel emtyPane = new JPanel();
