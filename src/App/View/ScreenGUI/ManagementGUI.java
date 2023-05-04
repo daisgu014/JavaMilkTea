@@ -5,11 +5,9 @@ import App.View.CrudGUI.*;
 import App.View.CustomerGUI;
 import App.View.ImportProductView;
 import App.View.OrderGUI;
-import App.View.Shop.ShopGUI;
 import App.View.StatisticView.StatisticView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ManagementGUI {
     public ArrayList<GUI> GUIs = new ArrayList<>();

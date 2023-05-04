@@ -2,7 +2,6 @@ package App.View.ScreenGUI;
 
 import App.Model.GUI;
 import App.View.LoginView;
-import App.View.Shop.ShopGUI;
 import Entity.Employee;
 
 import javax.swing.*;
