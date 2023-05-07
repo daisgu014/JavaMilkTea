@@ -56,14 +56,14 @@ public class Items extends JPanel{
        qtyLabel = new JLabel("1");
        QtyPanel.add(btnSub);
        QtyPanel.add(qtyLabel);
-       btnSub.setPreferredSize(new Dimension(45,45));
+       btnSub.setPreferredSize(new Dimension(40,40));
        btnSub.setBackground(new Color(223,0,41));
        btnSub.setForeground(Color.WHITE);
-       btnSub.setFont(new Font("SF Pro Display", Font.BOLD, 18));
-       btnAdd.setPreferredSize(new Dimension(45,45));
+       btnSub.setFont(new Font("SF Pro Display", Font.BOLD, 10));
+       btnAdd.setPreferredSize(new Dimension(40,40));
        btnAdd.setBackground(new Color(91,189,43));
        btnAdd.setForeground(Color.WHITE);
-       btnAdd.setFont(new Font("SF Pro Display", Font.BOLD, 18));
+       btnAdd.setFont(new Font("SF Pro Display", Font.BOLD, 10));
        qtyLabel.setFont(new Font("SF Pro Display", Font.BOLD, 18));
        qtyLabel.setPreferredSize(new Dimension(30,30));
        qtyLabel.setHorizontalAlignment(0);

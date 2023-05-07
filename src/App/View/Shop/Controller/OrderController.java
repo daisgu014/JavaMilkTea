@@ -2,22 +2,16 @@ package App.View.Shop.Controller;
 
 import App.View.Shop.ShopGUI;
 import App.View.Shop.model.OrderDetailsModel;
-import Entity.Customer;
 import Entity.OrderDetail;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import static App.View.Shop.loadData.customers;
 import static App.View.Shop.loadData.orderDetails;
 
 public class OrderController {
-    private ShopGUI  Obs;
+    private ShopGUI Obs;
 
     public OrderController(ShopGUI shopGUI){
         this.Obs=shopGUI;
@@ -46,7 +40,7 @@ public class OrderController {
                             o.setQuantity(o.getQuantity()+orderDetail.getQuantity());
                             exited=true;
                         }else {
-                            JOptionPane.showMessageDialog(jPanel,orderDetail.getProduct()+" không đủ số lượng");
+                            JOptionPane.showMessageDialog(jPanel,orderDetail.getProduct().getProductName()+" không đủ số lượng");
                         }
 
                     }
@@ -56,7 +50,7 @@ public class OrderController {
                 orderDetails.add(orderDetail);
             }
         }else{
-            JOptionPane.showMessageDialog(jPanel,orderDetail.getProduct()+" không đủ số lượng");
+            JOptionPane.showMessageDialog(jPanel,orderDetail.getProduct().getProductName()+" không đủ số lượng");
         }
         return exited;
     }

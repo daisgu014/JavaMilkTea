@@ -139,4 +139,17 @@ public class CustomerDAO extends DAO<Customer> {
         }
 
     }
+    public boolean Update_Add_Point(String phone, Integer point){
+        boolean flag=false;
+        PreparedStatement prSt = dao.getPreStmt("update Customer set Points = Points + ? where Phone like ?");
+        try {
+            prSt.setInt(1,point);
+            prSt.setString(2,phone);
+            prSt.executeUpdate();
+            flag =true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return flag;
+    }
 }

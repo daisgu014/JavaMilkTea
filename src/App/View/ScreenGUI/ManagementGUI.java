@@ -9,7 +9,6 @@ import App.View.Shop.ShopGUI;
 import App.View.StatisticView.StatisticView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ManagementGUI {
     public ArrayList<GUI> GUIs = new ArrayList<>();
