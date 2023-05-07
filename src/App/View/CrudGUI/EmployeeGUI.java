@@ -21,8 +21,8 @@ public class EmployeeGUI extends CrudGUI{
     private ArrayList<Employee> employeeArrayList;
     private EmployeeController employeeController;
     private int index ;
-    public EmployeeGUI(JButton btnAdd, JButton btnUpdate, JButton btnDelete, JButton btnExit, JTable table, String title){
-        super(btnAdd,btnUpdate,btnDelete,btnExit,table,title);
+    public EmployeeGUI(JButton btnAdd, JButton btnUpdate, JButton btnDelete, JTable table, String title){
+        super(btnAdd,btnUpdate,btnDelete,table,title);
     }
     public EmployeeGUI(){
         employeeController = new EmployeeController();
@@ -41,7 +41,6 @@ public class EmployeeGUI extends CrudGUI{
         JButton add = new JButton("Add") ;
         JButton edit = new JButton("Edit") ;
         JButton delete = new JButton("Delete");
-        JButton exit = new JButton("Exit");
         index = -1;
         getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -66,13 +65,26 @@ public class EmployeeGUI extends CrudGUI{
                         CheckInput checkInput = new CheckInput();
                         if (employeeForm.getTfName().getText().trim().equals("")==false){
                             if(checkInput.checkPhone(employeeForm.getTfPhone().getText())==true){
-                                WorkPosition workPosition = new WorkPosition(employeeForm.getCbWorkPosition().getSelectedIndex()+1,null,0);
-                                Employee employee = new Employee(0,employeeForm.getTfName().getText(),employeeForm.getTfPhone().getText(),workPosition);
+                                WorkPosition workPosition = new WorkPosition(
+                                        employeeForm.getCbWorkPosition().getSelectedIndex()+1,
+                                        null,
+                                        0);
+                                Employee employee = new Employee(
+                                        0,
+                                        employeeForm.getTfName().getText(),
+                                        employeeForm.getTfPhone().getText(),
+                                        workPosition
+                                );
                                 Employee newEmployee = new Employee();
                                 newEmployee = employeeController.InsertEmployee(employee);
                                 employeeArrayList.add(newEmployee);
                                 DefaultTableModel model = (DefaultTableModel) getTable().getModel();
-                                model.addRow(new Object[]{newEmployee.getEmployeeId(),newEmployee.getEmployeeName(),newEmployee.getEmployeePhone(),newEmployee.getWorkPosition().getName()});
+                                model.addRow(new Object[]{
+                                        newEmployee.getEmployeeId(),
+                                        newEmployee.getEmployeeName(),
+                                        newEmployee.getEmployeePhone(),
+                                        newEmployee.getWorkPosition().getName()
+                                });
                             }
                         }
                     }
@@ -118,8 +130,17 @@ public class EmployeeGUI extends CrudGUI{
                             if (active == true){
                                 if (employeeForm.getTfName().getText().trim().equals("")==false){
                                     if (checkInput.checkPhone(employeeForm.getTfPhone().getText())==true){
-                                        WorkPosition workPosition = new WorkPosition(employeeForm.getCbWorkPosition().getSelectedIndex()+1,null,0);
-                                        Employee employee = new Employee(Integer.parseInt(employeeForm.getTfId().getText()),employeeForm.getTfName().getText(),employeeForm.getTfPhone().getText(),workPosition);
+                                        WorkPosition workPosition = new WorkPosition(
+                                                employeeForm.getCbWorkPosition().getSelectedIndex()+1,
+                                                null,
+                                                0
+                                        );
+                                        Employee employee = new Employee(
+                                                Integer.parseInt(employeeForm.getTfId().getText()),
+                                                employeeForm.getTfName().getText(),
+                                                employeeForm.getTfPhone().getText(),
+                                                workPosition
+                                        );
                                         employeeController.UpdateEmployee(employee);
                                         employeeArrayList.set(index,employee);
                                         getTable().setValueAt(employeeForm.getTfName().getText(),index,1);
@@ -166,16 +187,9 @@ public class EmployeeGUI extends CrudGUI{
             }
         });
 
-        exit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
         setBtnAdd(add);
         setBtnUpdate(edit);
         setBtnDelete(delete);
-        setBtnExit(exit);
     }
     public void setSceneEmpoyee(){
         setTitle("Employee");

@@ -23,8 +23,8 @@ public class SizeGUI extends CrudGUI{
     private SizeController sizeController ;
     private int index;
 
-    public SizeGUI(JButton btnAdd, JButton btnUpdate, JButton btnDelete, JButton btnExit, JTable table, String title){
-        super(btnAdd,btnUpdate,btnDelete,btnExit,table,title);
+    public SizeGUI(JButton btnAdd, JButton btnUpdate, JButton btnDelete, JTable table, String title){
+        super(btnAdd,btnUpdate,btnDelete,table,title);
     }
     public SizeGUI(){
         sizeController = new SizeController();
@@ -43,7 +43,6 @@ public class SizeGUI extends CrudGUI{
         JButton add = new JButton("Add") ;
         JButton edit = new JButton("Edit") ;
         JButton delete = new JButton("Delete");
-        JButton exit = new JButton("Exit");
         index = -1;
         getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -139,16 +138,9 @@ public class SizeGUI extends CrudGUI{
             }
         });
 
-        exit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
         setBtnAdd(add);
         setBtnUpdate(edit);
         setBtnDelete(delete);
-        setBtnExit(exit);
     }
     public void setSceneSize(){
         setTitle("Size");

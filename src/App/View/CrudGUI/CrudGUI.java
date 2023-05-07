@@ -8,18 +8,25 @@ public class CrudGUI extends JPanel {
     private JButton btnAdd;
     private JButton btnUpdate;
     private JButton btnDelete;
-    private JButton btnExit;
+//    private JButton btnExit;
     private JTable table;
     private String title;
 
-    public CrudGUI( JButton btnAdd, JButton btnUpdate, JButton btnDelete, JButton btnExit, JTable table, String title) {
+    public CrudGUI( JButton btnAdd, JButton btnUpdate, JButton btnDelete, JTable table, String title) {
         this.btnAdd = btnAdd;
         this.btnUpdate = btnUpdate;
         this.btnDelete = btnDelete;
-        this.btnExit = btnExit;
         this.table = table;
         this.title = title;
     }
+//    public CrudGUI( JButton btnAdd, JButton btnUpdate, JButton btnDelete, JButton btnExit, JTable table, String title) {
+//        this.btnAdd = btnAdd;
+//        this.btnUpdate = btnUpdate;
+//        this.btnDelete = btnDelete;
+//        this.btnExit = btnExit;
+//        this.table = table;
+//        this.title = title;
+//    }
     public CrudGUI(){
 
     }
@@ -48,13 +55,13 @@ public class CrudGUI extends JPanel {
         this.btnDelete = btnDelete;
     }
 
-    public JButton getBtnExit() {
-        return btnExit;
-    }
-
-    public void setBtnExit(JButton btnExit) {
-        this.btnExit = btnExit;
-    }
+//    public JButton getBtnExit() {
+//        return btnExit;
+//    }
+//
+//    public void setBtnExit(JButton btnExit) {
+//        this.btnExit = btnExit;
+//    }
 
     public JTable getTable() {
         return table;
@@ -110,15 +117,15 @@ public class CrudGUI extends JPanel {
         getBtnUpdate().setBorder(new RoundedBorder(20));
         getBtnDelete().setPreferredSize(new Dimension(200, 50));
         getBtnDelete().setBorder(new RoundedBorder(20));
-        getBtnExit().setPreferredSize(new Dimension(200, 50));
-        getBtnExit().setBorder(new RoundedBorder(20));
+//        getBtnExit().setPreferredSize(new Dimension(200, 50));
+//        getBtnExit().setBorder(new RoundedBorder(20));
         double x = 50;
         double y = 50;
         btnAdd.setMixingCutoutShape(new RoundRectangle2D.Double(x, y, 100, 100, 50, 50));
         jPanel.add(getBtnAdd());
         jPanel.add(getBtnUpdate());
         jPanel.add(getBtnDelete());
-        jPanel.add(getBtnExit());
+//        jPanel.add(getBtnExit());
         return jPanel;
     }
 
@@ -167,7 +174,7 @@ public class CrudGUI extends JPanel {
         JButton edit = new JButton("Edit") ;
         JButton delete = new JButton("Delete");
         JButton exit = new JButton("Exit");
-        CrudGUI crudGUI = new CrudGUI(add,edit,delete,exit,jTable,"Account");
+        CrudGUI crudGUI = new CrudGUI(add,edit,delete,jTable,"Account");
         crudGUI.Scene();
         jFrame.add(crudGUI);
         jFrame.setLocationRelativeTo(null);

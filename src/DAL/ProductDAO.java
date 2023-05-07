@@ -5,6 +5,7 @@ import Entity.OrderDetail;
 import Entity.Product;
 import Entity.ProductSize;
 import Entity.WorkPosition;
+import com.mysql.cj.x.protobuf.MysqlxCrud;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -103,12 +104,29 @@ public class ProductDAO  extends DAO<Product> {
 
     @Override
     public void update(Product product) {
+        try {
+            PreparedStatement prSt = database.getPreStmt("UPDATE product SET ProductName = ? , CategoryId  = ?  , ImagePath = ? WHERE ProductId = ?");
+            prSt.setString(1, product.getProductName());
+            prSt.setInt(2,product.getCategory());
+            prSt.setString(3,product.getImagePath());
+            prSt.setInt(4,product.getProductId());
+            prSt.execute();
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void delete(Product product) {
+        try {
+            PreparedStatement prSt = database.getPreStmt("UPDATE product SET DeleteAt = CURDATE() WHERE ProductId = ?");
+            prSt.setInt(1,product.getProductId());
+            prSt.execute();
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -144,5 +162,32 @@ public class ProductDAO  extends DAO<Product> {
             throw new RuntimeException(e);
         }
         return products;
+    }
+    public void InsertSize(Integer productId,ProductSize productSize){
+        try {
+            PreparedStatement prSt = database.getPreStmt("INSERT INTO productsize(ProductID,Sizes,ProductPrice,Storage) VALUES(?,?,?,?)");
+            prSt.setInt(1,productId);
+            prSt.setString(2,productSize.getSize());
+            prSt.setInt(3,productSize.getProductPrice());
+            prSt.setInt(4,productSize.getStorage());
+            prSt.execute();
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+    public void UpdateSize(Integer productId, ProductSize productSize){
+        try {
+            PreparedStatement prSt = database.getPreStmt("UPDATE productsize SET ProductPrice = ? , Storage = ? WHERE Sizes = ? AND ProductID = ?");
+            prSt.setInt(1,productSize.getProductPrice());
+            prSt.setInt(2,productSize.getStorage());
+            prSt.setString(3,productSize.getSize());
+            prSt.setInt(4,productId);
+            prSt.execute();
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+    public void DeleteSize(Integer productId, ProductSize productSize){
+
     }
 }

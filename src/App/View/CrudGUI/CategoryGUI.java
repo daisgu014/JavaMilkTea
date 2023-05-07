@@ -1,6 +1,7 @@
 package App.View.CrudGUI;
 
 import App.Controller.CategoryController;
+import App.Controller.CheckInput;
 import App.Controller.ProductController;
 import App.Model.ProductTable;
 import Entity.Category;
@@ -46,7 +47,6 @@ public class CategoryGUI extends CrudGUI{
         JButton add = new JButton("Add") ;
         JButton edit = new JButton("Edit") ;
         JButton delete = new JButton("Delete");
-        JButton exit = new JButton("Exit");
         index = -1;
         getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -67,17 +67,32 @@ public class CategoryGUI extends CrudGUI{
                 btnAccept.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        CheckInput checkInput = new CheckInput();
                         if(categoryFormAdd.getTfCategoryName().getText().trim().equals("")==false){
-                            Category category = new Category(null,categoryFormAdd.getTfCategoryName().getText(),null,null);
-                            Category newCategory = new Category();
-                            newCategory = categoryController.InsertCategory(category);
-                            categoryArrayList.add(newCategory);
-                            DefaultTableModel model = (DefaultTableModel) getTable().getModel();
-                            model.addRow(new Object[]{newCategory.getCategoryID(),newCategory.getCategoryName(),newCategory.getCreateAt(),newCategory.getDeleteAt()});
-                            JOptionPane.getRootFrame().dispose();
+                            if (checkInput.checkActiveCategory(categoryArrayList,categoryFormAdd.getTfCategoryName().getText())==false){
+                                Category category = new Category(
+                                        null,
+                                        categoryFormAdd.getTfCategoryName().getText(),
+                                        null,
+                                        null
+                                );
+                                Category newCategory = new Category();
+                                newCategory = categoryController.InsertCategory(category);
+                                categoryArrayList.add(newCategory);
+                                DefaultTableModel model = (DefaultTableModel) getTable().getModel();
+                                model.addRow(new Object[]{
+                                        newCategory.getCategoryID(),
+                                        newCategory.getCategoryName(),
+                                        newCategory.getCreateAt(),
+                                        newCategory.getDeleteAt()});
+                                JOptionPane.getRootFrame().dispose();
+                            }else {
+                                JOptionPane.showMessageDialog(null, "Thể loại sản phẩm đã tồn tại!",
+                                        "Create Category", JOptionPane.INFORMATION_MESSAGE);
+                            }
                         }else {
                             JOptionPane.showMessageDialog(null, "Vui lòng điền đủ thông tin!",
-                                    "Update Category", JOptionPane.INFORMATION_MESSAGE);
+                                    "Create Category", JOptionPane.INFORMATION_MESSAGE);
                         }
                     }
                 });
@@ -109,9 +124,15 @@ public class CategoryGUI extends CrudGUI{
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             if (categoryFormUpdate.getTfCategoryName().getText().trim().equals("")==false){
-                                Category category = new Category(Integer.parseInt(categoryFormUpdate.getTfCategoryId().getText()),categoryFormUpdate.getTfCategoryName().getText(), null,null);
+                                Category category = new Category(
+                                        Integer.parseInt(categoryFormUpdate.getTfCategoryId().getText()),
+                                        categoryFormUpdate.getTfCategoryName().getText(),
+                                        null,
+                                        null
+                                );
                                 categoryController.UpdateCategory(category);
                                 getTable().setValueAt(category.getCategoryName(),index,1);
+                                JOptionPane.getRootFrame().dispose();
                             }else {
                                 JOptionPane.showMessageDialog(null, "Vui lòng nhập đủ thông tin !",
                                         "Update Category", JOptionPane.INFORMATION_MESSAGE);
@@ -138,26 +159,27 @@ public class CategoryGUI extends CrudGUI{
         delete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int input = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không?", "Delete Category",
-                        JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                int input = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không?",
+                        "Delete Category",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.ERROR_MESSAGE
+                );
                 if (input == JOptionPane.OK_OPTION){
-                    Category category = new Category(Integer.parseInt(String.valueOf(getTable().getValueAt(index,0))),String.valueOf(getTable().getValueAt(index,1)),null,null);
+                    Category category = new Category(
+                            Integer.parseInt(String.valueOf(getTable().getValueAt(index,0))),
+                            String.valueOf(getTable().getValueAt(index,1)),
+                            null,
+                            null
+                    );
                     categoryController.DeleteCategory(category);
                     ((DefaultTableModel)getTable().getModel()).removeRow(index);
                 }
             }
         });
 
-        exit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
         setBtnAdd(add);
         setBtnUpdate(edit);
         setBtnDelete(delete);
-        setBtnExit(exit);
     }
     public static void main(String[] args) {
         JFrame jFrame = new JFrame();

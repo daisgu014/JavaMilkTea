@@ -22,8 +22,8 @@ public class AccountGUI extends CrudGUI {
     private AccountController accountController;
     private int index;
     private int key;
-    public AccountGUI(JButton btnAdd, JButton btnUpdate, JButton btnDelete, JButton btnExit, JTable table, String title){
-        super(btnAdd,btnUpdate,btnDelete,btnExit,table,title);
+    public AccountGUI(JButton btnAdd, JButton btnUpdate, JButton btnDelete, JTable table, String title){
+        super(btnAdd,btnUpdate,btnDelete,table,title);
     }
     public  AccountGUI(){
         accountController = new AccountController();
@@ -165,17 +165,9 @@ public class AccountGUI extends CrudGUI {
 
             }
         });
-        JButton exit = new JButton("Exit");
-        exit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
         setBtnAdd(add);
         setBtnUpdate(edit);
         setBtnDelete(delete);
-        setBtnExit(exit);
     }
     public HashMap<Integer, Account> getAccounts() {
         return accounts;
