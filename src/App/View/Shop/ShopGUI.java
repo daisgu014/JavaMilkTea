@@ -443,6 +443,7 @@ public class ShopGUI extends JPanel {
                 btnCustomer.setBackground(new Color(0, 151, 230));
                 btnCustomer.setFont(new Font("SF Pro Display", Font.BOLD, 20));
                 btnCustomer.setForeground(Color.white);
+
                 customerPanel.repaint();
                 closeCustomerPoint();
                 Integer price = 0;
@@ -535,7 +536,10 @@ public class ShopGUI extends JPanel {
             customerPointList = new JComboBox<>();
             customerPointPanel.removeAll();
         }
-
+        if(labelInfo!=null){
+            labelInfo.setText("");
+            customerPointPanel.removeAll();
+        }
         Integer price = 0;
         for (OrderDetail o : orderDetails) {
             price += o.getProduct().getPrice(o.getSize()) * o.getQuantity();
