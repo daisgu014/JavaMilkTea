@@ -77,6 +77,8 @@ public class ShopGUI extends JPanel {
         categoryPanel.setPreferredSize(new Dimension(150, 800));
         categoryPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         JButton btnAll = new JButton("All");
+        btnAll.setBackground(new Color(240, 147, 43));
+        btnAll.setFont(new Font("SF Pro Display", Font.BOLD, 20));
         categoryPanel.add(btnAll);
         /**
          * Xử lý sự kiện hiển thị danh sách sản phẩm theo  All
@@ -94,6 +96,8 @@ public class ShopGUI extends JPanel {
             ArrayList<Product> products = new ArrayList<>();
             String category = cate.getCategoryName();
             JButton jButton = new JButton(category);
+            jButton.setBackground(new Color(240, 147, 43));
+            jButton.setFont(new Font("SF Pro Display", Font.BOLD, 20));
             categoryPanel.add(jButton);
             /**
              * Xử lý sự kiện hiển thị danh sách sản phẩm theo thể loại
@@ -238,7 +242,9 @@ public class ShopGUI extends JPanel {
                     int option = JOptionPane.showConfirmDialog(null, "Bạn chắc muốn xóa " + orderDetail.getProduct().getProductName() + "?", "Confirmation", JOptionPane.YES_NO_OPTION);
                     if (option == JOptionPane.YES_OPTION) {
                         delete(orderDetail, selectRow);
+                        selectRow=-1;
                         TotalPrice();
+
                     } else {
                         return;
                     }
@@ -264,6 +270,7 @@ public class ShopGUI extends JPanel {
                     JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm cần chỉnh sửa");
                 } else {
                     renderProductEditDialog();
+                    selectRow = -1;
                 }
             }
         });
@@ -455,6 +462,7 @@ public class ShopGUI extends JPanel {
         orderDetails.remove(orderDetail);
         getCartTableModel().removeRow(row);
         getCartTableModel().fireTableDataChanged();
+        row=-1;
         getCartScrollPane().validate();
         reloadTable();
     }
@@ -538,12 +546,14 @@ public class ShopGUI extends JPanel {
     }
 
     public void closeCustomerPointEvent() {
-        btnClosePoint.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                closeCustomerPoint();
-            }
-        });
+        if(btnClosePoint!=null){
+            btnClosePoint.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    closeCustomerPoint();
+                }
+            });
+        }
     }
 
     public void TotalPrice() {
