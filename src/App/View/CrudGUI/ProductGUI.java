@@ -71,6 +71,7 @@ public class ProductGUI extends CrudGUI{
 //            System.out.println(filepath.getAbsolutePath());
                         String s = valueOf(filepath.getAbsolutePath());
                         String[] words=s.split("\\\\");
+                        words = words[words.length - 1].split("/");
                         s = words[words.length-1];
                         productFormAdd.getLbImange().setText(s);
                     }
