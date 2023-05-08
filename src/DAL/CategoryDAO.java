@@ -1,6 +1,7 @@
 package DAL;
 
 import Entity.Category;
+import Entity.WorkPosition;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +17,7 @@ public class CategoryDAO extends DAO<Category>{
         ArrayList<Category> categories = new ArrayList<>();
         Statement stmt = dao.getStmt();
         try {
-            ResultSet rs = stmt.executeQuery("select * from Category");
+            ResultSet rs = stmt.executeQuery("select * from Category WHERE DeleteAt is NULL");
             while (rs!=null && rs.next()){
                 categories.add(new Category(
                         rs.getInt(1),
@@ -53,18 +54,45 @@ public class CategoryDAO extends DAO<Category>{
 
     @Override
     public Category create(Category category) {
-        return null;
+        try {
+            PreparedStatement prSt = database.getPreStmt("INSERT INTO category(CategoryName)  VALUES(?)");
+            prSt.setString(1, category.getCategoryName());
+            prSt.execute();
+            PreparedStatement prStSelect = database.getPreStmt("SELECT * FROM category Order by CategoryId");
+            ResultSet rs = prStSelect.executeQuery();
+            while (rs.next()) {
+                category = new Category(rs.getInt(1),rs.getString(2),rs.getDate(3),rs.getDate(4));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return category;
     }
 
 
     @Override
     public void update(Category category) {
+        try {
+            PreparedStatement prSt = database.getPreStmt("UPDATE category SET CategoryName = ?  WHERE CategoryId = ?");
+            prSt.setString(1, category.getCategoryName());
+            prSt.setInt(2,category.getCategoryID());
+            prSt.execute();
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void delete(Category category) {
+        try {
+            PreparedStatement prSt = database.getPreStmt("UPDATE category SET DeleteAt = CURDATE()  WHERE CategoryId = ?");
+            prSt.setInt(1,category.getCategoryID());
+            prSt.execute();
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

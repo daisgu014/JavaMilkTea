@@ -31,6 +31,10 @@ public class Product {
         this.deleteAt = deleteAt;
         this.productSizes=productSizes;
     }
+    public Product(int productId,String productName){
+        this.productId = productId;
+        this.productName = productName;
+    }
 
     public void setProductId(int productId) {
         this.productId = productId;

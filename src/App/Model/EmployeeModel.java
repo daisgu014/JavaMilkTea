@@ -29,4 +29,8 @@ public class EmployeeModel {
     public void UpdateEmployee(Employee employee){
         employeeManagement.Update(employee);
     }
+    public void DeleteEmployee(Employee employee){
+        employeeManagement.Delete(employee);
+    }
+
 }

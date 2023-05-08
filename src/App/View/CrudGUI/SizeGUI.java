@@ -12,6 +12,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -23,8 +24,8 @@ public class SizeGUI extends CrudGUI{
     private SizeController sizeController ;
     private int index;
 
-    public SizeGUI(JButton btnAdd, JButton btnUpdate, JButton btnDelete, JButton btnExit, JTable table, String title){
-        super(btnAdd,btnUpdate,btnDelete,btnExit,table,title);
+    public SizeGUI(JButton btnAdd, JButton btnUpdate, JButton btnDelete, JTable table, String title){
+        super(btnAdd,btnUpdate,btnDelete,table,title);
     }
     public SizeGUI(){
         sizeController = new SizeController();
@@ -40,10 +41,9 @@ public class SizeGUI extends CrudGUI{
         setTable(table);
     }
     public void setButton(){
-        JButton add = new JButton("Add") ;
-        JButton edit = new JButton("Edit") ;
-        JButton delete = new JButton("Delete");
-        JButton exit = new JButton("Exit");
+        RoundButton add = new RoundButton("Add", Color.decode("#1CA7EC"),Color.decode("#9AD9EA"));
+        RoundButton edit = new RoundButton("Edit",Color.decode("#1CA7EC"),Color.decode("#9AD9EA"));
+        RoundButton delete = new RoundButton("Delete",Color.decode("#F44336"),Color.decode("#F88279"));
         index = -1;
         getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -57,8 +57,10 @@ public class SizeGUI extends CrudGUI{
             public void actionPerformed(ActionEvent e) {
                 SizeFormAdd sizeFormAdd = new SizeFormAdd();
                 Object[] message = {sizeFormAdd};
-                JButton btnAccept = new JButton("Add");
-                JButton btnCancel = new JButton("Cancel");
+                RoundButton btnAccept = new RoundButton("Accept",Color.decode("#1CA7EC"),Color.decode("#9AD9EA"));
+                btnAccept.setPreferredSize(new Dimension(100, 30));
+                RoundButton btnCancel = new RoundButton("Cancel",Color.decode("#7C8594"),Color.decode("#DDDEE5"));
+                btnCancel.setPreferredSize(new Dimension(100, 30));
                 btnAccept.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -98,8 +100,10 @@ public class SizeGUI extends CrudGUI{
                     sizeFormUpdate.getTfSign().setEditable(false);
                     sizeFormUpdate.getTfDescription().setText(String.valueOf(getTable().getValueAt(index,1)));
 
-                    JButton btnAccept = new JButton("Update");
-                    JButton btnCancel = new JButton("Cancel");
+                    RoundButton btnAccept = new RoundButton("Accept",Color.decode("#1CA7EC"),Color.decode("#9AD9EA"));
+                    btnAccept.setPreferredSize(new Dimension(100, 30));
+                    RoundButton btnCancel = new RoundButton("Cancel",Color.decode("#7C8594"),Color.decode("#DDDEE5"));
+                    btnCancel.setPreferredSize(new Dimension(100, 30));
                     btnAccept.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -139,16 +143,9 @@ public class SizeGUI extends CrudGUI{
             }
         });
 
-        exit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
         setBtnAdd(add);
         setBtnUpdate(edit);
         setBtnDelete(delete);
-        setBtnExit(exit);
     }
     public void setSceneSize(){
         setTitle("Size");

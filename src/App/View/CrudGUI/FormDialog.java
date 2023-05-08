@@ -28,8 +28,12 @@ public class FormDialog extends JPanel {
     public JPanel pnTitle(){
         JPanel pn = new JPanel();
         pn.setPreferredSize(new Dimension(590,80));
-        getLbTitle().setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        getLbTitle().setBorder(BorderFactory.createLineBorder(new Color(247, 159, 31),2));
+        getLbTitle().setForeground(new Color(247, 159, 31));
+        getLbTitle().setBackground(Color.decode("#F7D8C6"));
+        getLbTitle().setFont(new Font("Arial", Font.BOLD, 20));
         getLbTitle().setPreferredSize(new Dimension(200,50));
+        getLbTitle().setOpaque(true);
         pn.add(getLbTitle());
         return pn;
     }
@@ -37,7 +41,8 @@ public class FormDialog extends JPanel {
         JPanel pn = new JPanel();
         pn.setPreferredSize(new Dimension(490,300));
         pn.setLayout(new FlowLayout());
-        pn.setBorder(BorderFactory.createLineBorder(Color.red));
+        pn.setBorder(BorderFactory.createLineBorder(Color.decode("#1CA7EC")));
+        pn.setBackground(Color.decode("#9AD9EA"));
         return pn;
     }
     public void SceneForm(){

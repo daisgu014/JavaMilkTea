@@ -14,7 +14,7 @@ public class WorkPositionDAO extends DAO<WorkPosition> {
     public ArrayList<WorkPosition> getAll() {
         ArrayList<WorkPosition> workPositionArrayList = new ArrayList<>();
         try {
-            PreparedStatement prSt = database.getPreStmt("SELECT * FROM workposition");
+            PreparedStatement prSt = database.getPreStmt("SELECT * FROM workposition  WHERE DeleteAt is null");
             ResultSet rs = prSt.executeQuery();
             while (rs.next()) {
                 WorkPosition workPosition = new WorkPosition(rs.getInt(1),rs.getString(2),rs.getInt(3));
@@ -51,7 +51,7 @@ public class WorkPositionDAO extends DAO<WorkPosition> {
             prSt.setString(1, workPosition.getName());
             prSt.setInt(2,workPosition.getPositionLvl());
             prSt.execute();
-            PreparedStatement prStSelect = database.getPreStmt("SELECT * FROM workposition");
+            PreparedStatement prStSelect = database.getPreStmt("SELECT * FROM workposition WHERE DeleteAt is null");
             ResultSet rs = prStSelect.executeQuery();
             while (rs.next()) {
                 workPosition = new WorkPosition(rs.getInt(1),rs.getString(2),rs.getInt(3));
@@ -77,7 +77,13 @@ public class WorkPositionDAO extends DAO<WorkPosition> {
 
     @Override
     public void delete(WorkPosition workPosition) {
-
+        try {
+            PreparedStatement prSt = database.getPreStmt("UPDATE workposition SET DeleteAt = CURDATE() WHERE PositionId = ?");
+            prSt.setInt(1,workPosition.getPositionId());
+            prSt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

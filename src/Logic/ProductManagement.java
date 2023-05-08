@@ -4,7 +4,10 @@ import App.Model.ProductTable;
 import Entity.OrderDetail;
 import Entity.Product;
 import DAL.ProductDAO;
+import Entity.ProductSize;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ProductManagement {
@@ -55,6 +58,12 @@ public class ProductManagement {
     }
     public void Delete(Product product){
         productDAO.delete(product);
+    }
+    public void InsetSize(int productId, ProductSize productSize){
+        productDAO.InsertSize(productId,productSize);
+    }
+    public void UpdateSize(Integer productId, ProductSize productSize){
+        productDAO.UpdateSize(productId,productSize);
     }
     public ArrayList<ProductTable> getData(){
        return productDAO.getProductWithCateName();
