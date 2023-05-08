@@ -57,4 +57,16 @@ public class WorkPositionController extends CrudGUI {
                     "WorkPoisition", JOptionPane.INFORMATION_MESSAGE);
         }
     }
+    public void DeletePosition(WorkPosition workPosition){
+        try  {
+            workPositionModel.Delete(workPosition);
+            JOptionPane.showMessageDialog(null, "Thành công !",
+                    "WorkPoisition", JOptionPane.INFORMATION_MESSAGE);
+
+        }catch (Exception e){
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Thất bại !",
+                    "WorkPoisition", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
 }

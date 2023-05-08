@@ -4,15 +4,13 @@ import App.Controller.AccountController;
 import App.Controller.CheckInput;
 import App.Controller.EmployeeController;
 import App.Controller.SizeController;
-import Entity.Account;
-import Entity.Employee;
-import Entity.Size;
-import Entity.WorkPosition;
+import Entity.*;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -38,9 +36,9 @@ public class EmployeeGUI extends CrudGUI{
         setTable(table);
     }
     public void setButton(){
-        JButton add = new JButton("Add") ;
-        JButton edit = new JButton("Edit") ;
-        JButton delete = new JButton("Delete");
+        RoundButton add = new RoundButton("Add", Color.decode("#1CA7EC"),Color.decode("#9AD9EA"));
+        RoundButton edit = new RoundButton("Edit",Color.decode("#1CA7EC"),Color.decode("#9AD9EA"));
+        RoundButton delete = new RoundButton("Delete",Color.decode("#F44336"),Color.decode("#F88279"));
         index = -1;
         getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -57,8 +55,10 @@ public class EmployeeGUI extends CrudGUI{
 
                 EmployeeFormAdd employeeForm = new EmployeeFormAdd();
                 Object[] message = {employeeForm};
-                JButton btnAccept = new JButton("Add");
-                JButton btnCancel = new JButton("Cancel");
+                RoundButton btnAccept = new RoundButton("Accept",Color.decode("#1CA7EC"),Color.decode("#9AD9EA"));
+                btnAccept.setPreferredSize(new Dimension(100, 30));
+                RoundButton btnCancel = new RoundButton("Cancel",Color.decode("#7C8594"),Color.decode("#DDDEE5"));
+                btnCancel.setPreferredSize(new Dimension(100, 30));
                 btnAccept.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -85,7 +85,14 @@ public class EmployeeGUI extends CrudGUI{
                                         newEmployee.getEmployeePhone(),
                                         newEmployee.getWorkPosition().getName()
                                 });
+                                JOptionPane.getRootFrame().dispose();
+                            }else {
+                                JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ",
+                                        "Update Employee", JOptionPane.INFORMATION_MESSAGE);
                             }
+                        }else {
+                            JOptionPane.showMessageDialog(null, "Tên nhân viên không được bỏ trống",
+                                    "Update Employee", JOptionPane.INFORMATION_MESSAGE);
                         }
                     }
                 });
@@ -113,8 +120,10 @@ public class EmployeeGUI extends CrudGUI{
                     employeeForm.getTfPhone().setText(String.valueOf(employeeArrayList.get(index).getEmployeePhone()));
                     employeeForm.getCbWorkPosition().setSelectedIndex(employeeArrayList.get(index).getWorkPosition().getPositionId()-1);
                     Object[] message = {employeeForm};
-                    JButton btnAccept = new JButton("Update");
-                    JButton btnCancel = new JButton("Cancel");
+                    RoundButton btnAccept = new RoundButton("Accept",Color.decode("#1CA7EC"),Color.decode("#9AD9EA"));
+                    btnAccept.setPreferredSize(new Dimension(100, 30));
+                    RoundButton btnCancel = new RoundButton("Cancel",Color.decode("#7C8594"),Color.decode("#DDDEE5"));
+                    btnCancel.setPreferredSize(new Dimension(100, 30));
                     btnAccept.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -183,6 +192,27 @@ public class EmployeeGUI extends CrudGUI{
         delete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (index != -1){
+                    int choice = JOptionPane.showOptionDialog(null, "Bạn có chắc chắn xóa nhân viên không?", "Save changes?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                    if (choice == JOptionPane.YES_OPTION) {
+                        Employee employee = new Employee(
+                               Integer.parseInt(String.valueOf(getTable().getValueAt(index,0))),
+                                null,
+                                null,
+                                null
+                        );
+                        try {
+                            employeeController.DeleteEmployee(employee);
+                            ((DefaultTableModel)getTable().getModel()).removeRow(index);
+                            JOptionPane.getRootFrame().dispose();
+                        }catch (Exception exception){
+                            System.out.println(exception);
+                        }
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Vui lòng chọn Nhân Viên !",
+                            "Update Product", JOptionPane.INFORMATION_MESSAGE);
+                }
 
             }
         });

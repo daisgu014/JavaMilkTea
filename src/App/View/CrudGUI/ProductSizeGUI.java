@@ -10,6 +10,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -41,9 +42,9 @@ public class ProductSizeGUI extends CrudGUI{
         setTable(table);
     }
     public void setButton(){
-        JButton add = new JButton("Add") ;
-        JButton edit = new JButton("Edit") ;
-        JButton delete = new JButton("Delete");
+        RoundButton add = new RoundButton("Add", Color.decode("#1CA7EC"),Color.decode("#9AD9EA"));
+        RoundButton edit = new RoundButton("Edit",Color.decode("#1CA7EC"),Color.decode("#9AD9EA"));
+        RoundButton delete = new RoundButton("Delete",Color.decode("#F44336"),Color.decode("#F88279"));
 //        JButton exit = new JButton("Exit");
         index = -1;
         getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -65,8 +66,10 @@ public class ProductSizeGUI extends CrudGUI{
                     productSizeFormAdd.getTfProductName().setText(String.valueOf(getTable().getValueAt(index,1)));
                     productSizeFormAdd.getTfProductName().setEditable(false);
                     Object[] message = {productSizeFormAdd};
-                    JButton btnAccept = new JButton("Add");
-                    JButton btnCancel = new JButton("Cancel");
+                    RoundButton btnAccept = new RoundButton("Accept",Color.decode("#1CA7EC"),Color.decode("#9AD9EA"));
+                    btnAccept.setPreferredSize(new Dimension(100, 30));
+                    RoundButton btnCancel = new RoundButton("Cancel",Color.decode("#7C8594"),Color.decode("#DDDEE5"));
+                    btnCancel.setPreferredSize(new Dimension(100, 30));
                     btnAccept.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -154,8 +157,10 @@ public class ProductSizeGUI extends CrudGUI{
                     productSizeFormUpdate.getTfPrice().setText(String.valueOf(getTable().getValueAt(index,3)));
                     productSizeFormUpdate.getTfStorage().setText(String.valueOf(getTable().getValueAt(index,4)));
                     Object[] message = {productSizeFormUpdate};
-                    JButton btnAccept = new JButton("Update");
-                    JButton btnCancel = new JButton("Cancel");
+                    RoundButton btnAccept = new RoundButton("Accept",Color.decode("#1CA7EC"),Color.decode("#9AD9EA"));
+                    btnAccept.setPreferredSize(new Dimension(100, 30));
+                    RoundButton btnCancel = new RoundButton("Cancel",Color.decode("#7C8594"),Color.decode("#DDDEE5"));
+                    btnCancel.setPreferredSize(new Dimension(100, 30));
                     btnAccept.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {

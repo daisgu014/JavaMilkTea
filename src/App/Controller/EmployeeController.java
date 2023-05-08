@@ -62,5 +62,16 @@ public class EmployeeController {
         }
         return employeeIsert;
     }
+    public void DeleteEmployee(Employee employee){
+        try  {
+            employeeModel.DeleteEmployee(employee);
+            JOptionPane.showMessageDialog(null, "Thành công !",
+                    "Delete Employee", JOptionPane.INFORMATION_MESSAGE);
 
+        }catch (Exception e){
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Thất bại !",
+                    "Delete Employee", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
 }

@@ -3,6 +3,7 @@ package App.View.CrudGUI;
 import App.Controller.CheckInput;
 import App.Controller.SizeController;
 import App.Controller.WorkPositionController;
+import Entity.Account;
 import Entity.Size;
 import Entity.WorkPosition;
 
@@ -10,6 +11,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -39,9 +41,9 @@ public class WorkPositionGUI extends CrudGUI{
         setTable(table);
     }
     public void setButton(){
-        JButton add = new JButton("Add") ;
-        JButton edit = new JButton("Edit") ;
-        JButton delete = new JButton("Delete");
+        RoundButton add = new RoundButton("Add", Color.decode("#1CA7EC"),Color.decode("#9AD9EA"));
+        RoundButton edit = new RoundButton("Edit",Color.decode("#1CA7EC"),Color.decode("#9AD9EA"));
+        RoundButton delete = new RoundButton("Delete",Color.decode("#F44336"),Color.decode("#F88279"));
         index = -1;
         getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -55,8 +57,10 @@ public class WorkPositionGUI extends CrudGUI{
             public void actionPerformed(ActionEvent e) {
                 PositionFormAdd positionFormAdd = new PositionFormAdd();
                 Object[] message = {positionFormAdd};
-                JButton btnAccept = new JButton("Add");
-                JButton btnCancel = new JButton("Cancel");
+                RoundButton btnAccept = new RoundButton("Accept",Color.decode("#1CA7EC"),Color.decode("#9AD9EA"));
+                btnAccept.setPreferredSize(new Dimension(100, 30));
+                RoundButton btnCancel = new RoundButton("Cancel",Color.decode("#7C8594"),Color.decode("#DDDEE5"));
+                btnCancel.setPreferredSize(new Dimension(100, 30));
                 btnAccept.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -101,8 +105,10 @@ public class WorkPositionGUI extends CrudGUI{
                     positionFormUpdate.getTfName().setText(String.valueOf(getTable().getValueAt(index,1)));
                     positionFormUpdate.getTfLevel().setText(String.valueOf(getTable().getValueAt(index,2)));
                     Object[] message = {positionFormUpdate};
-                    JButton btnAccept = new JButton("Add");
-                    JButton btnCancel = new JButton("Cancel");
+                    RoundButton btnAccept = new RoundButton("Accept",Color.decode("#1CA7EC"),Color.decode("#9AD9EA"));
+                    btnAccept.setPreferredSize(new Dimension(100, 30));
+                    RoundButton btnCancel = new RoundButton("Cancel",Color.decode("#7C8594"),Color.decode("#DDDEE5"));
+                    btnCancel.setPreferredSize(new Dimension(100, 30));
                     btnAccept.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -142,9 +148,23 @@ public class WorkPositionGUI extends CrudGUI{
         }
     });
         delete.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (index !=-1){
+                    int input = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không?",
+                            "Delete Position",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                    if (input == JOptionPane.OK_OPTION){
+                        WorkPosition workPosition = new WorkPosition(Integer.parseInt(String.valueOf(getTable().getValueAt(index,0))),null,0);
+                        workPositionController.DeletePosition(workPosition);
+                        ((DefaultTableModel)getTable().getModel()).removeRow(index);
+                    }
+                }else {
+                    JOptionPane.showMessageDialog(null, "Vui lòng chọn vị trí làm việc !",
+                            "Delete Position", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         });
 

@@ -85,9 +85,9 @@ public class CrudGUI extends JPanel {
         JLabel jLabel = new JLabel(title,SwingConstants.CENTER);
         jLabel.setFont(new Font("Arial",Font.BOLD,30));
 //        jLabel.setBorder(new RoundedBorder(20,Color.MAGENTA));
-        jLabel.setBorder(new RoundedBorder(20));
-        jLabel.setForeground(Color.blue);
-        jLabel.setBackground(Color.lightGray);
+        jLabel.setBorder(BorderFactory.createLineBorder(new Color(247, 159, 31)));
+        jLabel.setForeground(new Color(247, 159, 31));
+        jLabel.setBackground(Color.white);
         jLabel.setOpaque(true);
         jLabel.setPreferredSize(new Dimension(400, 80));
         jLabel.setBounds(425,20,400,80);
@@ -103,6 +103,7 @@ public class CrudGUI extends JPanel {
         sp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         sp.setPreferredSize(new Dimension(1200, 380));
         jPanel.add(sp);
+//        jPanel.setBackground(new  Color(247, 159, 31));
         return jPanel;
     }
     //Vùng Panel chứa các nút điều khiển của Form
@@ -111,12 +112,12 @@ public class CrudGUI extends JPanel {
         jPanel.setPreferredSize(new Dimension(1250, 280));
         jPanel.setLayout(new FlowLayout(FlowLayout.CENTER,55,100));
         getBtnAdd().setPreferredSize(new Dimension(200, 50));
-        getBtnAdd().setBorder(new RoundedBorder(20));
-//        getBtnAdd().setBackground(Color.CYAN);
+//        getBtnAdd().setBorder(new RoundedBorder(20));
+//        getBtnAdd().setBackground(Color.white);
         getBtnUpdate().setPreferredSize(new Dimension(200, 50));
-        getBtnUpdate().setBorder(new RoundedBorder(20));
+//        getBtnUpdate().setBorder(new RoundedBorder(20));
         getBtnDelete().setPreferredSize(new Dimension(200, 50));
-        getBtnDelete().setBorder(new RoundedBorder(20));
+//        getBtnDelete().setBorder(new RoundedBorder(20));
 //        getBtnExit().setPreferredSize(new Dimension(200, 50));
 //        getBtnExit().setBorder(new RoundedBorder(20));
         double x = 50;
@@ -138,7 +139,7 @@ public class CrudGUI extends JPanel {
     }
     public static void main(String[] args) {
         JFrame jFrame = new JFrame();
-        jFrame.setSize(1280,1000);
+        jFrame.setSize(1280,800);
 
         String[] columns = {"Name", "Designation"}; //, "Salary"
         Object[][] rows = {{"Adithya", "Content Developer", 25000},
@@ -170,10 +171,14 @@ public class CrudGUI extends JPanel {
                 {"Ravi", "SAP  Consultant", 70000}
         };
         JTable jTable = new JTable(rows,columns);
-        JButton add = new JButton("Add") ;
-        JButton edit = new JButton("Edit") ;
-        JButton delete = new JButton("Delete");
-        JButton exit = new JButton("Exit");
+//        JButton add = new JButton("Add") ;
+
+        RoundButton add = new RoundButton("Add",Color.decode("#1CA7EC"),Color.decode("#9AD9EA"));
+        RoundButton edit = new RoundButton("Edit",Color.decode("#1CA7EC"),Color.decode("#9AD9EA")) ;
+        RoundButton delete = new RoundButton("Delete",Color.decode("#F44336"),Color.decode("#F88279")) ;
+//        JButton edit = new JButton("Edit") ;
+//        JButton delete = new JButton("Delete");
+//        JButton exit = new JButton("Exit");
         CrudGUI crudGUI = new CrudGUI(add,edit,delete,jTable,"Account");
         crudGUI.Scene();
         jFrame.add(crudGUI);

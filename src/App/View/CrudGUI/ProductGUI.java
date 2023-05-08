@@ -44,9 +44,9 @@ public class ProductGUI extends CrudGUI{
         setTable(table);
     }
     public void setButton(){
-        JButton add = new JButton("Add") ;
-        JButton edit = new JButton("Edit") ;
-        JButton delete = new JButton("Delete");
+        RoundButton add = new RoundButton("Add",Color.decode("#1CA7EC"),Color.decode("#9AD9EA"));
+        RoundButton edit = new RoundButton("Edit",Color.decode("#1CA7EC"),Color.decode("#9AD9EA"));
+        RoundButton delete = new RoundButton("Delete",Color.decode("#F44336"),Color.decode("#F88279"));
         index = -1;
         getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -85,8 +85,10 @@ public class ProductGUI extends CrudGUI{
                     }
                 });
                 Object[] message = {productFormAdd};
-                JButton btnAccept = new JButton("Add");
-                JButton btnCancel = new JButton("Cancel");
+                RoundButton btnAccept = new RoundButton("Accept",Color.decode("#1CA7EC"),Color.decode("#9AD9EA"));
+                btnAccept.setPreferredSize(new Dimension(100, 30));
+                RoundButton btnCancel = new RoundButton("Cancel",Color.decode("#7C8594"),Color.decode("#DDDEE5"));
+                btnCancel.setPreferredSize(new Dimension(100, 30));
                 btnAccept.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -180,8 +182,10 @@ public class ProductGUI extends CrudGUI{
                         }
                     });
                     Object[] message = {productFormUpdate};
-                    JButton btnAccept = new JButton("Update");
-                    JButton btnCancel = new JButton("Cancel");
+                    RoundButton btnAccept = new RoundButton("Accept",Color.decode("#1CA7EC"),Color.decode("#9AD9EA"));
+                    btnAccept.setPreferredSize(new Dimension(100, 30));
+                    RoundButton btnCancel = new RoundButton("Cancel",Color.decode("#7C8594"),Color.decode("#DDDEE5"));
+                    btnCancel.setPreferredSize(new Dimension(100, 30));
                     btnAccept.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -223,7 +227,7 @@ public class ProductGUI extends CrudGUI{
                     if (choice == JOptionPane.YES_OPTION) {
                         Product product = new Product(Integer.parseInt(String.valueOf(getTable().getValueAt(index,0))),null);
                         productController.DeleteProduct(product);
-                        System.out.println(product.getProductId());
+//                        System.out.println(product.getProductId());
                         getTable().setValueAt(java.time.LocalDate.now(),index,4);
                     }
                 }else{

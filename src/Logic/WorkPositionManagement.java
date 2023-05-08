@@ -25,4 +25,7 @@ public class WorkPositionManagement
     public void Update(WorkPosition workPosition){
         workPositionDAO.update(workPosition);
     }
+    public void Delete(WorkPosition workPosition){
+        workPositionDAO.delete(workPosition);
+    }
 }

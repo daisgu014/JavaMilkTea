@@ -20,7 +20,7 @@ public class EmployeeDAO extends DAO<Employee> {
         try {
             PreparedStatement prSt = database.getPreStmt("SELECT emp.EmployeeId,emp.EmployeeName,emp.EmployeePhone,wp.PositionId,wp.WorkPositionName,wp.WorkPositionLVL\n" +
                     "FROM employee as emp ,workposition as wp \n" +
-                    "WHERE emp.WorkPositionID = wp.PositionId");
+                    "WHERE emp.WorkPositionID = wp.PositionId AND emp.DeleteAt is NULL");
             ResultSet rs = prSt.executeQuery();
             while (rs.next()) {
                 WorkPosition workPosition = new WorkPosition(rs.getInt(4),rs.getString(5),rs.getInt(6));
@@ -93,7 +93,14 @@ public class EmployeeDAO extends DAO<Employee> {
 
     @Override
     public void delete(Employee employee) {
+        try {
+            PreparedStatement prSt = database.getPreStmt("UPDATE employee SET DeleteAt = CURDATE() WHERE EmployeeId = ?");
+            prSt.setInt(1,employee.getEmployeeId());
+            prSt.execute();
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

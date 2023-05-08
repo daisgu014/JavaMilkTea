@@ -70,7 +70,7 @@ public class ProductSizeFormUpdate extends FormDialog{
         JPanel pn = new JPanel();
         pn.setPreferredSize(new Dimension(490,300));
         pn.setLayout(new FlowLayout(FlowLayout.CENTER));
-        pn.setBorder(BorderFactory.createLineBorder(Color.red));
+        pn.setBorder(new RoundedBorder(20));
         JLabel lbId = new JLabel("Product ID: ",SwingConstants.CENTER);
         setTfProductId(new JTextField());
         pn.add(pnRows(lbId,getTfProductId()));
