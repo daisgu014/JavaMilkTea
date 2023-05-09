@@ -15,8 +15,7 @@ import java.time.YearMonth;
 import java.util.Calendar;
 import java.util.Properties;
 
-import static App.View.LoginView.lightYellow;
-import static App.View.LoginView.primary;
+import static App.View.LoginView.*;
 
 public class StatisticView extends JPanel {
     private JDatePickerImpl fromDatePicker, toDatePicker;
@@ -42,7 +41,7 @@ public class StatisticView extends JPanel {
     private void init() {
         this.setBackground(Color.white);
         FlowLayout fl = new FlowLayout();
-        fl.setHgap(140);
+        fl.setHgap(100);
         this.setLayout(fl);
 
         controller = new StatisticController();
@@ -68,11 +67,13 @@ public class StatisticView extends JPanel {
 
     private void display() {
         FlowLayout fl = new FlowLayout();
-        fl.setVgap(100);
+        fl.setVgap(60);
         chartContainer = new JPanel(fl);
+        chartContainer.setBackground(yellow);
         chartContainer.setPreferredSize(new Dimension(1000, 2000));
         tableContainer = new JPanel(fl);
         tableContainer.setPreferredSize(new Dimension(1000, 2000));
+        tableContainer.setBackground(yellow);
 
 
         chartContainer.add(chartView.getAreaChartPanel());
@@ -156,6 +157,9 @@ public class StatisticView extends JPanel {
         toDatePicker = new JDatePickerImpl(toDatePanel, new DateLabelFormatter());
 
         applyBtn = new JButton("Apply");
+        applyBtn.setBorderPainted(false);
+        applyBtn.setOpaque(true);
+        applyBtn.setBackground(primary);
 
         datePickerContainer.add(fromDatePicker);
         datePickerContainer.add(toDatePicker);
@@ -166,11 +170,13 @@ public class StatisticView extends JPanel {
         boardContainer = new JPanel();
 
         JPanel salePanel = new JPanel();
+        salePanel.setBorder(BorderFactory.createEmptyBorder(4, 10, 4, 10));
         salePanel.setLayout(new GridLayout(2, 1, 0, 0));
         salePanel.setPreferredSize(new Dimension(200, 60));
-        salePanel.setBackground(lightYellow);
+        salePanel.setBackground(yellow);
 
         JPanel qtyPanel = new JPanel();
+        qtyPanel.setBorder(BorderFactory.createEmptyBorder(4, 10, 4, 10));
         qtyPanel.setLayout(new GridLayout(2, 1, 0, 0));
         qtyPanel.setPreferredSize(new Dimension(200, 60));
         qtyPanel.setBackground(primary);

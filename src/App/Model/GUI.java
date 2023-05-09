@@ -13,7 +13,7 @@ public class GUI {
     public static HashMap<String, String> icons = new HashMap<>(){{
         put("Sale", "src/Assets/Icons/pos.png");
         put("Customer", "src/Assets/Icons/costumer.png");
-        put("Product", "src/Assets/Icons/product.png");
+        put("Product", "src/Assets/Icons/box.png");
         put("Size", "src/Assets/Icons/size.png");
         put("Employee", "src/Assets/Icons/resource.png");
         put("Account", "src/Assets/Icons/user.png");
@@ -21,6 +21,7 @@ public class GUI {
         put("Import", "src/Assets/Icons/import.png");
         put("Statistic", "src/Assets/Icons/pie-chart.png");
         put("Order", "src/Assets/Icons/order-now.png");
+        put("ProductSize", "src/Assets/Icons/product.png");
     }};
     public GUI(String GUIName, JPanel GUI) {
         this.GUIName = GUIName;

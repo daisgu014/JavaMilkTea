@@ -102,7 +102,7 @@ public class StatisticChartView {
 
         chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         chartPanel.setBackground(Color.white);
-        chartPanel.setPreferredSize(new Dimension(800, 400));
+        chartPanel.setPreferredSize(new Dimension(1000, 500));
         return chartPanel;
     }
 

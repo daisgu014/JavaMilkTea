@@ -22,7 +22,7 @@ public class MainGUI extends JFrame {
     JPanel menuButton, contentMain;
     private JLabel logo;
 
-    JScrollPane menuButtonScroll;
+    private JScrollPane menuButtonScroll;
     public Employee currEmployee;
     public static final Font smallFont = new Font("", Font.PLAIN, 14);
     HashMap<Integer, ArrayList<String>> roles = new HashMap<>() {{
@@ -31,13 +31,13 @@ public class MainGUI extends JFrame {
                 "Customer",
                 "Product",
                 "Size",
+                "Product & Size",
                 "Employee",
                 "Account",
                 "Work Position",
                 "Order",
                 "Import",
-                "Statistic",
-                "Order"
+                "Statistic"
         )));
         put(2, new ArrayList<>(asList(
                 "Sale",
@@ -62,7 +62,7 @@ public class MainGUI extends JFrame {
         managementGUI = new ManagementGUI();
         contentMain.add(new ShopGUI(), BorderLayout.CENTER);
         menuButton = new JPanel(new FlowLayout());
-        menuButton.setPreferredSize(new Dimension(225, 1000));
+        menuButton.setPreferredSize(new Dimension(240, 1000));
         menuButton.setBackground(primary);
         presentLogo();
         roles.get(roleId).forEach(role -> {
@@ -85,7 +85,9 @@ public class MainGUI extends JFrame {
             });
         });
         addLogoutBtn();
-        add(menuButton, BorderLayout.WEST);
+        menuButtonScroll = new JScrollPane(menuButton);
+        menuButtonScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        add(menuButtonScroll, BorderLayout.WEST);
         add(contentMain, BorderLayout.CENTER);
     }
 
