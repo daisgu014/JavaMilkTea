@@ -1,28 +1,25 @@
 package App.View.CrudGUI;
 
 import App.Controller.CategoryController;
-import App.Model.CategoryModel;
-import App.Model.EmployeeModel;
 import Entity.Category;
-import Entity.WorkPosition;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class ProductFormAdd extends FormDialog{
+public class ProductFormUpdate extends FormDialog{
     private JTextField tfProductName;
     private JComboBox cbCategory;
     private JLabel lbImange;
     private JButton btnUpload;
 
-    public ProductFormAdd(JTextField tfProductName, JComboBox cbCategory, JLabel lbImange, JButton btnUpload) {
+    public ProductFormUpdate(JTextField tfProductName, JComboBox cbCategory, JLabel lbImange, JButton btnUpload) {
         this.tfProductName = tfProductName;
         this.cbCategory = cbCategory;
         this.lbImange = lbImange;
         this.btnUpload = btnUpload;
     }
-    public ProductFormAdd(){
+    public ProductFormUpdate(){
         SceneForm();
     }
 
@@ -81,8 +78,6 @@ public class ProductFormAdd extends FormDialog{
         pn.add(getCbCategory());
         JLabel lbImg = new JLabel("Choose Image",SwingConstants.CENTER);
         lbImg.setPreferredSize(new Dimension(400,80));
-        lbImg.setHorizontalAlignment(JLabel.CENTER);
-        lbImg.setVerticalAlignment(JLabel.CENTER);
         setLbImange(lbImg);
         pn.add(getLbImange());
         btnUpload = new JButton("Upload");
@@ -95,7 +90,7 @@ public class ProductFormAdd extends FormDialog{
     public void SceneForm(){
         setPreferredSize(new Dimension(500,600));
         setLayout(new FlowLayout());
-        setLbTitle( new JLabel("Create Product",SwingConstants.CENTER));
+        setLbTitle( new JLabel("Update Product",SwingConstants.CENTER));
         add(pnTitle());
         add(pnContainer());
         setVisible(true);

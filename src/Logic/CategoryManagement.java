@@ -25,11 +25,14 @@ public class CategoryManagement {
     public Category findById(int  CategoryId){
         return  categoryDAO.get(CategoryId);
     }
-    public void addCategory(Category category){
+    public Category addCategory(Category category){
+        return categoryDAO.create(category);
     }
-    public void updateCategory(Category category){}
+    public void updateCategory(Category category){
+        categoryDAO.update(category);
+    }
     public void deleteCategory(Category category){
-
+        categoryDAO.delete(category);
     };
 }
 

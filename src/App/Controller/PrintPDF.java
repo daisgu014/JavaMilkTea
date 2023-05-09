@@ -1,8 +1,5 @@
 package App.Controller;
 
-import App.View.CustomerGUI;
-import App.View.Receipt;
-import App.View.Shop.ShopGUI;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.pdf.PdfWriter;
 

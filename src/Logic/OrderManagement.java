@@ -13,6 +13,7 @@ public class OrderManagement {
     private ArrayList<Order> orders;
     private OrderDAO orderDAO = new OrderDAO();
     ProductManagement productManagement = new ProductManagement();
+    CustomerManagement customerManagement = new CustomerManagement();
 
     public OrderManagement(){
         init();
@@ -48,6 +49,7 @@ public class OrderManagement {
             }else{
             }
         }
+        customerManagement.Update_Add_Point(order);
         return order;
     }
     public Order createWithNoPhone(ArrayList<OrderDetail> orderDetails){

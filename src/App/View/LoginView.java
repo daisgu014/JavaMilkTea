@@ -17,7 +17,7 @@ public class LoginView extends JPanel {
     private LoginController controller;
     public static Color primary = new Color(248, 152, 69);
     public static Color lightGrey = new Color(240, 240, 241);
-    public static Color lightYellow = new Color(255, 229, 159);
+    public static Color yellow = new Color(254, 199, 46);
     public static final Font font = new Font("", Font.BOLD, 22);
     public static final Font smallFont = new Font("", Font.BOLD, 14);
 

@@ -22,4 +22,7 @@ public class WorkPositionModel {
     public void Update(WorkPosition workPosition){
         workPositionManagement.Update(workPosition);
     }
+    public void Delete(WorkPosition workPosition){
+        workPositionManagement.Delete(workPosition);
+    }
 }

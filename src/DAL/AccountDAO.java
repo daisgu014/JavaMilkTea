@@ -15,7 +15,7 @@ public class AccountDAO extends DAO<Account>{
     @Override
     public ArrayList<Account> getAll() {
         try {
-            PreparedStatement prSt = database.getPreStmt("Select * from account");
+            PreparedStatement prSt = database.getPreStmt("Select * from account WHERE DeleteAt is null");
             ResultSet rs = prSt.executeQuery();
             while (rs.next()) {
                 Account accTb = new Account(rs.getString(1),
@@ -52,7 +52,7 @@ public class AccountDAO extends DAO<Account>{
     @Override
     public void delete(Account account) {
         try {
-            PreparedStatement prSt = database.getPreStmt("DELETE FROM account WHERE AccountUsername = ?;");
+            PreparedStatement prSt = database.getPreStmt("UPDATE account SET DeleteAt = CURDATE() WHERE AccountUserName = ?");
             prSt.setString(1,account.getUsername());
             prSt.execute();
         } catch (SQLException e) {
@@ -68,7 +68,7 @@ public class AccountDAO extends DAO<Account>{
         HashMap<Integer, Account> accounts =new HashMap<>();
         Statement statement = database.getStmt();
         try {
-            ResultSet rs= statement.executeQuery("select * from Account");
+            ResultSet rs= statement.executeQuery("select * from Account  WHERE DeleteAt is null ");
             while (rs.next()){
                 accounts.put(rs.getInt(3),
                         new Account(rs.getString(1),rs.getString(2)));

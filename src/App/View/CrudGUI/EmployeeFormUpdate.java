@@ -69,7 +69,7 @@ public class EmployeeFormUpdate extends FormDialog{
         JPanel pn = new JPanel();
         pn.setPreferredSize(new Dimension(490,300));
         pn.setLayout(new FlowLayout());
-        pn.setBorder(BorderFactory.createLineBorder(Color.red));
+        pn.setBorder(new RoundedBorder(20));
         JLabel lbIDEmp = new JLabel("Employee ID: ",SwingConstants.CENTER);
         setTfId(new JTextField());
         pn.add(pnRows(lbIDEmp,getTfId()));

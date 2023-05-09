@@ -24,4 +24,7 @@ public class EmployeeManagement {
     public  void Update(Employee employee){
         employeeDAO.update(employee);
     }
+    public void Delete(Employee employee) {
+        employeeDAO.delete(employee);
+    }
 }

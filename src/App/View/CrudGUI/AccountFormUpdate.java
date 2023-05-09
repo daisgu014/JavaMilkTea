@@ -55,7 +55,10 @@ public class AccountFormUpdate extends FormDialog {
         JPanel pn = new JPanel();
         pn.setPreferredSize(new Dimension(490,300));
         pn.setLayout(new FlowLayout());
-        pn.setBorder(BorderFactory.createLineBorder(Color.red));
+        pn.setBorder(new RoundedBorder(20));
+//        pn.setBorder(BorderFactory.createLineBorder(Color.decode("#1CA7EC")));
+
+//        pn.setBackground(Color.decode("#9AD9EA"));
         JLabel lbIDEmp = new JLabel("Employee ID: ",SwingConstants.CENTER);
         pn.add(pnRows(lbIDEmp,getTfIDEmp()));
         JLabel lbUsername = new JLabel("Username: ",SwingConstants.CENTER);
