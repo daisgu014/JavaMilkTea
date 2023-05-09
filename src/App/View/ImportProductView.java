@@ -1,17 +1,12 @@
 package App.View;
 
 import App.Controller.ImportController;
-import App.View.Shop.loadData;
 import Entity.Import;
-import Entity.Product;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class ImportProductView extends JPanel {
@@ -19,28 +14,38 @@ public class ImportProductView extends JPanel {
     private DefaultTableModel model;
     private JComboBox<String> products, sizes;
     private JTextField qtyTxf;
-    private JButton addBtn, editBtn, deleteBtn, importBtn;
+    private JButton addBtn, editBtn, deleteBtn, importBtn, refreshBtn;
     private JLabel qtyLbl, productLbl, title, sizeLbl;
     private JPanel leftContainer;
     private JScrollPane scrollPane;
     private ImportController controller;
-
+    private static Color c = new Color(247, 159, 31);
 
     public ImportProductView() {
         initGUI();
     }
 
     public void initGUI() {
-        this.setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout(0, 16));
         controller = new ImportController();
 
         title = new JLabel("Import Product", SwingConstants.CENTER);
-        title.setPreferredSize(new Dimension(0, 50));
+        title.setFont(new Font("Arial",Font.BOLD,30));
+        title.setBorder(BorderFactory.createLineBorder(c));
+        title.setForeground(c);
+        title.setBackground(Color.white);
+        title.setOpaque(true);
+        title.setPreferredSize(new Dimension(400, 80));
+
         model = new DefaultTableModel();
         productTable = new JTable(model);
         JPanel p = new JPanel();
+        p.setPreferredSize(new Dimension(0, 60));
         importBtn = new JButton("Import Products");
         importBtn.setPreferredSize(new Dimension(180, 40));
+        importBtn.setOpaque(true);
+        importBtn.setBackground(c);
+        importBtn.setBorderPainted(false);
         p.add(importBtn);
 
         model.addColumn("No.");
@@ -58,7 +63,7 @@ public class ImportProductView extends JPanel {
     }
 
     public void initLeftGUI() {
-        leftContainer = new JPanel();
+        leftContainer = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 40));
         leftContainer.setPreferredSize(new Dimension(500, 700));
 
         productLbl = new JLabel("Product");
@@ -83,16 +88,29 @@ public class ImportProductView extends JPanel {
         panel1.add(qtyTxf);
 
         addBtn = new JButton("Add");
+        refreshBtn = new JButton("Refresh");
 //        editBtn = new JButton("Edit");
         deleteBtn = new JButton("Delete");
+        fillColorBtn(addBtn);
+        fillColorBtn(refreshBtn);
+        fillColorBtn(deleteBtn);
+        deleteBtn.setBackground(Color.decode("#F44336"));
 
-        JPanel panel2 = new JPanel(new GridLayout(1, 2, 50, 0));
-        panel2.add(addBtn);
+        JPanel panel2 = new JPanel(new GridLayout(1, 3, 20, 0));
 //        panel2.add(editBtn);
         panel2.add(deleteBtn);
+        panel2.add(addBtn);
+        panel2.add(refreshBtn);
 
         leftContainer.add(panel1);
         leftContainer.add(panel2);
+    }
+
+    private void fillColorBtn(JButton button) {
+        button.setBorderPainted(false);
+        button.setOpaque(true);
+        button.setBackground(Color.decode("#1CA7EC"));
+        button.setPreferredSize(new Dimension(140, 30));
     }
 
     public void setDataTable(ArrayList<Object[]> objects) {
@@ -118,21 +136,36 @@ public class ImportProductView extends JPanel {
     }
 
     public void refreshInput() {
-//        products.setSelectedIndex(-1);
 //        sizes.removeAllItems();
+//        products.setSelectedIndex(-1);
         qtyTxf.setText("");
     }
 
     public void handleEvents() {
+
         products.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sizes.removeAllItems();
                 String name = (String) products.getSelectedItem();
-                String[] strings = controller.getModel().getSizesByProductName(name).toArray(new String[0]);
-                for (String string : strings) {
-                    sizes.addItem(string);
+                if(name != null) {
+                    String[] strings = controller.getModel().getSizesByProductName(name).toArray(new String[0]);
+                    for (String string : strings) {
+                        sizes.addItem(string);
+                    }
                 }
+            }
+        });
+
+        refreshBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String[] strings = controller.getModel().getProductNames().toArray(new String[0]);
+                products.removeAllItems();
+                for(String str : strings) {
+                    products.addItem(str);
+                }
+                products.setSelectedIndex(-1);
             }
         });
 

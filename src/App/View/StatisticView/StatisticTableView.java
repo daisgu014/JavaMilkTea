@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import static App.View.LoginView.primary;
+import static App.View.LoginView.yellow;
 
 public class StatisticTableView {
     private JLabel productLbl, cateLbl, orderLbl;
@@ -45,8 +46,11 @@ public class StatisticTableView {
         revenueModel = new DefaultTableModel();
 
         productTable = new JTable();
+        fillColorTable(productTable);
         categoryTable = new JTable();
+        fillColorTable(categoryTable);
         revenueTable = new JTable();
+        fillColorTable(revenueTable);
 
         productTable.setModel(productStatisticModel);
         categoryTable.setModel(cateStatisticModel);
@@ -55,8 +59,8 @@ public class StatisticTableView {
         productStatisticModel.addColumn("No.");
         productStatisticModel.addColumn("Product");
         productStatisticModel.addColumn("Size");
-        productStatisticModel.addColumn("Total Quantity (Not Include Discount)");
-        productStatisticModel.addColumn("Total Sales");
+        productStatisticModel.addColumn("Total Quantity");
+        productStatisticModel.addColumn("Total Sales (Not Include Discount)");
 
         cateStatisticModel.addColumn("No.");
         cateStatisticModel.addColumn("Category");
@@ -72,19 +76,22 @@ public class StatisticTableView {
         scrollPane2 = new JScrollPane(categoryTable);
         scrollPane3 = new JScrollPane(revenueTable);
 
-        scrollPane1.setPreferredSize(new Dimension(1000, 500));
-        scrollPane2.setPreferredSize(new Dimension(1000, 500));
-        scrollPane3.setPreferredSize(new Dimension(1000, 500));
+        scrollPane1.setPreferredSize(new Dimension(1100, 500));
+        scrollPane2.setPreferredSize(new Dimension(1100, 500));
+        scrollPane3.setPreferredSize(new Dimension(1100, 500));
 
-        productContainer.setPreferredSize(new Dimension(1100, 500));
+        productContainer.setPreferredSize(new Dimension(1200, 550));
+        productContainer.setBackground(yellow);
         productContainer.add(productLbl);
         productContainer.add(scrollPane1);
 
-        cateContainer.setPreferredSize(new Dimension(1100, 500));
+        cateContainer.setPreferredSize(new Dimension(1200, 550));
+        cateContainer.setBackground(yellow);
         cateContainer.add(cateLbl);
         cateContainer.add(scrollPane2);
 
-        revenueContainer.setPreferredSize(new Dimension(1100, 500));
+        revenueContainer.setPreferredSize(new Dimension(1200, 550));
+        revenueContainer.setBackground(yellow);
         revenueContainer.add(orderLbl);
         revenueContainer.add(scrollPane3);
     }
@@ -95,7 +102,11 @@ public class StatisticTableView {
         exportBtn.setBackground(primary);
         exportBtn.setOpaque(true);
         exportBtn.setBorderPainted(false);
+    }
 
+    private void fillColorTable(JTable table) {
+        table.getTableHeader().setBackground(primary);
+        table.getTableHeader().setFont(new Font("SF Pro Display", Font.BOLD, 13));
     }
 
     public JPanel getProductContainer() {
