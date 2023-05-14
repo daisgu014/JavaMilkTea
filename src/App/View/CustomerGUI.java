@@ -185,6 +185,7 @@ public class CustomerGUI extends JPanel{
         txtCustomerPoint = new JTextField(25);
         txtCustomerPoint.setPreferredSize(new Dimension(120,40));
         txtCustomerPoint.setText("0");
+        txtCustomerPoint.setEnabled(false);
         btnAdd = new JButton("ADD");
         btnAdd.setPreferredSize(new Dimension(100,50));
         btnAdd.setFont(new Font("SF Pro Display", Font.BOLD, 16));
