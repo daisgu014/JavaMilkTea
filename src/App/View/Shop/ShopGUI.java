@@ -396,9 +396,11 @@ public class ShopGUI extends JPanel {
             productListPanel.removeAll();
         }
         products.forEach(e -> {
-            Items item = new Items(e);
-            item.getOrderController().setObs(this);
-            productListPanel.add(item);
+            if(e.getProductSizes().size()>0){
+                Items item = new Items(e);
+                item.getOrderController().setObs(this);
+                productListPanel.add(item);
+            }
         });
     }
 
