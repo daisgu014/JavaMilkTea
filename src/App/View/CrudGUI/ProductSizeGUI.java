@@ -116,11 +116,15 @@ public class ProductSizeGUI extends CrudGUI{
                                     JOptionPane.getRootFrame().dispose(); // Close the dialog
                                 }else{
                                     JOptionPane.showMessageDialog(null, "Sản phẩm đã có Size: "+size+" !",
-                                            "Create Product Size", JOptionPane.INFORMATION_MESSAGE);
+                                            "Create Product Size", JOptionPane.INFORMATION_MESSAGE,
+                                            new ImageIcon("src/Assets/Icons/warning.png")
+                                    );
                                 }
                             }else {
                                 JOptionPane.showMessageDialog(null, "Vui lòng nhập số !",
-                                        "Create Product Size", JOptionPane.INFORMATION_MESSAGE);
+                                        "Create Product Size", JOptionPane.INFORMATION_MESSAGE,
+                                        new ImageIcon("src/Assets/Icons/warning.png")
+                                        );
                             }
                         }
                     });
@@ -137,7 +141,9 @@ public class ProductSizeGUI extends CrudGUI{
                             options, options[0]);
                 }else {
                     JOptionPane.showMessageDialog(null, "Vui lòng chọn Sản phẩm !",
-                            "Update Product Size", JOptionPane.INFORMATION_MESSAGE);
+                            "Update Product Size", JOptionPane.INFORMATION_MESSAGE,
+                            new ImageIcon("src/Assets/Icons/chat.png")
+                    );
                 }
 
             }
@@ -192,7 +198,9 @@ public class ProductSizeGUI extends CrudGUI{
                                 JOptionPane.getRootFrame().dispose(); // Close the dialog
                             }else {
                                 JOptionPane.showMessageDialog(null, "Vui lòng nhập số !",
-                                        "Update Product Size", JOptionPane.INFORMATION_MESSAGE);
+                                        "Update Product Size", JOptionPane.INFORMATION_MESSAGE,
+                                        new ImageIcon("src/Assets/Icons/warning.png")
+                                        );
                             }
                         }
                     });
@@ -209,7 +217,9 @@ public class ProductSizeGUI extends CrudGUI{
                             options, options[0]);
                 }else {
                     JOptionPane.showMessageDialog(null, "Vui lòng chọn Sản phẩm !",
-                            "Update Product Size", JOptionPane.INFORMATION_MESSAGE);
+                            "Update Product Size", JOptionPane.INFORMATION_MESSAGE,
+                            new ImageIcon("src/Assets/Icons/chat.png")
+                    );
 
                 }
             }

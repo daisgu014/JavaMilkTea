@@ -74,11 +74,15 @@ public class WorkPositionGUI extends CrudGUI{
                                 model.addRow(new Object[]{workPosition.getPositionId(),workPosition.getName(),workPosition.getPositionLvl()});
                             }else {
                                 JOptionPane.showMessageDialog(null, "Level là số có 1 chữ số !",
-                                        "Create Work Position", JOptionPane.INFORMATION_MESSAGE);
+                                        "Create Work Position", JOptionPane.INFORMATION_MESSAGE,
+                                        new ImageIcon("src/Assets/Icons/warning.png")
+                                        );
                             }
                         }else {
                             JOptionPane.showMessageDialog(null, "Vui lòng nhập đủ thông tin!",
-                                    "Create Work Position", JOptionPane.INFORMATION_MESSAGE);
+                                    "Create Work Position", JOptionPane.INFORMATION_MESSAGE,
+                                    new ImageIcon("src/Assets/Icons/warning.png")
+                                    );
                         }
                     }
                 });
@@ -122,11 +126,15 @@ public class WorkPositionGUI extends CrudGUI{
                                     getTable().setValueAt(workPosition.getPositionLvl(),index,2);
                                 }else {
                                     JOptionPane.showMessageDialog(null, "Level là số có 1 chữ số !",
-                                            "Create Work Position", JOptionPane.INFORMATION_MESSAGE);
+                                            "Create Work Position", JOptionPane.INFORMATION_MESSAGE,
+                                            new ImageIcon("src/Assets/Icons/warning.png")
+                                    );
                                 }
                             }else {
                                 JOptionPane.showMessageDialog(null, "Vui lòng nhập đủ thông tin!",
-                                        "Create Work Position", JOptionPane.INFORMATION_MESSAGE);
+                                        "Create Work Position", JOptionPane.INFORMATION_MESSAGE,
+                                        new ImageIcon("src/Assets/Icons/warning.png")
+                                        );
                             }
                         }
                     });
@@ -143,7 +151,9 @@ public class WorkPositionGUI extends CrudGUI{
                             options, options[0]);
             }else {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn vị trí muốn chỉnh sửa!",
-                        "Update Work Position", JOptionPane.INFORMATION_MESSAGE);
+                        "Update Work Position", JOptionPane.INFORMATION_MESSAGE,
+                        new ImageIcon("src/Assets/Icons/warning.png")
+                );
             }
         }
     });
@@ -154,7 +164,8 @@ public class WorkPositionGUI extends CrudGUI{
                     int input = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không?",
                             "Delete Position",
                             JOptionPane.YES_NO_OPTION,
-                            JOptionPane.ERROR_MESSAGE
+                            JOptionPane.ERROR_MESSAGE,
+                            new ImageIcon("src/Assets/Icons/warning.png")
                     );
                     if (input == JOptionPane.OK_OPTION){
                         WorkPosition workPosition = new WorkPosition(Integer.parseInt(String.valueOf(getTable().getValueAt(index,0))),null,0);
@@ -163,7 +174,9 @@ public class WorkPositionGUI extends CrudGUI{
                     }
                 }else {
                     JOptionPane.showMessageDialog(null, "Vui lòng chọn vị trí làm việc !",
-                            "Delete Position", JOptionPane.INFORMATION_MESSAGE);
+                            "Delete Position", JOptionPane.INFORMATION_MESSAGE,
+                            new ImageIcon("src/Assets/Icons/chat.png")
+                            );
                 }
             }
         });

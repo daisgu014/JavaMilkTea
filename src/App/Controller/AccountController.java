@@ -34,10 +34,12 @@ public class AccountController {
         try {
             accountModel.InsertAccount(account,empID);
             JOptionPane.showMessageDialog(null, "Thêm thành công !",
-                    "Add Account",JOptionPane.INFORMATION_MESSAGE);
+                    "Add Account",JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/checked.png"));
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Mã nhân viên không tồn tại!",
-                    "Add Account",JOptionPane.INFORMATION_MESSAGE);
+                    "Add Account",JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/cancel.png"));
 //            System.out.println(e);
         }
     }
@@ -45,7 +47,8 @@ public class AccountController {
         try {
             accountModel.UpdateAccount(account);
             JOptionPane.showMessageDialog(null, "Thành công !",
-                    "Upadate Account", JOptionPane.INFORMATION_MESSAGE);
+                    "Upadate Account", JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/checked.png"));
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -54,10 +57,12 @@ public class AccountController {
         try {
             accountModel.DeleteAccount(account);
             JOptionPane.showMessageDialog(null, "Thành công !",
-                    "Delete Account", JOptionPane.INFORMATION_MESSAGE);
+                    "Delete Account", JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/checked.png"));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Thất bại !",
-                    "Delete Account", JOptionPane.INFORMATION_MESSAGE);
+                    "Delete Account", JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/cancel.png"));
 //            System.out.println(e);
         }
     }

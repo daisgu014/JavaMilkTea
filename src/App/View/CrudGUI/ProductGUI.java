@@ -131,11 +131,15 @@ public class ProductGUI extends CrudGUI{
                                 JOptionPane.getRootFrame().dispose();
                             }else {
                                 JOptionPane.showMessageDialog(null, "Sản phẩm đã tồn tại !",
-                                        "Create Product", JOptionPane.INFORMATION_MESSAGE);
+                                        "Create Product", JOptionPane.INFORMATION_MESSAGE,
+                                        new ImageIcon("src/Assets/Icons/warning.png")
+                                        );
                             }
                         }else {
                             JOptionPane.showMessageDialog(null, "Vui lòng nhập đủ thông tin !",
-                                    "Create Product", JOptionPane.INFORMATION_MESSAGE);
+                                    "Create Product", JOptionPane.INFORMATION_MESSAGE,
+                                    new ImageIcon("src/Assets/Icons/warning.png")
+                                    );
                         }
                     }
                 });
@@ -215,7 +219,9 @@ public class ProductGUI extends CrudGUI{
                             options, options[0]);
                 }else {
                     JOptionPane.showMessageDialog(null, "Vui lòng chọn Sản phẩm !",
-                            "Update Product", JOptionPane.INFORMATION_MESSAGE);
+                            "Update Product", JOptionPane.INFORMATION_MESSAGE,
+                            new ImageIcon("src/Assets/Icons/chat.png")
+                            );
                 }
             }
         });
@@ -223,16 +229,26 @@ public class ProductGUI extends CrudGUI{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (index != -1){
-                    int choice = JOptionPane.showOptionDialog(null, "Bạn có chắc chắn xóa sản phẩm không?", "Save changes?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                    int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không?",
+                            "Delete Product",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.ERROR_MESSAGE,
+                            new ImageIcon("src/Assets/Icons/warning.png")
+                    );
                     if (choice == JOptionPane.YES_OPTION) {
-                        Product product = new Product(Integer.parseInt(String.valueOf(getTable().getValueAt(index,0))),null);
+                        Product product = new Product(
+                                Integer.parseInt(String.valueOf(getTable().getValueAt(index,0))),
+                                null
+                        );
                         productController.DeleteProduct(product);
 //                        System.out.println(product.getProductId());
                         getTable().setValueAt(java.time.LocalDate.now(),index,4);
                     }
                 }else{
                     JOptionPane.showMessageDialog(null, "Vui lòng chọn Sản phẩm !",
-                            "Update Product", JOptionPane.INFORMATION_MESSAGE);
+                            "Update Product", JOptionPane.INFORMATION_MESSAGE,
+                            new ImageIcon("src/Assets/Icons/chat.png")
+                            );
                 }
 
             }
