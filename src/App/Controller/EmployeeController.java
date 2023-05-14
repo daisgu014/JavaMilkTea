@@ -40,12 +40,16 @@ public class EmployeeController {
        try  {
            employeeModel.UpdateEmployee(employee);
            JOptionPane.showMessageDialog(null, "Thành công !",
-                   "Update Employee", JOptionPane.INFORMATION_MESSAGE);
+                   "Update Employee", JOptionPane.INFORMATION_MESSAGE,
+                   new ImageIcon("src/Assets/Icons/checked.png")
+                   );
 
        }catch (Exception e){
            System.out.println(e);
            JOptionPane.showMessageDialog(null, "Thất bại !",
-                   "Update Employee", JOptionPane.INFORMATION_MESSAGE);
+                   "Update Employee", JOptionPane.INFORMATION_MESSAGE,
+                   new ImageIcon("src/Assets/Icons/cancel.png")
+                   );
        }
     }
     public Employee InsertEmployee(Employee employee){
@@ -53,12 +57,16 @@ public class EmployeeController {
         try  {
             employeeIsert = employeeModel.InsertEmployee(employee);
             JOptionPane.showMessageDialog(null, "Thành công !",
-                    "Create Employee", JOptionPane.INFORMATION_MESSAGE);
+                    "Create Employee", JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/checked.png")
+                    );
 
         }catch (Exception e){
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Thất bại !",
-                    "Create Employee", JOptionPane.INFORMATION_MESSAGE);
+                    "Create Employee", JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/cancel.png")
+            );
         }
         return employeeIsert;
     }
@@ -66,12 +74,16 @@ public class EmployeeController {
         try  {
             employeeModel.DeleteEmployee(employee);
             JOptionPane.showMessageDialog(null, "Thành công !",
-                    "Delete Employee", JOptionPane.INFORMATION_MESSAGE);
+                    "Delete Employee", JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/checked.png")
+                    );
 
         }catch (Exception e){
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Thất bại !",
-                    "Delete Employee", JOptionPane.INFORMATION_MESSAGE);
+                    "Delete Employee", JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/cancel.png")
+            );
         }
     }
 }

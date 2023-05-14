@@ -32,7 +32,13 @@ public class ProductController {
         table = new JTable();
         DefaultTableModel model = new DefaultTableModel(columns, 0);
         for (ProductTable product : productTableArrayList) {
-            Object[] row = {product.getProductId(),product.getProductName(),product.getCategory(),product.getCreateAt(),product.getDeleteAt()};
+            Object[] row = {
+                    product.getProductId(),
+                    product.getProductName(),
+                    product.getCategory(),
+                    product.getCreateAt(),
+                    product.getDeleteAt()
+            };
             model.addRow(row);
         }
         table.setModel(model);
@@ -45,7 +51,13 @@ public class ProductController {
         for (Product product : productArrayList) {
             if (product.getProductSizes().size()!=0){
                 for (ProductSize productSize : product.getProductSizes()){
-                    Object[] row = {product.getProductId(),product.getProductName(),productSize.getSize(),productSize.getProductPrice(),productSize.getStorage()};
+                    Object[] row = {
+                            product.getProductId(),
+                            product.getProductName(),
+                            productSize.getSize(),
+                            productSize.getProductPrice(),
+                            productSize.getStorage()
+                    };
                     model.addRow(row);
                 }
             }else {
@@ -60,10 +72,14 @@ public class ProductController {
         try {
             product = productModel.Insert(product);
             JOptionPane.showMessageDialog(null, "Thành công!",
-                    "Create Product", JOptionPane.INFORMATION_MESSAGE);
+                    "Create Product", JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/checked.png")
+            );
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, e,
-                    "Create Product", JOptionPane.INFORMATION_MESSAGE);
+                    "Create Product", JOptionPane.INFORMATION_MESSAGE,
+                new ImageIcon("src/Assets/Icons/cancel.png")
+            );
         }
         return product;
     }
@@ -71,40 +87,56 @@ public class ProductController {
         try {
             productModel.Update(product);
             JOptionPane.showMessageDialog(null, "Thành công!",
-                    "Update Product", JOptionPane.INFORMATION_MESSAGE);
+                    "Update Product", JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/checked.png")
+                    );
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, e,
-                    "Update Product", JOptionPane.INFORMATION_MESSAGE);
+                    "Update Product", JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/cancel.png")
+                    );
         }
     }
     public void DeleteProduct(Product product){
         try {
             productModel.Delete(product);
             JOptionPane.showMessageDialog(null, "Thành công!",
-                    "Delete Product", JOptionPane.INFORMATION_MESSAGE);
+                    "Delete Product", JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/checked.png")
+                    );
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, e,
-                    "Delete Product", JOptionPane.INFORMATION_MESSAGE);
+                    "Delete Product", JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/cancel.png")
+                    );
         }
     }
     public void InsertProductSize(int productId,ProductSize productSize){
         try {
             productModel.InsetSize(productId,productSize);
             JOptionPane.showMessageDialog(null, "Thành công!",
-                    "Create Product Size", JOptionPane.INFORMATION_MESSAGE);
+                    "Create Product Size", JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/checked.png")
+                    );
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, e,
-                    "Create Product Size", JOptionPane.INFORMATION_MESSAGE);
+                    "Create Product Size", JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/cancel.png")
+                    );
         }
     }
     public void UpdateProductSize(int productId,ProductSize productSize){
         try {
             productModel.UpdateSize(productId,productSize);
             JOptionPane.showMessageDialog(null, "Thành công!",
-                    "Update Product Size", JOptionPane.INFORMATION_MESSAGE);
+                    "Update Product Size", JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/checked.png")
+                    );
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, e,
-                    "Update Product Size", JOptionPane.INFORMATION_MESSAGE);
+                    "Update Product Size", JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/cancel.png")
+                    );
         }
     }
 }
