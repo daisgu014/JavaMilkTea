@@ -26,8 +26,9 @@ public class LoginController {
             JOptionPane.showMessageDialog(
                     null,
                     "Login Fail!",
-                    "Message",
-                    JOptionPane.ERROR_MESSAGE
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/cancel.png")
             );
         }
     }

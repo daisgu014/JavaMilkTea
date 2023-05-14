@@ -2,7 +2,6 @@ package App.Model;
 
 import App.View.Shop.loadData;
 import Entity.Import;
-import Entity.Product;
 import Logic.ImportManagement;
 
 import java.util.ArrayList;
@@ -33,10 +32,12 @@ public class ImportModel {
     }
 
     public ArrayList<String> getProductNames() {
+        loadData.management.setProductManagement();
         return loadData.management.getProductManagement().getProductNameList();
     }
 
     public ArrayList<String> getSizesByProductName(String name) {
+        loadData.management.setProductManagement();
         return loadData.management.getProductManagement().findByName(name).getSizeStrings();
     }
 
