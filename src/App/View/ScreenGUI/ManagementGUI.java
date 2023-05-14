@@ -24,6 +24,7 @@ public class ManagementGUI {
         GUI importGUI = new GUI("Import", new ImportProductView(), GUI.icons.get("Import"));
         GUI statisticGUI = new GUI("Statistic", new StatisticView(), GUI.icons.get("Statistic"));
         GUI orderGUI = new GUI("Order", new OrderGUI(), GUI.icons.get("Order"));
+        GUI productSizeGUI = new GUI("Product & Size", new ProductSizeGUI(), GUI.icons.get("ProductSize"));
 
         GUIs.add(saleGUI);
         GUIs.add(customerGUI);
@@ -35,6 +36,7 @@ public class ManagementGUI {
         GUIs.add(importGUI);
         GUIs.add(statisticGUI);
         GUIs.add(orderGUI);
+        GUIs.add(productSizeGUI);
     }
 
     public ArrayList<GUI> getGUIs() {
