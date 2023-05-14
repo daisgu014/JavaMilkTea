@@ -20,142 +20,20 @@ public class CustomerGUI extends JPanel{
     private JTable customerTable;
     private JTextField txtCustomerPhone, txtCustomerName, txtCustomerPoint;
     private JLabel labelTitle, labelPhone, labelName, labelPoint;
-    private JButton btnBack, btnAdd, btnEdit, btnDelete;
+    private JButton btnClear, btnAdd, btnEdit, btnDelete;
     private JPanel customerTablePanel, customerForm;
     private DefaultTableModel defaultTableModel;
     private JScrollPane scrollPane;
 
-    public JTable getCustomerTable() {
-        return customerTable;
-    }
-
-    public void setCustomerTable(JTable customerTable) {
-        this.customerTable = customerTable;
-    }
-
-    public JTextField getTxtCustomerPhone() {
-        return txtCustomerPhone;
-    }
-
-    public void setTxtCustomerPhone(JTextField txtCustomerPhone) {
-        this.txtCustomerPhone = txtCustomerPhone;
-    }
-
-    public JTextField getTxtCustomerName() {
-        return txtCustomerName;
-    }
-
-    public void setTxtCustomerName(JTextField txtCustomerName) {
-        this.txtCustomerName = txtCustomerName;
-    }
-
-    public JTextField getTxtCustomerPoint() {
-        return txtCustomerPoint;
-    }
-
-    public void setTxtCustomerPoint(JTextField txtCustomerPoint) {
-        this.txtCustomerPoint = txtCustomerPoint;
-    }
-
-    public JLabel getLabelTitle() {
-        return labelTitle;
-    }
-
-    public void setLabelTitle(JLabel labelTitle) {
-        this.labelTitle = labelTitle;
-    }
-
-    public JLabel getLabelPhone() {
-        return labelPhone;
-    }
-
-    public void setLabelPhone(JLabel labelPhone) {
-        this.labelPhone = labelPhone;
-    }
-
-    public JLabel getLabelName() {
-        return labelName;
-    }
-
-    public void setLabelName(JLabel labelName) {
-        this.labelName = labelName;
-    }
-
-    public JLabel getLabelPoint() {
-        return labelPoint;
-    }
-
-    public void setLabelPoint(JLabel labelPoint) {
-        this.labelPoint = labelPoint;
-    }
-
-    public JButton getBtnBack() {
-        return btnBack;
-    }
-
-    public void setBtnBack(JButton btnBack) {
-        this.btnBack = btnBack;
-    }
-
-    public JButton getBtnAdd() {
-        return btnAdd;
-    }
-
-    public void setBtnAdd(JButton btnAdd) {
-        this.btnAdd = btnAdd;
-    }
-
-    public JButton getBtnEdit() {
-        return btnEdit;
-    }
-
-    public void setBtnEdit(JButton btnEdit) {
-        this.btnEdit = btnEdit;
-    }
-
-    public JButton getBtnDelete() {
-        return btnDelete;
-    }
-
-    public void setBtnDelete(JButton btnDelete) {
-        this.btnDelete = btnDelete;
-    }
-
-    public JPanel getCustomerTablePanel() {
-        return customerTablePanel;
-    }
-
-    public void setCustomerTablePanel(JPanel customerTablePanel) {
-        this.customerTablePanel = customerTablePanel;
-    }
-
-    public JPanel getCustomerForm() {
-        return customerForm;
-    }
-
-    public void setCustomerForm(JPanel customerForm) {
-        this.customerForm = customerForm;
-    }
-
-    public DefaultTableModel getDefaultTableModel() {
-        return defaultTableModel;
-    }
-
-    public JScrollPane getScrollPane() {
-        return scrollPane;
-    }
-
-    public void setScrollPane(JScrollPane scrollPane) {
-        this.scrollPane = scrollPane;
-    }
-    private CustomerController customerController;
     CustomerManagement customerManagement = new CustomerManagement();
     Integer selectedRow=null;
     public CustomerGUI(){
         setLayout(new BorderLayout());
         setSize(1300,1000);
+        /*-------Title Customer----------*/
         labelTitle = new JLabel("Manager Customer");
         labelTitle.setFont(new Font("SF Pro Display", Font.BOLD, 25));
+        /*-------Title Phone----------*/
         labelPhone= new JLabel("Phone customer: ");
         labelPhone.setForeground(Color.white);
         labelPhone.setPreferredSize(new Dimension(150,40));
@@ -163,6 +41,7 @@ public class CustomerGUI extends JPanel{
         labelPhone.setOpaque(true);
         labelPhone.setHorizontalAlignment(0);
         labelPhone.setFont(new Font("SF Pro Display", Font.BOLD, 16));
+        /*-------Title Name----------*/
         labelName= new JLabel("Name customer: ");
         labelName.setForeground(Color.white);
         labelName.setPreferredSize(new Dimension(150,40));
@@ -170,6 +49,7 @@ public class CustomerGUI extends JPanel{
         labelName.setOpaque(true);
         labelName.setFont(new Font("SF Pro Display", Font.BOLD, 16));
         labelName.setHorizontalAlignment(0);
+        /*-------Title Point----------*/
         labelPoint= new JLabel("Point customer: ");
         labelPoint.setForeground(Color.white);
         labelPoint.setPreferredSize(new Dimension(150,40));
@@ -177,33 +57,44 @@ public class CustomerGUI extends JPanel{
         labelPoint.setOpaque(true);
         labelPoint.setHorizontalAlignment(0);
         labelPoint.setFont(new Font("Arial", Font.BOLD, 16));
-
+        /*-------Clear Button----------*/
+        btnClear = new JButton("CLEAR");
+        btnClear.setPreferredSize(new Dimension(100,50));
+        btnClear.setFont(new Font("SF Pro Display", Font.BOLD, 16));
+        btnClear.setForeground(Color.white);
+        btnClear.setBackground(new Color(214, 48, 49));
+        /*-------TextField Phone----------*/
         txtCustomerPhone = new JTextField(25);
         txtCustomerPhone.setPreferredSize(new Dimension(120,40));
+        /*-------TextField Name----------*/
         txtCustomerName = new JTextField(25);
         txtCustomerName.setPreferredSize(new Dimension(120,40));
+        /*-------TextField Point----------*/
         txtCustomerPoint = new JTextField(25);
         txtCustomerPoint.setPreferredSize(new Dimension(120,40));
         txtCustomerPoint.setText("0");
         txtCustomerPoint.setEnabled(false);
+        /*-------Add Button----------*/
         btnAdd = new JButton("ADD");
         btnAdd.setPreferredSize(new Dimension(100,50));
         btnAdd.setFont(new Font("SF Pro Display", Font.BOLD, 16));
         btnAdd.setForeground(Color.white);
         btnAdd.setBackground(new Color(247, 159, 31));
+        /*-------Edit Button----------*/
         btnEdit = new JButton("EDIT");
         btnEdit.setPreferredSize(new Dimension(100,50));
         btnEdit.setFont(new Font("Arial", Font.BOLD, 16));
         btnEdit.setForeground(Color.white);
+        /*-------Delete Button----------*/
         btnDelete = new JButton("DELETE");
         btnEdit.setBackground(new Color(247, 159, 31));
         btnDelete.setPreferredSize(new Dimension(100,50));
-        btnBack = new JButton("BACK");
         btnDelete.setBackground(new Color(247, 159, 31));
-        JPanel labelPanel = new JPanel();
         btnDelete.setFont(new Font("SF Pro Display", Font.BOLD, 16));
         btnDelete.setForeground(Color.white);
         labelTitle.setHorizontalAlignment(0);
+        /*----Create panel to add labelPanel after this panel add labelPanel*/
+        JPanel labelPanel = new JPanel();
         labelPanel.setPreferredSize(new Dimension(50,50));
         labelPanel.add(labelTitle,BorderLayout.CENTER);
         add(labelPanel, BorderLayout.NORTH);
@@ -221,6 +112,7 @@ public class CustomerGUI extends JPanel{
         jPanel.add(txtCustomerPhone);
         jPanel.add(labelPoint);
         jPanel.add(txtCustomerPoint);
+        jPanel.add(btnClear);
         jPanel.setPreferredSize(new Dimension(500,100));
         customerForm.setBackground(Color.blue);
         JPanel newPane = new JPanel();
@@ -234,6 +126,7 @@ public class CustomerGUI extends JPanel{
         btnCustomer.add(btnDelete);
         customerForm.add(btnCustomer,BorderLayout.SOUTH);
         add(customerForm,BorderLayout.EAST);
+        /*-----------Init Table-------------*/
         String[] columnNames ={"Customer Phone","Customer Name", "Point"};
         Object[][] data = new Object[customers.size()][3];
         for(int i=0;i<customers.size();i++){
@@ -254,13 +147,22 @@ public class CustomerGUI extends JPanel{
         add(customerTablePanel,BorderLayout.CENTER);
         btnEdit.setEnabled(false);
         btnDelete.setEnabled(false);
+        /*-------------BtnAdd Event----------*/
         btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 insertCustomer();
             }
         });
-
+        /*-------------btnClear Event----------*/
+        btnClear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearInput();
+                btnAdd.setEnabled(true);
+            }
+        });
+        /*-------------Get row is selected ----------*/
         customerTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -269,6 +171,7 @@ public class CustomerGUI extends JPanel{
                     if(selectedRow!=-1) {
                         btnEdit.setEnabled(true);
                         btnDelete.setEnabled(true);
+                        btnAdd.setEnabled(false);
                         Customer customer = CustomerSelected(selectedRow);
                         setDataInput(customer);
 
@@ -277,6 +180,7 @@ public class CustomerGUI extends JPanel{
                 }
             }
         });
+        /*-------------btnEdit Event----------*/
         btnEdit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -290,6 +194,7 @@ public class CustomerGUI extends JPanel{
                 }
             }
         });
+        /*-------------btnDelete Event----------*/
         btnDelete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -303,6 +208,7 @@ public class CustomerGUI extends JPanel{
                 }
             }
         });
+        /*-------------reload Event----------*/
     customerTablePanel.addMouseListener(new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -311,20 +217,21 @@ public class CustomerGUI extends JPanel{
         }
     });
     }
-
+    /*-------------Return customer with selectedRow----------*/
     public Customer CustomerSelected(Integer selectedRow){
         Object phone = customerTable.getValueAt(selectedRow,0);
         Object name = customerTable.getValueAt(selectedRow,1);
         Object point = customerTable.getValueAt(selectedRow,2);
         return new Customer(String.valueOf(phone),String.valueOf(name),Integer.parseInt(String.valueOf(point)));
     }
+    /*-------------Render input value with selectedRow----------*/
     public void setDataInput(Customer customer){
         txtCustomerName.setText(customer.getCustomerName());
         txtCustomerPhone.setText(customer.getPhone());
         txtCustomerPoint.setText(String.valueOf(customer.getPoints()));
 
     }
-
+    /*--------------Check Customer exited----------------------*/
     public boolean checkCustomer(Customer customer){
         for(Customer o : customers){
             if(o==customer){
@@ -333,6 +240,7 @@ public class CustomerGUI extends JPanel{
         }
         return true;
     }
+    /*--------------Check Customer Phone----------------------*/
     public boolean checkPhone(String phone){
         for(Customer o : customers){
             if(o.getPhone().equalsIgnoreCase(phone.trim())){
@@ -341,6 +249,7 @@ public class CustomerGUI extends JPanel{
         }
         return true;
     }
+    /*--------------Clear Input---------------------*/
     public void clearInput(){
         txtCustomerName.setText("");
         txtCustomerPhone.setText("");
@@ -348,6 +257,7 @@ public class CustomerGUI extends JPanel{
         btnEdit.setEnabled(false);
         btnDelete.setEnabled(false);
     }
+    /*--------------Add New Customer---------------------*/
     public void insertCustomer(){
         String name = txtCustomerName.getText();
         String phone =txtCustomerPhone.getText();
@@ -372,6 +282,7 @@ public class CustomerGUI extends JPanel{
             JOptionPane.showMessageDialog(null,"Vui lòng nhập đầy đủ thông tin");
         }
     }
+    /*--------------Update New Customer---------------------*/
     public void update(Integer selected){
         String name = txtCustomerName.getText();
         String phone =txtCustomerPhone.getText();
@@ -389,7 +300,7 @@ public class CustomerGUI extends JPanel{
             defaultTableModel.setValueAt(point,selected,2);
         }
     }
-
+    /*--------------Delete New Customer---------------------*/
     public void delete(Customer customer, Integer row){
         customerManagement.delete(customer);
         defaultTableModel.removeRow(row);
