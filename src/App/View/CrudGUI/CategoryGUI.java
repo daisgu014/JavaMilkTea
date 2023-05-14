@@ -91,11 +91,15 @@ public class CategoryGUI extends CrudGUI{
                                 JOptionPane.getRootFrame().dispose();
                             }else {
                                 JOptionPane.showMessageDialog(null, "Thể loại sản phẩm đã tồn tại!",
-                                        "Create Category", JOptionPane.INFORMATION_MESSAGE);
+                                        "Create Category", JOptionPane.INFORMATION_MESSAGE,
+                                        new ImageIcon("src/Assets/Icons/warning.png")
+                                );
                             }
                         }else {
                             JOptionPane.showMessageDialog(null, "Vui lòng điền đủ thông tin!",
-                                    "Create Category", JOptionPane.INFORMATION_MESSAGE);
+                                    "Create Category", JOptionPane.INFORMATION_MESSAGE,
+                                    new ImageIcon("src/Assets/Icons/warning.png")
+                            );
                         }
                     }
                 });
@@ -140,7 +144,9 @@ public class CategoryGUI extends CrudGUI{
                                 JOptionPane.getRootFrame().dispose();
                             }else {
                                 JOptionPane.showMessageDialog(null, "Vui lòng nhập đủ thông tin !",
-                                        "Update Category", JOptionPane.INFORMATION_MESSAGE);
+                                        "Update Category", JOptionPane.INFORMATION_MESSAGE,
+                                        new ImageIcon("src/Assets/Icons/warning.png")
+                                        );
                             }
                         }
                     });
@@ -157,28 +163,38 @@ public class CategoryGUI extends CrudGUI{
                             options, options[0]);
                 }else {
                     JOptionPane.showMessageDialog(null, "Vui lòng chọn Thể loại sản phẩm !",
-                            "Update Category", JOptionPane.INFORMATION_MESSAGE);
+                            "Update Category", JOptionPane.INFORMATION_MESSAGE,
+                            new ImageIcon("src/Assets/Icons/chat.png")
+                            );
                 }
             }
         });
         delete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int input = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không?",
-                        "Delete Category",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.ERROR_MESSAGE
-                );
-                if (input == JOptionPane.OK_OPTION){
-                    Category category = new Category(
-                            Integer.parseInt(String.valueOf(getTable().getValueAt(index,0))),
-                            String.valueOf(getTable().getValueAt(index,1)),
-                            null,
-                            null
-                    );
-                    categoryController.DeleteCategory(category);
-                    ((DefaultTableModel)getTable().getModel()).removeRow(index);
-                }
+               if(index != -1){
+                   int input = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không?",
+                           "Delete Category",
+                           JOptionPane.YES_NO_OPTION,
+                           JOptionPane.ERROR_MESSAGE,
+                           new ImageIcon("src/Assets/Icons/warning.png")
+                   );
+                   if (input == JOptionPane.OK_OPTION){
+                       Category category = new Category(
+                               Integer.parseInt(String.valueOf(getTable().getValueAt(index,0))),
+                               String.valueOf(getTable().getValueAt(index,1)),
+                               null,
+                               null
+                       );
+                       categoryController.DeleteCategory(category);
+                       ((DefaultTableModel)getTable().getModel()).removeRow(index);
+                   }
+               }else {
+                   JOptionPane.showMessageDialog(null, "Vui lòng chọn Thể loại sản phẩm !",
+                           "Update Category", JOptionPane.INFORMATION_MESSAGE,
+                           new ImageIcon("src/Assets/Icons/chat.png")
+                   );
+               }
             }
         });
 

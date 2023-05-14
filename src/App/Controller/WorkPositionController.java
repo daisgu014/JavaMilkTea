@@ -36,12 +36,16 @@ public class WorkPositionController extends CrudGUI {
         try  {
             workPositionInsert = workPositionModel.Insert(workPosition);
             JOptionPane.showMessageDialog(null, "Thành công !",
-                    "WorkPoisition", JOptionPane.INFORMATION_MESSAGE);
+                    "WorkPoisition", JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/checked.png")
+            );
 
         }catch (Exception e){
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Thất bại !",
-                    "WorkPoisition", JOptionPane.INFORMATION_MESSAGE);
+                    "WorkPoisition", JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/cancel.png")
+                    );
         }
         return workPositionInsert;
     }
@@ -49,24 +53,32 @@ public class WorkPositionController extends CrudGUI {
         try  {
             workPositionModel.Update(workPosition);
             JOptionPane.showMessageDialog(null, "Thành công !",
-                    "WorkPoisition", JOptionPane.INFORMATION_MESSAGE);
+                    "WorkPoisition", JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/checked.png")
+                    );
 
         }catch (Exception e){
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Thất bại !",
-                    "WorkPoisition", JOptionPane.INFORMATION_MESSAGE);
+                    "WorkPoisition", JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/cancel.png")
+                    );
         }
     }
     public void DeletePosition(WorkPosition workPosition){
         try  {
             workPositionModel.Delete(workPosition);
             JOptionPane.showMessageDialog(null, "Thành công !",
-                    "WorkPoisition", JOptionPane.INFORMATION_MESSAGE);
+                    "WorkPoisition", JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/checked.png")
+            );
 
         }catch (Exception e){
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Thất bại !",
-                    "WorkPoisition", JOptionPane.INFORMATION_MESSAGE);
+                    "WorkPoisition", JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/cancel.png")
+            );
         }
     }
 }

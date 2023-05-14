@@ -74,41 +74,57 @@ public class AccountGUI extends CrudGUI {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         CheckInput checkInput = new CheckInput();
-                        if (checkInput.checkActiveMap(accounts,Integer.parseInt(accountFormAdd.getTfIDEmp().getText()))==false){
-                            if (checkInput.checkUsername(accountFormAdd.getTfUsername().getText())==true){
-                                if (checkInput.checkPasword(accountFormAdd.getTfPass().getText())==true){
-                                    AccountController accountController = new AccountController();
-                                    try{
-                                        Account account = new Account(
-                                                accountFormAdd.getTfUsername().getText(),
-                                                accountFormAdd.getTfPass().getText()
+                        if (accountFormAdd.getTfIDEmp().getText().trim().equals("")==true ||
+                                accountFormAdd.getTfUsername().getText().trim().equals("")==true ||
+                                accountFormAdd.getTfPass().getText().trim().equals("")==true
+                        ){
+                            JOptionPane.showMessageDialog(null, "Yêu cầu nhập đủ thông tin !",
+                                    "Create Account", JOptionPane.INFORMATION_MESSAGE,
+                                    new ImageIcon("src/Assets/Icons/Warning.png"));
+                        }else {
+                            if (checkInput.checkActiveMap(accounts,Integer.parseInt(accountFormAdd.getTfIDEmp().getText()))==false){
+                                if (checkInput.checkUsername(accountFormAdd.getTfUsername().getText())==true){
+                                    if (checkInput.checkPasword(accountFormAdd.getTfPass().getText())==true){
+                                        AccountController accountController = new AccountController();
+                                        try{
+                                            Account account = new Account(
+                                                    accountFormAdd.getTfUsername().getText(),
+                                                    accountFormAdd.getTfPass().getText()
+                                            );
+                                            accountController.InsertAccount(account,accountFormAdd.getTfIDEmp().getText());
+                                            int newkey = Integer.parseInt(accountFormAdd.getTfIDEmp().getText());
+                                            accounts.put(newkey,account);
+                                            //Set new row table
+                                            DefaultTableModel model = (DefaultTableModel) getTable().getModel();
+                                            model.addRow(new Object[]{
+                                                    newkey,
+                                                    accounts.get(newkey).getUsername(),
+                                                    accounts.get(newkey).getPassword()
+                                            });
+                                            JOptionPane.getRootFrame().dispose();
+                                        }catch (Exception exception){
+                                            System.out.println(exception);
+                                        }
+                                    }else{
+                                        JOptionPane.showMessageDialog(null, "Mật khẩu từ 6 đến 12 ký tự",
+                                                "Create Account", JOptionPane.INFORMATION_MESSAGE,
+                                                new ImageIcon("src/Assets/Icons/cancel.png")
                                         );
-                                        accountController.InsertAccount(account,accountFormAdd.getTfIDEmp().getText());
-                                        int newkey = Integer.parseInt(accountFormAdd.getTfIDEmp().getText());
-                                        accounts.put(newkey,account);
-                                        //Set new row table
-                                        DefaultTableModel model = (DefaultTableModel) getTable().getModel();
-                                        model.addRow(new Object[]{
-                                                newkey,
-                                                accounts.get(newkey).getUsername(),
-                                                accounts.get(newkey).getPassword()
-                                        });
-                                        JOptionPane.getRootFrame().dispose();
-                                    }catch (Exception exception){
-                                        System.out.println(exception);
                                     }
-                                }else{
-                                    JOptionPane.showMessageDialog(null, "Mật khẩu từ 6 đến 12 ký tự",
-                                            "Create Account", JOptionPane.INFORMATION_MESSAGE);
+                                }else {
+                                    JOptionPane.showMessageDialog(null, "Tài khoản từ 6 đến 12 ký tự",
+                                            "Create Account", JOptionPane.INFORMATION_MESSAGE,
+                                            new ImageIcon("src/Assets/Icons/cancel.png")
+                                    );
                                 }
                             }else {
-                                JOptionPane.showMessageDialog(null, "Tài khoản từ 6 đến 12 ký tự",
-                                        "Create Account", JOptionPane.INFORMATION_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "Nhân viên đã có tài khoản",
+                                        "Create Account", JOptionPane.INFORMATION_MESSAGE,
+                                        new ImageIcon("src/Assets/Icons/cancel.png")
+                                );
                             }
-                        }else {
-                            JOptionPane.showMessageDialog(null, "Nhân viên đã có tài khoản",
-                                    "Create Account", JOptionPane.INFORMATION_MESSAGE);
                         }
+
                     }
                 });
 
@@ -175,7 +191,9 @@ public class AccountGUI extends CrudGUI {
                             options, options[0]);
                 }else {
                     JOptionPane.showMessageDialog(null, "Vui lòng chọn tài khoản !",
-                            "Update Account", JOptionPane.INFORMATION_MESSAGE);
+                            "Update Account", JOptionPane.INFORMATION_MESSAGE,
+                            new ImageIcon("src/Assets/Icons/chat.png")
+                    );
                 }
 
             }
@@ -187,7 +205,8 @@ public class AccountGUI extends CrudGUI {
                     int input = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không?",
                             "Delete Account",
                             JOptionPane.YES_NO_OPTION,
-                            JOptionPane.ERROR_MESSAGE
+                            JOptionPane.ERROR_MESSAGE,
+                            new ImageIcon("src/Assets/Icons/warning.png")
                     );
                     if (input == JOptionPane.OK_OPTION){
                         Account account = new Account(
@@ -198,8 +217,10 @@ public class AccountGUI extends CrudGUI {
                         ((DefaultTableModel)getTable().getModel()).removeRow(index);
                     }
                 }else {
+                    Object[] option = {new JButton("YES")};
                     JOptionPane.showMessageDialog(null, "Vui lòng chọn tài khoản !",
-                            "Delete Account", JOptionPane.INFORMATION_MESSAGE);
+                            "Delete Account", JOptionPane.INFORMATION_MESSAGE,
+                            new ImageIcon("src/Assets/Icons/chat.png"));
                 }
             }
         });

@@ -88,11 +88,15 @@ public class EmployeeGUI extends CrudGUI{
                                 JOptionPane.getRootFrame().dispose();
                             }else {
                                 JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ",
-                                        "Update Employee", JOptionPane.INFORMATION_MESSAGE);
+                                        "Update Employee", JOptionPane.INFORMATION_MESSAGE,
+                                        new ImageIcon("src/Assets/Icons/warning.png")
+                                        );
                             }
                         }else {
                             JOptionPane.showMessageDialog(null, "Tên nhân viên không được bỏ trống",
-                                    "Update Employee", JOptionPane.INFORMATION_MESSAGE);
+                                    "Update Employee", JOptionPane.INFORMATION_MESSAGE,
+                                    new ImageIcon("src/Assets/Icons/warning.png")
+                            );
                         }
                     }
                 });
@@ -158,15 +162,21 @@ public class EmployeeGUI extends CrudGUI{
                                         JOptionPane.getRootFrame().dispose();
                                     }else {
                                         JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ",
-                                                "Update Employee", JOptionPane.INFORMATION_MESSAGE);
+                                                "Update Employee", JOptionPane.INFORMATION_MESSAGE,
+                                                new ImageIcon("src/Assets/Icons/warning.png")
+                                        );
                                     }
                                 }else {
                                     JOptionPane.showMessageDialog(null, "Tên nhân viên không được bỏ trống",
-                                            "Update Employee", JOptionPane.INFORMATION_MESSAGE);
+                                            "Update Employee", JOptionPane.INFORMATION_MESSAGE,
+                                            new ImageIcon("src/Assets/Icons/warning.png")
+                                    );
                                 }
                             }else {
                                 JOptionPane.showMessageDialog(null, "Mã nhân viên không chính xác",
-                                        "Update Employee", JOptionPane.INFORMATION_MESSAGE);
+                                        "Update Employee", JOptionPane.INFORMATION_MESSAGE,
+                                        new ImageIcon("src/Assets/Icons/warning.png")
+                                );
                             }
 
                         }
@@ -184,7 +194,9 @@ public class EmployeeGUI extends CrudGUI{
                             options, options[0]);
                 }else{
                     JOptionPane.showMessageDialog(null, "Vui lòng chọn nhân viên !",
-                            "Update Employee", JOptionPane.INFORMATION_MESSAGE);
+                            "Update Employee", JOptionPane.INFORMATION_MESSAGE,
+                            new ImageIcon("src/Assets/Icons/chat.png")
+                    );
                 }
 
             }
@@ -193,7 +205,11 @@ public class EmployeeGUI extends CrudGUI{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (index != -1){
-                    int choice = JOptionPane.showOptionDialog(null, "Bạn có chắc chắn xóa nhân viên không?", "Save changes?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                    int choice = JOptionPane.showOptionDialog(null, "Bạn có chắc chắn xóa nhân viên không?",
+                            "Delete Employee",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            new ImageIcon("src/Assets/Icons/warning.png"), null, null);
                     if (choice == JOptionPane.YES_OPTION) {
                         Employee employee = new Employee(
                                Integer.parseInt(String.valueOf(getTable().getValueAt(index,0))),
@@ -211,7 +227,9 @@ public class EmployeeGUI extends CrudGUI{
                     }
                 }else{
                     JOptionPane.showMessageDialog(null, "Vui lòng chọn Nhân Viên !",
-                            "Update Product", JOptionPane.INFORMATION_MESSAGE);
+                            "Update Product", JOptionPane.INFORMATION_MESSAGE,
+                            new ImageIcon("src/Assets/Icons/warning.png")
+                            );
                 }
 
             }

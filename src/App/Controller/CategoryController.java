@@ -36,10 +36,14 @@ public class CategoryController {
         try {
             newCategory = categoryModel.Insert(category);
             JOptionPane.showMessageDialog(null, "Thêm thành công !",
-                    "Add Category",JOptionPane.INFORMATION_MESSAGE);
+                    "Add Category",JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/checked.png")
+            );
         }catch (Exception e){
-            JOptionPane.showMessageDialog(null, "Thêm thành công !",
-                    "Add Category",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Thất bại !",
+                    "Add Category",JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/cancel.png")
+                    );
         }
         return  newCategory;
     }
@@ -47,20 +51,28 @@ public class CategoryController {
         try {
             categoryModel.Update(category);
             JOptionPane.showMessageDialog(null, "Thành công !",
-                    "Update Category",JOptionPane.INFORMATION_MESSAGE);
+                    "Update Category",JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/checked.png")
+                    );
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Thất bại !",
-                    "Update Category",JOptionPane.INFORMATION_MESSAGE);
+                    "Update Category",JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/cancel.png")
+                    );
         }
     }
     public void DeleteCategory(Category category){
         try {
             categoryModel.Delete(category);
             JOptionPane.showMessageDialog(null, "Thành công !",
-                    "Delete Category",JOptionPane.INFORMATION_MESSAGE);
+                    "Delete Category",JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/checked.png")
+                    );
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Thất bại !",
-                    "Delete Category",JOptionPane.INFORMATION_MESSAGE);
+                    "Delete Category",JOptionPane.INFORMATION_MESSAGE,
+                    new ImageIcon("src/Assets/Icons/cancel.png")
+                    );
         }
     }
 }
