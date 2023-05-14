@@ -47,6 +47,10 @@ public class Management {
         return productManagement;
     }
 
+    public void setProductManagement() {
+        this.productManagement = new ProductManagement();
+    }
+
     public SizeManagement getSizeManagement() {
         return sizeManagement;
     }
