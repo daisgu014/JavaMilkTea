@@ -3,6 +3,7 @@ package App.View.CrudGUI;
 import App.Controller.CheckInput;
 import App.Controller.ProductController;
 import App.Model.ProductTable;
+import App.View.Shop.loadData;
 import Entity.Product;
 import Entity.ProductSize;
 
@@ -89,6 +90,7 @@ public class ProductSizeGUI extends CrudGUI{
                                             Integer.parseInt(productSizeFormAdd.getTfStorage().getText())
                                     );
                                     productSizeArrayList.add(productSize);
+
                                     productController.InsertProductSize(
                                             Integer.parseInt(productSizeFormAdd.getTfProductId().getText()),productSize
                                     );
@@ -101,6 +103,15 @@ public class ProductSizeGUI extends CrudGUI{
                                             null,
                                             productSizeArrayList
                                     );
+                                    for(Product p : loadData.products){
+                                        if (p.getProductId() == product.getProductId()){
+                                            if(p.getProductSizes()==null){
+                                                p.setProductSizes(productSizeArrayList);
+                                            }else {
+                                                p.getProductSizes().add(productSize);
+                                            }
+                                    }
+                                }
                                     productArrayList.add(product);
                                     if(getTable().getValueAt(index,2)==null){
                                         getTable().setValueAt(productSizeFormAdd.getCbSize().getSelectedItem(),index,2);

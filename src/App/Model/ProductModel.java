@@ -1,5 +1,6 @@
 package App.Model;
 
+import App.View.Shop.loadData;
 import Entity.Product;
 import Entity.ProductSize;
 import Logic.ProductManagement;
@@ -20,9 +21,21 @@ public class ProductModel {
     }
     public void Update(Product product){
         productManagement.Update(product);
+        for(Product p: loadData.products){
+            if(p.getProductId()==product.getProductId()){
+                p.setCategory(product.getCategory());
+                p.setProductName(product.getProductName());
+                p.setImagePath(product.getImagePath());
+            }
+        }
     }
     public void Delete(Product product){
         productManagement.Delete(product);
+        for(Product p: loadData.products){
+            if(product.getProductId()==p.getProductId()){
+                loadData.products.remove(p);
+            }
+        }
     }
     public void InsetSize(int productId, ProductSize productSize){
         productManagement.InsetSize(productId,productSize);

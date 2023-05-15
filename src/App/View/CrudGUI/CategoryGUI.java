@@ -4,9 +4,11 @@ import App.Controller.CategoryController;
 import App.Controller.CheckInput;
 import App.Controller.ProductController;
 import App.Model.ProductTable;
+import App.View.Shop.loadData;
 import Entity.Category;
 import Entity.Product;
 import Entity.Size;
+import Logic.Management;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -82,6 +84,7 @@ public class CategoryGUI extends CrudGUI{
                                 Category newCategory = new Category();
                                 newCategory = categoryController.InsertCategory(category);
                                 categoryArrayList.add(newCategory);
+                                loadData.categories.add(newCategory);
                                 DefaultTableModel model = (DefaultTableModel) getTable().getModel();
                                 model.addRow(new Object[]{
                                         newCategory.getCategoryID(),
@@ -140,6 +143,8 @@ public class CategoryGUI extends CrudGUI{
                                         null
                                 );
                                 categoryController.UpdateCategory(category);
+                                Management management = new Management();
+                                loadData.categories= management.getCategoryManagement().getCategoryList();
                                 getTable().setValueAt(category.getCategoryName(),index,1);
                                 JOptionPane.getRootFrame().dispose();
                             }else {
@@ -187,6 +192,8 @@ public class CategoryGUI extends CrudGUI{
                                null
                        );
                        categoryController.DeleteCategory(category);
+                       Management management = new Management();
+                       loadData.categories= management.getCategoryManagement().getCategoryList();
                        ((DefaultTableModel)getTable().getModel()).removeRow(index);
                    }
                }else {

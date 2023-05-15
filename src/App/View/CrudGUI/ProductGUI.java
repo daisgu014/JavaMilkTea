@@ -3,10 +3,15 @@ package App.View.CrudGUI;
 import App.Controller.CheckInput;
 import App.Controller.ProductController;
 import App.Model.ProductTable;
+import App.View.Shop.Controller.OrderController;
+import App.View.Shop.ShopGUI;
+import App.View.Shop.loadData;
 import Entity.Employee;
 import Entity.Product;
 import Entity.Size;
 import Entity.WorkPosition;
+import Logic.Management;
+import Logic.ProductManagement;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import static java.lang.String.valueOf;
@@ -24,6 +30,16 @@ public class ProductGUI extends CrudGUI{
     private ArrayList<ProductTable> productTableArrayList;
     private ProductController productController;
     private int index;
+    Management management = new Management();
+    OrderController orderController = new OrderController();
+
+    public OrderController getOrderController() {
+        return orderController;
+    }
+
+    public void setOrderController(OrderController orderController) {
+        this.orderController = orderController;
+    }
 
     public ProductGUI(){
         productController = new ProductController();
@@ -127,8 +143,10 @@ public class ProductGUI extends CrudGUI{
                                         productTable.getCreateAt(),
                                         productTable.getDeleteAt()
                                 });
+
                                 System.out.println(productTable.getImagePath());
                                 JOptionPane.getRootFrame().dispose();
+                                loadData.products.add(product);
                             }else {
                                 JOptionPane.showMessageDialog(null, "Sản phẩm đã tồn tại !",
                                         "Create Product", JOptionPane.INFORMATION_MESSAGE,
@@ -202,6 +220,8 @@ public class ProductGUI extends CrudGUI{
                                     null
                             );
                             productController.UpdateProduct(product);
+
+                            System.out.println(loadData.products.size());
                             getTable().setValueAt(product.getProductName(),index,1);
                             getTable().setValueAt(productFormUpdate.getCbCategory().getSelectedItem(),index,2);
                         }
@@ -248,7 +268,7 @@ public class ProductGUI extends CrudGUI{
                     JOptionPane.showMessageDialog(null, "Vui lòng chọn Sản phẩm !",
                             "Update Product", JOptionPane.INFORMATION_MESSAGE,
                             new ImageIcon("src/Assets/Icons/chat.png")
-                            );
+                    );
                 }
 
             }

@@ -14,9 +14,12 @@ public class ManagementGUI {
     public ArrayList<GUI> GUIs = new ArrayList<>();
 
     public ManagementGUI() {
-        GUI saleGUI = new GUI("Sale", new ShopGUI(), GUI.icons.get("Sale"));
+        ShopGUI shopGUI = new ShopGUI();
+        ProductGUI productScreen = new ProductGUI();
+        productScreen.getOrderController().setObs(shopGUI);
+        GUI saleGUI = new GUI("Sale", shopGUI, GUI.icons.get("Sale"));
         GUI customerGUI = new GUI("Customer", new CustomerGUI(), GUI.icons.get("Customer"));
-        GUI productGUI = new GUI("Product", new ProductGUI(), GUI.icons.get("Product"));
+        GUI productGUI = new GUI("Product", productScreen, GUI.icons.get("Product"));
         GUI sizeGUI = new GUI("Size", new SizeGUI(), GUI.icons.get("Size"));
         GUI employeeGUI = new GUI("Employee", new EmployeeGUI(), GUI.icons.get("Employee"));
         GUI accountGUI = new GUI("Account", new AccountGUI(), GUI.icons.get("Account"));
