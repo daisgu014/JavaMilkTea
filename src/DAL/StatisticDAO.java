@@ -16,7 +16,7 @@ public class StatisticDAO {
                   from OrderDetail od join Orders o on od.OrderID = o.OrderId
                     join ProductSize ps on ps.ProductID = od.ProductID and ps.Sizes = od.Sizes
                     join Product p on p.ProductId = od.ProductID
-                  where o.OrderDate >= ? and o.OrderDate <= ?
+                  where o.OrderDate >= ? and o.OrderDate <= ? and p.deleteAt is null
                   group by od.ProductID, p.ProductName;""");
             preStmt.setDate(1, start);
             preStmt.setDate(2, end);
