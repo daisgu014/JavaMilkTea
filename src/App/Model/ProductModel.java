@@ -31,11 +31,6 @@ public class ProductModel {
     }
     public void Delete(Product product){
         productManagement.Delete(product);
-        for(Product p: loadData.products){
-            if(product.getProductId()==p.getProductId()){
-                loadData.products.remove(p);
-            }
-        }
     }
     public void InsetSize(int productId, ProductSize productSize){
         productManagement.InsetSize(productId,productSize);

@@ -2,6 +2,7 @@ package App.Controller;
 
 import App.Model.ProductModel;
 import App.Model.ProductTable;
+import App.View.Shop.loadData;
 import Entity.Employee;
 import Entity.Product;
 import Entity.ProductSize;
@@ -104,6 +105,7 @@ public class ProductController {
                     "Delete Product", JOptionPane.INFORMATION_MESSAGE,
                     new ImageIcon("src/Assets/Icons/checked.png")
                     );
+            loadData.products.removeIf(p -> product.getProductId() == p.getProductId());
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, e,
                     "Delete Product", JOptionPane.INFORMATION_MESSAGE,
