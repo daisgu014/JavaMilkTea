@@ -20,6 +20,7 @@ public class ManagementGUI {
         GUI saleGUI = new GUI("Sale", shopGUI, GUI.icons.get("Sale"));
         GUI customerGUI = new GUI("Customer", new CustomerGUI(), GUI.icons.get("Customer"));
         GUI productGUI = new GUI("Product", productScreen, GUI.icons.get("Product"));
+        GUI categoryGUI = new GUI("Category", new CategoryGUI(), GUI.icons.get("Category"));
         GUI sizeGUI = new GUI("Size", new SizeGUI(), GUI.icons.get("Size"));
         GUI employeeGUI = new GUI("Employee", new EmployeeGUI(), GUI.icons.get("Employee"));
         GUI accountGUI = new GUI("Account", new AccountGUI(), GUI.icons.get("Account"));
@@ -31,6 +32,7 @@ public class ManagementGUI {
 
         GUIs.add(saleGUI);
         GUIs.add(customerGUI);
+        GUIs.add(categoryGUI);
         GUIs.add(productGUI);
         GUIs.add(sizeGUI);
         GUIs.add(employeeGUI);
