@@ -126,12 +126,4 @@ public class productEditGUI extends JDialog  {
         });
     }
 
-    public static void main(String[] args) {
-        JFrame jFrame = new JFrame();
-        jFrame.setSize(500,500);
-        jFrame.setVisible(true);
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        productEditGUI productEditGUI=new productEditGUI(jFrame, new OrderDetail(loadData.products.get(2),"M",5));
-        productEditGUI.setVisible(true);
-    }
 }

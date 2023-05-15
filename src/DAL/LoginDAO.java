@@ -16,7 +16,7 @@ public class LoginDAO {
                     select wp.WorkPositionLVL
                     from Account a join Employee e on a.EmployeeID = e.EmployeeId
                         join WorkPosition wp on wp.PositionId = e.WorkPositionID
-                    where a.AccountUsername = ? and a.AccountPassword = ?;""");
+                    where a.AccountUsername = ? and a.AccountPassword = ? and ISNULL(a.deleteAt);""");
             preStmt.setString(1, username);
             preStmt.setString(2, password);
             ResultSet rs = preStmt.executeQuery();

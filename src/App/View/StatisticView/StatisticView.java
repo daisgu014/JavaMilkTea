@@ -70,7 +70,7 @@ public class StatisticView extends JPanel {
         fl.setVgap(60);
         chartContainer = new JPanel(fl);
         chartContainer.setBackground(yellow);
-        chartContainer.setPreferredSize(new Dimension(1000, 2000));
+        chartContainer.setPreferredSize(new Dimension(1000, 1600));
         tableContainer = new JPanel(fl);
         tableContainer.setPreferredSize(new Dimension(1000, 2000));
         tableContainer.setBackground(yellow);

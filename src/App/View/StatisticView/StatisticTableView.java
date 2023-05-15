@@ -106,7 +106,7 @@ public class StatisticTableView {
 
     private void fillColorTable(JTable table) {
         table.getTableHeader().setBackground(primary);
-        table.getTableHeader().setFont(new Font("SF Pro Display", Font.BOLD, 13));
+        table.getTableHeader().setFont(new Font("", Font.BOLD, 13));
     }
 
     public JPanel getProductContainer() {
