@@ -16,6 +16,7 @@ public class ManagementGUI {
     public ManagementGUI() {
         GUI saleGUI = new GUI("Sale", new ShopGUI(), GUI.icons.get("Sale"));
         GUI customerGUI = new GUI("Customer", new CustomerGUI(), GUI.icons.get("Customer"));
+        GUI categoryGUI = new GUI("Category", new CategoryGUI(), GUI.icons.get("Category"));
         GUI productGUI = new GUI("Product", new ProductGUI(), GUI.icons.get("Product"));
         GUI sizeGUI = new GUI("Size", new SizeGUI(), GUI.icons.get("Size"));
         GUI employeeGUI = new GUI("Employee", new EmployeeGUI(), GUI.icons.get("Employee"));
@@ -28,6 +29,7 @@ public class ManagementGUI {
 
         GUIs.add(saleGUI);
         GUIs.add(customerGUI);
+        GUIs.add(categoryGUI);
         GUIs.add(productGUI);
         GUIs.add(sizeGUI);
         GUIs.add(employeeGUI);
