@@ -1,8 +1,10 @@
 package App.Controller;
 
 import App.Model.CategoryModel;
+import App.View.Shop.loadData;
 import Entity.Category;
 import Entity.Employee;
+import org.apache.poi.ss.formula.functions.DProduct;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -50,6 +52,11 @@ public class CategoryController {
     public void UpdateCategory(Category category){
         try {
             categoryModel.Update(category);
+            for(Category c : loadData.categories){
+                if(c.getCategoryID()==category.getCategoryID()){
+                    c.setCategoryName(category.getCategoryName());
+                }
+            }
             JOptionPane.showMessageDialog(null, "Thành công !",
                     "Update Category",JOptionPane.INFORMATION_MESSAGE,
                     new ImageIcon("src/Assets/Icons/checked.png")
@@ -64,6 +71,8 @@ public class CategoryController {
     public void DeleteCategory(Category category){
         try {
             categoryModel.Delete(category);
+            loadData.categories.removeIf(p->p.getCategoryID()== category.getCategoryID());
+
             JOptionPane.showMessageDialog(null, "Thành công !",
                     "Delete Category",JOptionPane.INFORMATION_MESSAGE,
                     new ImageIcon("src/Assets/Icons/checked.png")

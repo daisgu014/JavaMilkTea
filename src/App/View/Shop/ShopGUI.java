@@ -366,6 +366,7 @@ public class ShopGUI extends JPanel {
                         }
                         System.out.println(products.size());
                         render(products);
+                        categoryPanel.validate();
                         scrollPane.validate();
                     });
                 });
