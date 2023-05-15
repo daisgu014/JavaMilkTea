@@ -40,7 +40,7 @@ public class Items extends JPanel {
         productName.setFont(new Font("SF Pro Display", Font.BOLD, 14));
         String[] productSize = product.getProductSizesString().toArray(new String[0]);
         cbSize = new JComboBox<>(productSize);
-        cbSize.setSelectedItem(productSize[1]);
+        cbSize.setSelectedItem(productSize[0]);
         productPrice = new JLabel(String.valueOf(product.getPrice((String) cbSize.getSelectedItem())));
         productPrice.setFont(new Font("SF Pro Display", Font.BOLD, 20));
         cbSize.setPreferredSize(new Dimension(40, 40));
