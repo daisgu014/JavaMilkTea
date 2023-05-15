@@ -128,6 +128,9 @@ public class ProductController {
     public void UpdateProductSize(int productId,ProductSize productSize){
         try {
             productModel.UpdateSize(productId,productSize);
+            System.out.println(productId);
+            System.out.println(productSize.getStorage());
+            System.out.println(productSize.getSize());
             JOptionPane.showMessageDialog(null, "Thành công!",
                     "Update Product Size", JOptionPane.INFORMATION_MESSAGE,
                     new ImageIcon("src/Assets/Icons/checked.png")

@@ -9,7 +9,9 @@ import Entity.ProductSize;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,6 +29,7 @@ public class ProductSizeGUI extends CrudGUI{
         productController = new ProductController();
         getDataProduct();
         setProductScene();
+//        setDataTable();
         Scene();
     }
     public void getDataProduct(){
@@ -44,7 +47,7 @@ public class ProductSizeGUI extends CrudGUI{
     public void setButton(){
         RoundButton add = new RoundButton("Add", Color.decode("#1CA7EC"),Color.decode("#9AD9EA"));
         RoundButton edit = new RoundButton("Edit",Color.decode("#1CA7EC"),Color.decode("#9AD9EA"));
-        RoundButton delete = new RoundButton("Delete",Color.decode("#F44336"),Color.decode("#F88279"));
+        RoundButton delete = new RoundButton("Refresh",Color.decode("#00A86B"),Color.decode("#057275"));
 //        JButton exit = new JButton("Exit");
         index = -1;
         getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -174,12 +177,15 @@ public class ProductSizeGUI extends CrudGUI{
                             CheckInput checkInput = new CheckInput();
                             if (checkInput.checkNumber(productSizeFormUpdate.getTfPrice().getText())==true
                                     && checkInput.checkNumber(productSizeFormUpdate.getTfStorage().getText())==true){
+                                String str = productSizeFormUpdate.getLbSize().getText();
+                                String size[] = str.split(":");
                                 ProductSize productSize = new ProductSize(
-                                        String.valueOf(productSizeFormUpdate.getLbSize().getText()),
+                                        String.valueOf(size[1]),
                                         Integer.parseInt(productSizeFormUpdate.getTfPrice().getText()),
-                                        Integer.parseInt(productSizeFormUpdate.getTfPrice().getText())
+                                        Integer.parseInt(productSizeFormUpdate.getTfStorage().getText())
                                 );
                                 productSizeArrayList.add(productSize);
+                                System.out.println(productSize.getStorage());
                                 productController.UpdateProductSize(
                                         Integer.parseInt(productSizeFormUpdate.getTfProductId().getText()),productSize
                                 );
@@ -227,19 +233,37 @@ public class ProductSizeGUI extends CrudGUI{
         delete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ProductSizeFormUpdate productSizeFormUpdate = new ProductSizeFormUpdate();
-                if(index != -1){
-
-                }else{
-
+                ProductController productController1 = new ProductController();
+                ArrayList<Product> productArrayList1 = new ArrayList<>();
+                productArrayList1 = productController1.getProductAll();
+                String[] columns = {"ID","Name", "Size","Price","Storage"};
+                DefaultTableModel model = new DefaultTableModel(columns, 0);
+                for (Product product : productArrayList1) {
+                    if (product.getProductSizes().size()!=0){
+                        for (ProductSize productSize : product.getProductSizes()){
+                            Object[] row = {
+                                    product.getProductId(),
+                                    product.getProductName(),
+                                    productSize.getSize(),
+                                    productSize.getProductPrice(),
+                                    productSize.getStorage()
+                            };
+                            model.addRow(row);
+//                            System.out.println(productSize.getStorage());
+                        }
+                    }else {
+                        Object[] row = {product.getProductId(),product.getProductName(),null,null,null};
+                        model.addRow(row);
+                    }
                 }
+               getTable().setModel(model);
             }
         });
 
         setBtnAdd(add);
         setBtnUpdate(edit);
         setBtnDelete(delete);
-        getBtnDelete().setVisible(false);
+//        getBtnDelete().setVisible(false);
     }
     public static void main(String[] args) {
         JFrame jFrame = new JFrame();
