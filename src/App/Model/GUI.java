@@ -13,6 +13,7 @@ public class GUI {
     public static HashMap<String, String> icons = new HashMap<>(){{
         put("Sale", "src/Assets/Icons/pos.png");
         put("Customer", "src/Assets/Icons/costumer.png");
+        put("Category", "src/Assets/Icons/categories.png");
         put("Product", "src/Assets/Icons/box.png");
         put("Size", "src/Assets/Icons/size.png");
         put("Employee", "src/Assets/Icons/resource.png");

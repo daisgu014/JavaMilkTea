@@ -88,7 +88,7 @@ public class StatisticChartView {
                 "VND",
                 dataset,
                 PlotOrientation.VERTICAL,
-                false, true, false);
+                true, true, false);
             barChart.getTitle().setFont(font);
 
     }
@@ -110,7 +110,7 @@ public class StatisticChartView {
         pieChart = ChartFactory.createPieChart(
                 "Category Revenue",
                 dataset,
-                false, true, false);
+                true, true, false);
         pieChart.getTitle().setFont(font);
     }
 
@@ -135,7 +135,7 @@ public class StatisticChartView {
                 "VND",
                 dataset,
                 PlotOrientation.VERTICAL,
-                false,
+                true,
                 true,
                 true
         );
