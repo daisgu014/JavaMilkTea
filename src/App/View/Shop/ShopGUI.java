@@ -25,6 +25,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import static App.View.Shop.loadData.*;
+import static App.View.Shop.loadData.products;
 
 public class ShopGUI extends JPanel {
     static OrderController orderController = new OrderController();
@@ -36,6 +37,7 @@ public class ShopGUI extends JPanel {
     private JLabel labelPricePoint, labelPrice, labelInfo;
     CustomerManagement customerManagement = new CustomerManagement();
     OrderManagement orderManagement = new OrderManagement();
+    ProductManagement productManagement = new ProductManagement();
 
     public JTable getCartTable() {
         return cartTable;
@@ -53,7 +55,7 @@ public class ShopGUI extends JPanel {
     private DefaultTableModel cartTableModel;
     private JScrollPane scrollPane;
     private JScrollPane cartScrollPane;
-    private JButton btnOrder, btnClear;
+    private JButton btnOrder, btnClear, btnReload;
     private JComboBox<String> customerNameList, customerPointList;
     OrderDetail orderDetail = null;
     Integer selectRow = null;
@@ -65,7 +67,7 @@ public class ShopGUI extends JPanel {
         productListPanel = new JPanel(new GridLayout(0, 3, 10, 10));
         productListPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         /*Gọi hàn hiển thị danh sách sản phẩm*/
-        render(loadData.products);
+        render(products);
         /*Khởi tạo đối tượng scrollPanel và thêm đối tượng productListPanel*/
         scrollPane = new JScrollPane(productListPanel);
         /*Cài đặt kích thước mặc định cho scroolPane*/
@@ -86,7 +88,7 @@ public class ShopGUI extends JPanel {
         btnAll.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                render(loadData.products);
+                render(products);
                 scrollPane.validate();
             }
         });
@@ -201,7 +203,12 @@ public class ShopGUI extends JPanel {
         add(RightPanel, BorderLayout.EAST);
 
         /*------------------------THANH TÌM KIẾM SẢN PHẨM----------------------------------------------*/
+        btnReload = new JButton();
+        Icon icon = new ImageIcon("src/Assets/Icons/reload.png");
+        btnReload.setIcon(icon);
+        btnReload.setPreferredSize(new Dimension(30,30));
         searchPanel = new JPanel();
+        searchPanel.setPreferredSize(new Dimension(800,70));
         searchBox = new JPanel();
         btnSearch = new JButton("Search");
         txtSearch = new JTextField(40);
@@ -211,6 +218,7 @@ public class ShopGUI extends JPanel {
         btnSearch.setFont(new Font("SF Pro Display", Font.BOLD, 18));
         searchBox.setFont(new Font("SF Pro Display", Font.PLAIN, 18));
         btnSearch.setBackground(new Color(250, 152, 58));
+        searchPanel.add(btnReload,BorderLayout.WEST);
         searchBox.add(txtSearch, BorderLayout.CENTER);
         searchBox.add(btnSearch, BorderLayout.CENTER);
         searchPanel.add(searchBox, BorderLayout.CENTER);
@@ -246,6 +254,8 @@ public class ShopGUI extends JPanel {
                         TotalPrice();
 
                     } else {
+                        selectRow=-1;
+                        reloadTable();
                         return;
                     }
 
@@ -309,6 +319,58 @@ public class ShopGUI extends JPanel {
                     }
                 });
                 CloseCustomer();
+            }
+        });
+        btnReload.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                productListPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+                /*Gọi hàn hiển thị danh sách sản phẩm*/
+                render(products);
+                /*Khởi tạo đối tượng scrollPanel và thêm đối tượng productListPanel*/
+                JPanel categoryPanel = new JPanel(new GridLayout(0, 1));
+                categoryPanel.setPreferredSize(new Dimension(150, 800));
+                categoryPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+                JButton btnAll = new JButton("All");
+                btnAll.setBackground(new Color(240, 147, 43));
+                btnAll.setFont(new Font("SF Pro Display", Font.BOLD, 20));
+                categoryPanel.add(btnAll);
+                /**
+                 * Xử lý sự kiện hiển thị danh sách sản phẩm theo  All
+                 */
+                btnAll.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        render(products);
+                        scrollPane.validate();
+                    }
+                });
+                /*Hiển thị danh sách các thể loại category và hiển thị danh sách sản phẩm theo ds thể loại*/
+                loadData.categories.forEach(cate ->
+                {
+                    ArrayList<Product> products = new ArrayList<>();
+                    String category = cate.getCategoryName();
+                    JButton jButton = new JButton(category);
+                    jButton.setBackground(new Color(240, 147, 43));
+                    jButton.setFont(new Font("SF Pro Display", Font.BOLD, 20));
+                    categoryPanel.add(jButton);
+                    /**
+                     * Xử lý sự kiện hiển thị danh sách sản phẩm theo thể loại
+                     */
+                    jButton.addActionListener(event -> {
+                        products.clear();
+                        for (Product o : loadData.products) {
+                            if (management.getCategoryManagement().findById(o.getCategory()).getCategoryName().equalsIgnoreCase(category)) {
+                                products.add(o);
+                            }
+                        }
+                        System.out.println(products.size());
+                        render(products);
+                        scrollPane.validate();
+                    });
+                });
+            validate();
+            repaint();
             }
         });
         /*-------------------------------SỰ KIỆN THANH TOÁN------------------------------------------------*/
@@ -396,7 +458,7 @@ public class ShopGUI extends JPanel {
             productListPanel.removeAll();
         }
         products.forEach(e -> {
-            if(e.getProductSizes().size()>0){
+            if( e.getProductSizes()!=null)  {
                 Items item = new Items(e);
                 item.getOrderController().setObs(this);
                 productListPanel.add(item);
