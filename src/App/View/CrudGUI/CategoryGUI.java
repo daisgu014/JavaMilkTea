@@ -84,13 +84,13 @@ public class CategoryGUI extends CrudGUI{
                                 Category newCategory = new Category();
                                 newCategory = categoryController.InsertCategory(category);
                                 categoryArrayList.add(newCategory);
-                                loadData.categories.add(newCategory);
                                 DefaultTableModel model = (DefaultTableModel) getTable().getModel();
                                 model.addRow(new Object[]{
                                         newCategory.getCategoryID(),
                                         newCategory.getCategoryName(),
                                         newCategory.getCreateAt(),
                                         newCategory.getDeleteAt()});
+                                loadData.categories.add(category);
                                 JOptionPane.getRootFrame().dispose();
                             }else {
                                 JOptionPane.showMessageDialog(null, "Thể loại sản phẩm đã tồn tại!",
@@ -143,8 +143,6 @@ public class CategoryGUI extends CrudGUI{
                                         null
                                 );
                                 categoryController.UpdateCategory(category);
-                                Management management = new Management();
-                                loadData.categories= management.getCategoryManagement().getCategoryList();
                                 getTable().setValueAt(category.getCategoryName(),index,1);
                                 JOptionPane.getRootFrame().dispose();
                             }else {
@@ -192,8 +190,6 @@ public class CategoryGUI extends CrudGUI{
                                null
                        );
                        categoryController.DeleteCategory(category);
-                       Management management = new Management();
-                       loadData.categories= management.getCategoryManagement().getCategoryList();
                        ((DefaultTableModel)getTable().getModel()).removeRow(index);
                    }
                }else {

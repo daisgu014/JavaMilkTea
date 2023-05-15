@@ -17,7 +17,7 @@ public class CategoryDAO extends DAO<Category>{
         ArrayList<Category> categories = new ArrayList<>();
         Statement stmt = dao.getStmt();
         try {
-            ResultSet rs = stmt.executeQuery("select * from Category WHERE DeleteAt is NULL");
+            ResultSet rs = stmt.executeQuery("select * from Category WHERE DeleteAt is null");
             while (rs!=null && rs.next()){
                 categories.add(new Category(
                         rs.getInt(1),
